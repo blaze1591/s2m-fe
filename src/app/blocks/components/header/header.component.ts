@@ -12,7 +12,7 @@ import { AnalyticsService } from '../../../services/utils/analytics.service';
 export class HeaderComponent implements OnInit {
 
 
-  @Input() position: string = 'normal';
+  @Input() position = 'normal';
 
   user: any;
 
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.dimonec);
+      .subscribe((users: any) => this.user = users[0]);
   }
 
   toggleSidebar(): boolean {

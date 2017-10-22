@@ -3,6 +3,7 @@ import { AngularEchartsModule } from 'ngx-echarts';
 
 import { ThemeModule } from '../../blocks/theme.module';
 import { HomeComponent } from './home.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { HomeComponent } from './home.component';
   ],
   declarations: [
     HomeComponent,
+    ContactsComponent,
   ],
 })
 export class HomeModule { }

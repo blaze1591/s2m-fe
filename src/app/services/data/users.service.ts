@@ -1,38 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/of';
-
-let counter = 0;
 
 @Injectable()
 export class UserService {
 
-  private users = {
-    dimonec: { name: 'Dima Salskiy', picture: 'assets/images/dimouns.jpg' },
-    nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' },
-    eva: { name: 'Eva Moor', picture: 'assets/images/eva.png' },
-    jack: { name: 'Jack Williams', picture: 'assets/images/jack.png' },
-    lee: { name: 'Lee Wong', picture: 'assets/images/lee.png' },
-    alan: { name: 'Alan Thompson', picture: 'assets/images/alan.png' },
-    kate: { name: 'Kate Martinez', picture: 'assets/images/kate.png' },
-  };
+  private users = [
+    { name: 'Dima Salskiy', picture: 'assets/images/dimouns.jpg' },
+    { name: 'Nick Jones', picture: 'assets/images/nick.png' },
+    { name: 'Eva Moor', picture: 'assets/images/eva.png' },
+    { name: 'Jack Williams', picture: 'assets/images/jack.png' },
+    { name: 'Lee Wong', picture: 'assets/images/lee.png' },
+    { name: 'Alan Thompson', picture: 'assets/images/alan.png' },
+    { name: 'Kate Martinez', picture: 'assets/images/kate.png' },
+  ];
 
-  private userArray: any[];
-
-  constructor() {
-    // this.userArray = Object.values(this.users);
+  constructor(private http: Http) {
   }
 
   getUsers(): Observable<any> {
-    return Observable.of(this.users);
-  }
-
-  getUserArray(): Observable<any[]> {
-    return Observable.of(this.userArray);
-  }
-
-  getUser(): Observable<any> {
-    counter = (counter + 1) % this.userArray.length;
-    return Observable.of(this.userArray[counter]);
+    return this.http.get('https://s2m-be.herokuapp.com/user')
+                    .map((res: Response) => res.json())
+                    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 }
