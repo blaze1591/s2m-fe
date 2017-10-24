@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { AngularEchartsModule } from 'ngx-echarts';
+import {NgModule} from '@angular/core';
+import {AngularEchartsModule} from 'ngx-echarts';
 
-import { ThemeModule } from '../../blocks/theme.module';
-import { HomeComponent } from './home.component';
-import { ContactsComponent } from './contacts/contacts.component';
+import {BlockModule} from '../../blocks/blocks.module';
+import {HomeComponent} from './home.component';
+import {ContactsComponent} from './contacts/contacts.component';
 
 @NgModule({
   imports: [
-    ThemeModule,
+    BlockModule,
     AngularEchartsModule,
   ],
   declarations: [

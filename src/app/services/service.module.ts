@@ -1,10 +1,9 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthProvider } from '@nebular/auth';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NbAuthModule, NbDummyAuthProvider} from '@nebular/auth';
 
-import { throwIfAlreadyLoaded } from './module-import-guard';
-import { DataModule } from './data/data.module';
-import { AnalyticsService } from './utils/analytics.service';
+import {throwIfAlreadyLoaded} from './module-import-guard';
+import {DataModule} from './data/data.module';
 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
@@ -21,7 +20,6 @@ const NB_CORE_PROVIDERS = [
       },
     },
   }).providers,
-  AnalyticsService,
 ];
 
 @NgModule({
@@ -33,14 +31,14 @@ const NB_CORE_PROVIDERS = [
   ],
   declarations: [],
 })
-export class CoreModule {
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
-    throwIfAlreadyLoaded(parentModule, 'CoreModule');
+export class ServiceModule {
+  constructor(@Optional() @SkipSelf() parentModule: ServiceModule) {
+    throwIfAlreadyLoaded(parentModule, 'ServiceModule');
   }
 
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
-      ngModule: CoreModule,
+      ngModule: ServiceModule,
       providers: [
         ...NB_CORE_PROVIDERS,
       ],

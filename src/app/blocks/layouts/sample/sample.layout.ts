@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   NbMediaBreakpoint,
   NbMediaBreakpointsService,
@@ -8,9 +8,9 @@ import {
   NbThemeService,
 } from '@nebular/theme';
 
-import { StateService } from '../../../services/data/state.service';
+import {StateService} from '../../../services/data/state.service';
 
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/delay';
 
@@ -24,9 +24,9 @@ import 'rxjs/add/operator/delay';
       </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar"
-                   tag="menu-sidebar"
-                   responsive
-                   [right]="sidebar.id === 'right'">
+                  tag="menu-sidebar"
+                  responsive
+                  [right]="sidebar.id === 'right'">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
@@ -47,16 +47,15 @@ import 'rxjs/add/operator/delay';
       </nb-layout-footer>
 
       <nb-sidebar class="settings-sidebar"
-                   tag="settings-sidebar"
-                   state="collapsed"
-                   fixed
-                   [right]="sidebar.id !== 'right'">
-        <s2m-theme-settings></s2m-theme-settings>
+                  tag="settings-sidebar"
+                  state="collapsed"
+                  fixed
+                  [right]="sidebar.id !== 'right'">
       </nb-sidebar>
     </nb-layout>
   `,
 })
-export class SampleLayoutComponent  implements OnDestroy {
+export class SampleLayoutComponent implements OnInit, OnDestroy {
 
   subMenu: NbMenuItem[] = [
     {
@@ -64,59 +63,32 @@ export class SampleLayoutComponent  implements OnDestroy {
       group: true,
     },
     {
-      title: 'Buttons',
+      title: 'Child',
       icon: 'ion ion-android-radio-button-off',
       link: '/pages/extras/child',
-    },
-    {
-      title: 'Grid',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/extras/grid',
-    },
-    {
-      title: 'Icons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/extras/icons',
-    },
-    {
-      title: 'Modals',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/extras/modals',
-    },
-    {
-      title: 'Typography',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/extras/typography',
-    },
-    {
-      title: 'Animated Searches',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/extras/search-fields',
-    },
-    {
-      title: 'Tabs',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/extras/tabs',
     },
   ];
   layout: any = {};
   sidebar: any = {};
 
-  protected layoutState$: Subscription;
-  protected sidebarState$: Subscription;
-  protected menuClick$: Subscription;
+  private layoutState$: Subscription;
+  private sidebarState$: Subscription;
+  private menuClick$: Subscription;
 
-  constructor(protected stateService: StateService,
-              protected menuService: NbMenuService,
-              protected themeService: NbThemeService,
-              protected bpService: NbMediaBreakpointsService,
-              protected sidebarService: NbSidebarService) {
+  constructor(private stateService: StateService,
+              private menuService: NbMenuService,
+              private themeService: NbThemeService,
+              private bpService: NbMediaBreakpointsService,
+              private sidebarService: NbSidebarService) {
+  }
+
+  ngOnInit() {
     this.layoutState$ = this.stateService.onLayoutState()
       .subscribe((layout: string) => this.layout = layout);
 
     this.sidebarState$ = this.stateService.onSidebarState()
       .subscribe((sidebar: string) => {
-        this.sidebar = sidebar
+        this.sidebar = sidebar;
       });
 
     const isBp = this.bpService.getByName('is');

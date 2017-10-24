@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { ThemeModule } from '../../blocks/theme.module';
-import { ChildModule } from './child/child.module';
-import { ExtrasRoutingModule } from './extras-routing.module';
-import { ExtrasComponent } from './extras.component';
+import {BlockModule} from '../../blocks/blocks.module';
+import {ChildModule} from './child/child.module';
+import {ExtrasRoutingModule} from './extras-routing.module';
+import {ExtrasComponent} from './extras.component';
 
 const components = [
   ExtrasComponent,
@@ -11,7 +11,7 @@ const components = [
 
 @NgModule({
   imports: [
-    ThemeModule,
+    BlockModule,
     ExtrasRoutingModule,
     ChildModule,
   ],

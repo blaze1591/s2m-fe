@@ -1,16 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AnalyticsService } from './services/utils/analytics.service';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 's2m-app',
   template: '<router-outlet></router-outlet>',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  constructor(private analytics: AnalyticsService) {
-  }
-
-  ngOnInit(): void {
-    this.analytics.trackPageViews();
+  constructor() {
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 's2m-search-input',
@@ -18,7 +18,7 @@ export class SearchInputComponent {
 
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
-  isInputShown: boolean = false;
+  isInputShown = false;
 
   showInput() {
     this.isInputShown = true;

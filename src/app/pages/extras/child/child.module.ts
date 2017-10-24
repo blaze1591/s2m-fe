@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { ThemeModule } from '../../../blocks/theme.module';
-import { ChildComponent } from './child.component';
+import {BlockModule} from '../../../blocks/blocks.module';
+import {ChildComponent} from './child.component';
 
 const components = [
   ChildComponent,
@@ -9,7 +9,7 @@ const components = [
 
 @NgModule({
   imports: [
-    ThemeModule,
+    BlockModule,
   ],
   exports: [
     ...components,

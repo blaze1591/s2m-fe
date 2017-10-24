@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { PagesComponent } from './pages.component';
-import { HomeModule } from './home/home.module';
-import { PagesRoutingModule } from './pages-routing.module';
-import { ThemeModule } from '../blocks/theme.module';
+import {PagesComponent} from './pages.component';
+import {HomeModule} from './home/home.module';
+import {PagesRoutingModule} from './pages-routing.module';
+import {BlockModule} from '../blocks/blocks.module';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -12,7 +12,7 @@ const PAGES_COMPONENTS = [
 @NgModule({
   imports: [
     PagesRoutingModule,
-    ThemeModule,
+    BlockModule,
     HomeModule,
   ],
   declarations: [

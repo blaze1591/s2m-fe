@@ -1,11 +1,12 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   NbActionsModule,
   NbCardModule,
+  NbCheckboxModule,
   NbLayoutModule,
   NbMenuModule,
   NbRouteTabsetModule,
@@ -14,26 +15,12 @@ import {
   NbTabsetModule,
   NbThemeModule,
   NbUserModule,
-  NbCheckboxModule,
 } from '@nebular/theme';
 
-import {
-  FooterComponent,
-  HeaderComponent,
-  SearchInputComponent,
-  ThemeSettingsComponent,
-  ThemeSwitcherComponent,
-  TinyMCEComponent,
-} from './components';
-import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
-import {
-  OneColumnLayoutComponent,
-  SampleLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
-} from './layouts';
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
+import {FooterComponent, HeaderComponent, SearchInputComponent,} from './components';
+import {CapitalizePipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
+import {SampleLayoutComponent,} from './layouts';
+import {DEFAULT_THEME} from './styles/theme.default';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -52,16 +39,10 @@ const NB_MODULES = [
 ];
 
 const COMPONENTS = [
-  ThemeSwitcherComponent,
   HeaderComponent,
   FooterComponent,
   SearchInputComponent,
-  ThemeSettingsComponent,
-  TinyMCEComponent,
-  OneColumnLayoutComponent,
   SampleLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
 ];
 
 const PIPES = [
@@ -76,7 +57,7 @@ const NB_THEME_PROVIDERS = [
     {
       name: 'default',
     },
-    [ DEFAULT_THEME, COSMIC_THEME ],
+    [DEFAULT_THEME],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
@@ -87,10 +68,10 @@ const NB_THEME_PROVIDERS = [
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
   declarations: [...COMPONENTS, ...PIPES],
 })
-export class ThemeModule {
+export class BlockModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
-      ngModule: ThemeModule,
+      ngModule: BlockModule,
       providers: [...NB_THEME_PROVIDERS],
     };
   }
