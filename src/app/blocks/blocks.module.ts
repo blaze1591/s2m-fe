@@ -17,9 +17,9 @@ import {
   NbUserModule,
 } from '@nebular/theme';
 
-import {FooterComponent, HeaderComponent, SearchInputComponent,} from './components';
+import {FooterComponent, HeaderComponent} from './components';
 import {CapitalizePipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
-import {SampleLayoutComponent,} from './layouts';
+import {SampleLayoutComponent} from './layouts';
 import {DEFAULT_THEME} from './styles/theme.default';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
@@ -41,7 +41,6 @@ const NB_MODULES = [
 const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
-  SearchInputComponent,
   SampleLayoutComponent,
 ];
 

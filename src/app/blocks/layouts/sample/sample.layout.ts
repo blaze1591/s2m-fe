@@ -1,12 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {
-  NbMediaBreakpoint,
-  NbMediaBreakpointsService,
-  NbMenuItem,
-  NbMenuService,
-  NbSidebarService,
-  NbThemeService,
-} from '@nebular/theme';
+import {NbMediaBreakpoint, NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService,} from '@nebular/theme';
 
 import {StateService} from '../../../services/data/state.service';
 

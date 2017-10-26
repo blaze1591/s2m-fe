@@ -1,24 +1,50 @@
-import { NbMenuItem } from '@nebular/theme';
+import {NbMenuItem} from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Home',
+    title: 'Дашборд',
     icon: 'nb-home',
     link: '/pages/home',
     home: true,
   },
   {
-    title: 'EXTRAS',
+    title: 'Функції',
     group: true,
   },
   {
-    title: 'Extras',
-    icon: 'nb-keypad',
-    link: '/pages/extras',
+    title: 'Співробітники',
+    icon: 'nb-person',
+    link: '/pages/employees',
+  },
+  {
+    title: 'Публікації',
+    icon: 'nb-compose',
+    link: '/pages/publications',
+  },
+  {
+    title: 'Звіти',
+    icon: 'nb-title',
+    link: '/pages/reports',
     children: [
       {
-        title: 'Some children topic 1',
-        link: '/pages/extras/child1',
+        title: 'Індивідуальний',
+        link: '/pages/reports/individual',
+      },
+      {
+        title: 'Кафедральний',
+        link: '/pages/reports/cathedral',
+      },
+      {
+        title: 'Факультети',
+        link: '/pages/reports/faculties',
+      },
+      {
+        title: 'Інститути',
+        link: '/pages/reports/institutes',
+      },
+      {
+        title: 'Скопус',
+        link: '/pages/reports/scopus',
       },
     ],
   },

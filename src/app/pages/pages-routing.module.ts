@@ -1,8 +1,10 @@
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
 
-import { PagesComponent } from './pages.component';
-import { HomeComponent } from './home/home.component';
+import {PagesComponent} from './pages.component';
+import {HomeComponent} from './home/home.component';
+import {EmployeesComponent} from './employees/employees.component';
+import {PublicationsComponent} from './publications/publications.component';
 
 const routes: Routes = [{
   path: '',
@@ -10,14 +12,23 @@ const routes: Routes = [{
   children: [{
     path: 'home',
     component: HomeComponent,
-  }, {
-    path: 'extras',
-    loadChildren: './extras/extras.module#ExtrasModule',
-  }, {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  }],
+  },
+    {
+      path: 'employees',
+      component: EmployeesComponent,
+    },
+    {
+      path: 'publications',
+      component: PublicationsComponent,
+    },
+    {
+      path: 'reports',
+      loadChildren: './reports/reports.module#ReportsModule',
+    }, {
+      path: '',
+      redirectTo: 'home',
+      pathMatch: 'full',
+    }],
 }];
 
 @NgModule({
