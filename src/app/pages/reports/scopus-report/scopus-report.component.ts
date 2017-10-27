@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CustomEditorComponent} from '../../../blocks/components/custom-editor/custom-editor.component';
 
 @Component({
   selector: 's2m-scopus-report',
@@ -30,29 +31,61 @@ export class ScopusReportComponent implements OnInit {
       fioUkr: {
         title: 'ФИО(укр)',
         type: 'string',
+        editable: false,
       },
-      firstName: {
-        title: 'First Name',
+      fioEng: {
+        title: 'ФИО(анг)',
+        type: 'string',
+        editable: false,
+      },
+      scopusId: {
+        title: 'Scopus Id',
+        type: 'html',
+        valuePrepareFunction: (value) => `<a href="${value}">Посилання</a>`,
+      },
+      docCountOverral: {
+        title: 'КДО',
         type: 'string',
       },
-      lastName: {
-        title: 'Last Name',
+      docCountOverralWithAdd: {
+        title: 'КДОГ',
         type: 'string',
       },
-      username: {
-        title: 'Username',
+      citCountOverral: {
+        title: 'КЦО',
         type: 'string',
       },
-      email: {
-        title: 'E-mail',
+      citCountOverralWithAdd: {
+        title: 'КЦОГ',
         type: 'string',
       },
-      age: {
-        title: 'Age',
-        type: 'number',
+      hIndex: {
+        title: 'H-індекс',
+        type: 'string',
+      },
+      organization: {
+        title: 'Організація',
+        type: 'string',
+      },
+      cathedra: {
+        title: 'Кафедра',
+        type: 'string',
+      },
+      institute: {
+        title: 'Інститут',
+        type: 'string',
+        editor: {
+          type: 'custom',
+          component: CustomEditorComponent,
+        },
+      },
+      faculty: {
+        title: 'Факультет',
+        type: 'string',
       },
     },
   };
+
   constructor() {
   }
 

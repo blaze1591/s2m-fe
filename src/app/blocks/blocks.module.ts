@@ -21,6 +21,8 @@ import {FooterComponent, HeaderComponent} from './components';
 import {CapitalizePipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
 import {SampleLayoutComponent} from './layouts';
 import {DEFAULT_THEME} from './styles/theme.default';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
+import {CustomEditorComponent} from './components/custom-editor/custom-editor.component';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -36,12 +38,14 @@ const NB_MODULES = [
   NbSidebarModule,
   NbCheckboxModule,
   NgbModule,
+  Ng2SmartTableModule,
 ];
 
 const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
   SampleLayoutComponent,
+  CustomEditorComponent,
 ];
 
 const PIPES = [
