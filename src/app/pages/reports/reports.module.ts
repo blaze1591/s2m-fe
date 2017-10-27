@@ -9,6 +9,7 @@ import {FacultiesReportComponent} from './faculties-report/faculties-report.comp
 import {InstitutesReportComponent} from './institutes-report/institutes-report.component';
 import {ScopusReportComponent} from './scopus-report/scopus-report.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
+import {CustomEditorComponent} from '../../blocks/components/custom-editor/custom-editor.component';
 
 const components = [
   ReportsComponent,
@@ -27,6 +28,9 @@ const components = [
   ],
   declarations: [
     ...components,
+  ],
+  entryComponents: [
+    CustomEditorComponent,
   ],
 })
 export class ReportsModule {
