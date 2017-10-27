@@ -8,6 +8,7 @@ import {CathedralReportComponent} from './cathedral-report/cathedral-report.comp
 import {FacultiesReportComponent} from './faculties-report/faculties-report.component';
 import {InstitutesReportComponent} from './institutes-report/institutes-report.component';
 import {ScopusReportComponent} from './scopus-report/scopus-report.component';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 const components = [
   ReportsComponent,
@@ -22,6 +23,7 @@ const components = [
   imports: [
     BlockModule,
     ReportsRoutingModule,
+    Ng2SmartTableModule,
   ],
   declarations: [
     ...components,
