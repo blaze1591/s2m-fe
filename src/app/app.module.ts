@@ -10,6 +10,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BlockModule} from './blocks/blocks.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
