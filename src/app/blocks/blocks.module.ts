@@ -23,6 +23,8 @@ import {SampleLayoutComponent} from './layouts';
 import {DEFAULT_THEME} from './styles/theme.default';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {CustomEditorComponent} from './components/custom-editor/custom-editor.component';
+import {LoginComponent} from './components/login/login.component';
+import {NbAuthModule} from '@nebular/auth';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -39,6 +41,7 @@ const NB_MODULES = [
   NbCheckboxModule,
   NgbModule,
   Ng2SmartTableModule,
+  NbAuthModule,
 ];
 
 const COMPONENTS = [
@@ -69,7 +72,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES],
+  declarations: [...COMPONENTS, ...PIPES, LoginComponent],
 })
 export class BlockModule {
   static forRoot(): ModuleWithProviders {

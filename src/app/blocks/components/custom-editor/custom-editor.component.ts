@@ -7,7 +7,7 @@ import {DefaultEditor} from 'ng2-smart-table';
            class="form-control short-input input-class"
            [name]="cell.getId()"
            [disabled]="!cell.isEditable()"
-           [attr.maxlength]="5"
+           [attr.maxlength]="100"
            [placeholder]="cell.getTitle()"
            (click)="onClick.emit($event)"
            (keyup)="updateValue()"
