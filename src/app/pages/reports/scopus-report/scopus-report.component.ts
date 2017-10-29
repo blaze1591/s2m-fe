@@ -9,6 +9,7 @@ import {CustomEditorComponent} from '../../../blocks/components/custom-editor/cu
 export class ScopusReportComponent implements OnInit {
 
   settings = {
+    selectMode: 'multi',
     actions: {
       columnTitle: 'Дії',
     },
@@ -41,7 +42,7 @@ export class ScopusReportComponent implements OnInit {
       scopusId: {
         title: 'Scopus Id',
         type: 'html',
-        valuePrepareFunction: (value) => `<a href="${value}">Посилання</a>`,
+        valuePrepareFunction: (value) => `<a href="${value}">Клік</a>`,
       },
       docCountOverral: {
         title: 'КДО',
