@@ -33,6 +33,11 @@ export class ScopusReportComponent implements OnInit {
         type: 'string',
         editable: false,
       },
+      fioEng: {
+        title: 'ФИО(анг)',
+        type: 'string',
+        editable: false,
+      },
       scopusId: {
         title: 'Scopus Id',
         type: 'html',
