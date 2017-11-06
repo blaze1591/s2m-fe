@@ -1,28 +1,14 @@
 <nb-auth-block>
   <h2 class="title">Логін</h2>
   <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">
-    <div *ngIf="showMessages.error && errors && errors.length > 0 && !submitted"
-         class="alert alert-danger" role="alert">
-      <div><strong>Ой горе!</strong></div>
-      <div *ngFor="let error of errors">{{ error }}</div>
-    </div>
-    <div *ngIf="showMessages.success && messages && messages.length > 0 && !submitted"
-         class="alert alert-success" role="alert">
-      <div><strong>Урааа!</strong></div>
-      <div *ngFor="let message of messages">{{ message }}</div>
-    </div>
     <div class="form-group">
-      <label for="input-email" class="sr-only">Адреса email</label>
-      <input name="email" [(ngModel)]="user.email" id="input-email" pattern=".+@.+\..+"
-             class="form-control" placeholder="Адреса email" #email="ngModel"
-             [class.form-control-danger]="email.invalid && email.dirty" autofocus
-             [required]="getConfigValue('forms.validation.email.required')">
-      <small class="form-text error" *ngIf="email.invalid && email.dirty && email.errors?.required">
-        Потрібен email!
-      </small>
-      <small class="form-text error"
-             *ngIf="email.invalid && email.dirty && email.errors?.pattern">
-        Адресу потрібно ввести у правильному форматі!
+      <label for="input-nick" class="sr-only">Нікнейм</label>
+      <input name="nick" [(ngModel)]="user.nick" id="input-nick"
+             class="form-control" placeholder="Нікнейм" #nick="ngModel"
+             [class.form-control-danger]="nick.invalid && nick.dirty"
+             autofocus [required]="true">
+      <small class="form-text error" *ngIf="nick.invalid && nick.dirty && nick.errors?.required">
+        Потрібен нік!
       </small>
     </div>
     <div class="form-group">
@@ -30,9 +16,9 @@
       <input name="password" [(ngModel)]="user.password" type="password" id="input-password"
              class="form-control" placeholder="Пароль" #password="ngModel"
              [class.form-control-danger]="password.invalid && password.dirty"
-             [required]="getConfigValue('forms.validation.password.required')"
-             [minlength]="getConfigValue('forms.validation.password.minLength')"
-             [maxlength]="getConfigValue('forms.validation.password.maxLength')">
+             [required]="true"
+             [minlength]="6"
+             [maxlength]="20">
       <small class="form-text error" *ngIf="password.invalid && password.dirty && password.errors?.required">
         Потрібен пароль!
       </small>
@@ -40,17 +26,14 @@
         class="form-text error"
         *ngIf="password.invalid && password.dirty && (password.errors?.minlength || password.errors?.maxlength)">
         Пароль потребує
-        від {{ getConfigValue('forms.validation.password.minLength') }}
-        до {{ getConfigValue('forms.validation.password.maxLength') }}
+        від 6
+        до 20
         символів
       </small>
     </div>
-    <div class="form-group accept-group col-sm-12">
-      <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe">Запам'ятати мене</nb-checkbox>
-      <a class="forgot-password" routerLink="../request-password">Забули пароль?</a>
-    </div>
     <button [disabled]="submitted || !form.valid" class="btn btn-block btn-hero-success"
-            [class.btn-pulse]="submitted">
+            [class.btn-pulse]="submitted"
+            type="submit">
       Зайти
     </button>
   </form>

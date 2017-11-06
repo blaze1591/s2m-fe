@@ -9,8 +9,6 @@ import {UserService} from '../../../services/data/users.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-
-
   @Input() position = 'normal';
 
   user: any;
