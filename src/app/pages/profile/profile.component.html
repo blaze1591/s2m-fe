@@ -3,49 +3,139 @@
     Профайл
   </nb-card-header>
   <nb-card-body>
+    <div class="row">
+      <div class="col-lg-12">
+        <nb-card>
+          <nb-card-header>
+            Головна інформація
+          </nb-card-header>
+          <nb-card-body>
+            <div class="row">
 
-    <nb-card>
-      <nb-card-header>
-        Головна інформація
-      </nb-card-header>
-      <nb-card-body>
-        <cl-image public-id="eva_ourwa6" class="thumbnail inline" format="png">
-          <cl-transformation height="150" width="150" gravity="face" radius="max" crop="crop"></cl-transformation>
-        </cl-image>
-      </nb-card-body>
-    </nb-card>
+              <div class="col-lg-2">
+                <h5 class="grid-h">Аватар</h5>
+                <cl-image public-id="eva_ourwa6" class="thumbnail inline" format="png">
+                  <cl-transformation height="150" width="150" gravity="face" radius="max"
+                                     crop="crop">
+                  </cl-transformation>
+                </cl-image>
+              </div>
 
-    <nb-card>
-      <nb-card-header>
-        Індекс Гірша
-      </nb-card-header>
-      <nb-card-body>
-      </nb-card-body>
-    </nb-card>
+              <div class="col-lg-4">
+                <h5 class="grid-h">Ім'я</h5>
+                <div class="input-group">
+                  <input type="text" placeholder="Ім'я українською" class="form-control" disabled
+                         value="Єгоров Віктор Богданович"/>
+                </div>
+                <div class="input-group">
+                  <input type="text" placeholder="Ім'я англійською" class="form-control" disabled
+                         value="Yehorov Viktor"/>
+                </div>
+                <div class="input-group">
+                  <input type="text" placeholder="Ім'я російською" class="form-control" disabled
+                         value="Егоров Виктор Богданович"/>
+                </div>
+              </div>
 
-    <nb-card>
-      <nb-card-header>
-        Зміна пароля
-      </nb-card-header>
-      <nb-card-body>
-      </nb-card-body>
-    </nb-card>
+              <div class="col-lg-6">
+                <h5 class="grid-h">Про мене</h5>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label" for="degree">Наукова ступінь</label>
+                  <div class="col-sm-9">
+                    <input class="form-control input-group input-group-sm"
+                           id="degree"
+                           placeholder="Наукова ступінь"
+                           type="text"
+                           disabled
+                           value="канд.тех.наук"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label" for="academicTitle">Вчене звання</label>
+                  <div class="col-sm-9">
+                    <input class="form-control input-group input-group-sm"
+                           id="academicTitle"
+                           placeholder="Вчене звання"
+                           type="text"
+                           disabled
+                           value="-"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label" for="birth">Дата народження</label>
+                  <div class="col-sm-9">
+                    <input class="form-control"
+                           id="birth"
+                           placeholder="Дата народження"
+                           type="text"
+                           disabled
+                           value="14/03/1985"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 offset-lg-2">
+                <div class="form-group">
+                  <label for="cathedras">Кафедры</label>
+                  <select id="cathedras" disabled class="form-control" multiple="">
+                    <option>АТПІРТС: старший викладач</option>
+                    <option>АТПІРТС: старший викладач</option>
+                    <option>АТПІРТС: старший викладач</option>
+                    <option>АТПІРТС: старший викладач</option>
+                    <option>АТПІРТС: старший викладач</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
 
-    <nb-card>
-      <nb-card-header>
-        Контактна інформація
-      </nb-card-header>
-      <nb-card-body>
-      </nb-card-body>
-    </nb-card>
+    <div class="row">
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>
+            Індекс Гірша
+          </nb-card-header>
+          <nb-card-body>
+            <s2m-chartjs-bar-horizontal></s2m-chartjs-bar-horizontal>
+          </nb-card-body>
+        </nb-card>
+      </div>
 
-    <nb-card>
-      <nb-card-header>
-        Посилання до соціальних мереж
-      </nb-card-header>
-      <nb-card-body>
-      </nb-card-body>
-    </nb-card>
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>
+            Контактна інформація
+          </nb-card-header>
+          <nb-card-body>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>
+            Посилання до соціальних мереж
+          </nb-card-header>
+          <nb-card-body>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>
+            Зміна пароля
+          </nb-card-header>
+          <nb-card-body>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
 
   </nb-card-body>
 </nb-card>

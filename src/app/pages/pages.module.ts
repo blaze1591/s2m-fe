@@ -9,15 +9,20 @@ import {PublicationsComponent} from './publications/publications.component';
 import {ProfileComponent} from './profile/profile.component';
 import {CloudinaryConfiguration, CloudinaryModule} from '@cloudinary/angular-4.x';
 import {Cloudinary} from 'cloudinary-core';
+import {ChartjsBarHorizontalComponent} from './profile/chartjs-bar-horizontal.component';
+import {ChartModule} from 'angular2-chartjs';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
   EmployeesComponent,
   PublicationsComponent,
+  ProfileComponent,
+  ChartjsBarHorizontalComponent,
 ];
 
 @NgModule({
   imports: [
+    ChartModule,
     PagesRoutingModule,
     BlockModule,
     HomeModule,
@@ -25,7 +30,6 @@ const PAGES_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
-    ProfileComponent,
   ],
 })
 export class PagesModule {

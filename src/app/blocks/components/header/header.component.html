@@ -13,6 +13,6 @@
   [class.right]="position === 'normal'"
   [class.left]="position === 'inverse'">
   <nb-action>
-    <nb-user [menu]="userMenu" [name]="user?.lastName" [picture]="'assets/images/dimouns.jpg'"></nb-user>
+    <nb-user [menu]="userMenu" [name]="authService.getUsername()" [picture]="'assets/images/dimouns.jpg'"></nb-user>
   </nb-action>
 </nb-actions>

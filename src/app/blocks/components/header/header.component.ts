@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 import {NbMenuService, NbSidebarService} from '@nebular/theme';
-import {UserService} from '../../../services/data/users.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 's2m-header',
@@ -17,12 +17,10 @@ export class HeaderComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
-              private userService: UserService) {
+              public authService: AuthService) {
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users[0]);
   }
 
   toggleSidebar(): boolean {
