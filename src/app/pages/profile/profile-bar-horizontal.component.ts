@@ -2,12 +2,12 @@ import {Component, OnDestroy} from '@angular/core';
 import {NbThemeService} from '@nebular/theme';
 
 @Component({
-  selector: 's2m-chartjs-bar-horizontal',
+  selector: 's2m-profile-bar-horizontal',
   template: `
     <chart type="horizontalBar" [data]="data" [options]="options"></chart>
   `,
 })
-export class ChartjsBarHorizontalComponent implements OnDestroy {
+export class ProfileBarHorizontalComponent implements OnDestroy {
   data: any;
   options: any;
   themeSubscription: any;
@@ -19,16 +19,16 @@ export class ChartjsBarHorizontalComponent implements OnDestroy {
       const chartjs: any = config.variables.chartjs;
 
       this.data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: ['02/07/2016'],
         datasets: [{
-          label: 'Dataset 1',
+          label: 'Google Scholar',
           backgroundColor: colors.infoLight,
           borderWidth: 1,
-          data: [this.random(), this.random(), this.random(), this.random(), this.random(), this.random()],
+          data: [this.random()],
         }, {
-          label: 'Dataset 2',
+          label: 'Scopus',
           backgroundColor: colors.successLight,
-          data: [this.random(), this.random(), this.random(), this.random(), this.random(), this.random()],
+          data: [this.random()],
         },
         ],
       };

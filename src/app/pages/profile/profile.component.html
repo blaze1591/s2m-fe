@@ -23,17 +23,17 @@
 
               <div class="col-lg-4">
                 <h5 class="grid-h">Ім'я</h5>
-                <div class="input-group">
+                <div class="form-group">
                   <input type="text" placeholder="Ім'я українською" class="form-control" disabled
-                         value="Єгоров Віктор Богданович"/>
+                         value="Ольшевська Ольга Володимирівна"/>
                 </div>
-                <div class="input-group">
+                <div class="form-group">
                   <input type="text" placeholder="Ім'я англійською" class="form-control" disabled
-                         value="Yehorov Viktor"/>
+                         value="Olshevska Olga"/>
                 </div>
-                <div class="input-group">
+                <div class="form-group">
                   <input type="text" placeholder="Ім'я російською" class="form-control" disabled
-                         value="Егоров Виктор Богданович"/>
+                         value="Ольшевская Ольга Владимировна"/>
                 </div>
               </div>
 
@@ -69,7 +69,7 @@
                            placeholder="Дата народження"
                            type="text"
                            disabled
-                           value="14/03/1985"/>
+                           value="13/04/1994"/>
                   </div>
                 </div>
               </div>
@@ -100,7 +100,7 @@
             Індекс Гірша
           </nb-card-header>
           <nb-card-body>
-            <s2m-chartjs-bar-horizontal></s2m-chartjs-bar-horizontal>
+            <s2m-profile-bar-horizontal></s2m-profile-bar-horizontal>
           </nb-card-body>
         </nb-card>
       </div>
@@ -111,31 +111,57 @@
             Контактна інформація
           </nb-card-header>
           <nb-card-body>
+            <div class="row">
+              <div title="milo@mail.ru" class="icon col-lg-4">
+                <i class="ion-email"></i>
+                <span class="icon-text">E-mail</span>
+              </div>
+              <div title="Researcher" class="icon col-lg-4">
+                <img [src]="'assets/images/researcher.png'"/>
+                <a href="http://www.researcherid.com/" class="icon-text">Researcher</a>
+              </div>
+              <div title="Orcid" class="icon col-lg-4">
+                <img [src]="'assets/images/orcid-logo.png'"/>
+                <a href="http://orcid.org/" class="icon-text">Orcid</a>
+              </div>
+            </div>
+            <div class="row">
+              <div title="LinkedIn" class="icon col-lg-4">
+                <i class="ion ion-social-linkedin"></i>
+                <a href="http://linkedin.com" class="icon-text">LinkedIn</a>
+              </div>
+              <div title="Scopus" class="icon col-lg-4">
+                <img [src]="'assets/images/scopus.png'"/>
+                <a href="http://www.researcherid.com/" class="icon-text">Scopus</a>
+              </div>
+              <div title="Google Scholar" class="icon col-lg-4">
+                <img [src]="'assets/images/google-scholar.png'"/>
+                <a href="https://scholar.google.com.ua/" class="icon-text">Google Scholar</a>
+              </div>
+            </div>
           </nb-card-body>
         </nb-card>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-6">
-        <nb-card>
-          <nb-card-header>
-            Посилання до соціальних мереж
-          </nb-card-header>
-          <nb-card-body>
-          </nb-card-body>
-        </nb-card>
-      </div>
-      <div class="col-lg-6">
         <nb-card>
           <nb-card-header>
             Зміна пароля
           </nb-card-header>
           <nb-card-body>
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <input class="form-control" placeholder="Новый пароль" type="password">
+              </div>
+              <div class="col-lg-6">
+                <input class="form-control" placeholder="Підтвердити пароль" type="password">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-3">
+                <button class="btn btn-success btn-sm">Змінити</button>
+              </div>
+            </div>
           </nb-card-body>
         </nb-card>
       </div>
     </div>
-
   </nb-card-body>
 </nb-card>

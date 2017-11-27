@@ -9,7 +9,7 @@ import {PublicationsComponent} from './publications/publications.component';
 import {ProfileComponent} from './profile/profile.component';
 import {CloudinaryConfiguration, CloudinaryModule} from '@cloudinary/angular-4.x';
 import {Cloudinary} from 'cloudinary-core';
-import {ChartjsBarHorizontalComponent} from './profile/chartjs-bar-horizontal.component';
+import {ProfileBarHorizontalComponent} from './profile/profile-bar-horizontal.component';
 import {ChartModule} from 'angular2-chartjs';
 
 const PAGES_COMPONENTS = [
@@ -17,7 +17,7 @@ const PAGES_COMPONENTS = [
   EmployeesComponent,
   PublicationsComponent,
   ProfileComponent,
-  ChartjsBarHorizontalComponent,
+  ProfileBarHorizontalComponent,
 ];
 
 @NgModule({
