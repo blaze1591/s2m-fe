@@ -14,11 +14,8 @@
 
               <div class="col-lg-2">
                 <h5 class="grid-h">Аватар</h5>
-                <cl-image public-id="eva_ourwa6" class="thumbnail inline" format="png">
-                  <cl-transformation height="150" width="150" gravity="face" radius="max"
-                                     crop="crop">
-                  </cl-transformation>
-                </cl-image>
+                <img class="thumbnail inline"
+                     [src]="user.photo">
               </div>
 
               <div class="col-lg-4">

@@ -48,6 +48,7 @@ const COMPONENTS = [
   FooterComponent,
   SampleLayoutComponent,
   CustomEditorComponent,
+  LoginComponent,
 ];
 
 const PIPES = [
@@ -71,7 +72,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES, LoginComponent],
+  declarations: [...COMPONENTS, ...PIPES],
 })
 export class BlockModule {
   static forRoot(): ModuleWithProviders {

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/data/users.service';
 
 @Component({
   selector: 's2m-profile',
@@ -7,10 +8,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() {
+  user: any = {};
+
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
+    this.userService.getUserById()
+      .subscribe((response) => this.user = response);
   }
 
 }

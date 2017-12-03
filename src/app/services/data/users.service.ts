@@ -12,8 +12,8 @@ export class UserService {
               private auth: AuthService) {
   }
 
-  getUsers(): Observable<any> {
-    return this.http.get(environment.apiUrl + '/user', this.auth.generateOptions())
+  getUserById(): Observable<any> {
+    return this.http.get(environment.apiUrl + '/user/' + this.auth.getUserId(), this.auth.generateOptions())
                     .map((res: Response) => res.json())
                     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
