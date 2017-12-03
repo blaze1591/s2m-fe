@@ -17,12 +17,11 @@ import {
   NbUserModule,
 } from '@nebular/theme';
 
-import {FooterComponent, HeaderComponent} from './components';
+import {CustomEditorComponent, FooterComponent, HeaderComponent} from './components';
 import {CapitalizePipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
 import {SampleLayoutComponent} from './layouts';
 import {DEFAULT_THEME} from './styles/theme.default';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
-import {CustomEditorComponent} from './components/custom-editor/custom-editor.component';
 import {LoginComponent} from './components/login/login.component';
 import {NbAuthModule} from '@nebular/auth';
 

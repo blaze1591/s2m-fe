@@ -9,6 +9,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BlockModule} from './blocks/blocks.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ToasterModule} from 'angular2-toaster';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     HttpModule,
     AppRoutingModule,
+    ToasterModule,
 
     NgbModule.forRoot(),
     BlockModule.forRoot(),
