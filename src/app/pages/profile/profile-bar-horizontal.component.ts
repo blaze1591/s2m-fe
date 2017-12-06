@@ -19,16 +19,16 @@ export class ProfileBarHorizontalComponent implements OnDestroy {
       const chartjs: any = config.variables.chartjs;
 
       this.data = {
-        labels: ['02/07/2016'],
+        labels: ['02/07/2016', '03/07/2016'],
         datasets: [{
           label: 'Google Scholar',
           backgroundColor: colors.infoLight,
           borderWidth: 1,
-          data: [this.random()],
+          data: [this.random(), this.random()],
         }, {
           label: 'Scopus',
           backgroundColor: colors.successLight,
-          data: [this.random()],
+          data: [this.random(), this.random()],
         },
         ],
       };

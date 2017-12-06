@@ -3,8 +3,6 @@ import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {Toast, ToasterService} from 'angular2-toaster';
 
-import 'style-loader!angular2-toaster/toaster.css';
-
 @Component({
   selector: 's2m-login',
   templateUrl: './login.component.html',
