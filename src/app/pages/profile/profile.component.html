@@ -22,15 +22,15 @@
                 <h5 class="grid-h">Ім'я</h5>
                 <div class="form-group">
                   <input type="text" placeholder="Ім'я українською" class="form-control" disabled
-                         [attr.value]="user.fioUa"/>
+                         value="{{user.firstNameUa}} {{user.middleNameUa}} {{user.lastNameUa}}"/>
                 </div>
                 <div class="form-group">
                   <input type="text" placeholder="Ім'я англійською" class="form-control" disabled
-                         [attr.value]="user.fioEng"/>
+                         value="{{user.firstName}} {{user.middleName}} {{user.lastName}}"/>
                 </div>
                 <div class="form-group">
                   <input type="text" placeholder="Ім'я російською" class="form-control" disabled
-                         [attr.value]="user.fioRu"/>
+                         value="{{user.firstNameRu}} {{user.middleNameRu}} {{user.lastNameRu}}"/>
                 </div>
               </div>
 
