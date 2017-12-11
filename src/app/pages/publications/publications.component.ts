@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
+import {ScienceUnitService} from '../../services/data/science.unit.service';
 
 @Component({
   selector: 's2m-publications',
@@ -28,11 +29,15 @@ export class PublicationsComponent implements OnInit {
     },
     noDataMessage: 'Нема даних',
     columns: {
-      title: {
+      name: {
         title: 'Назва',
         type: 'string',
       },
-      type: {
+      title: {
+        title: 'Титулка',
+        type: 'string',
+      },
+      unitType: {
         title: 'Тип',
         type: 'string',
       },
@@ -40,29 +45,37 @@ export class PublicationsComponent implements OnInit {
         title: 'Автор',
         type: 'string',
       },
-      date: {
-        title: 'Дата',
+      year: {
+        title: 'Рiк',
         type: 'string',
       },
     },
   };
 
   source: LocalDataSource;
-  constructor() {
+  constructor(private scienceUnitService: ScienceUnitService) {
     this.source = new LocalDataSource([]);
   }
 
   ngOnInit() {
+    this.scienceUnitService.getAllScienceUnits()
+      .subscribe(response => {
+        this.source.load(response);
+      });
   }
 
   onSearch(query: string = '') {
     this.source.setFilter([
       {
+        field: 'name',
+        search: query,
+      },
+      {
         field: 'title',
         search: query,
       },
       {
-        field: 'type',
+        field: 'unitType',
         search: query,
       },
       {
@@ -70,7 +83,7 @@ export class PublicationsComponent implements OnInit {
         search: query,
       },
       {
-        field: 'date',
+        field: 'year',
         search: query,
       },
     ]);
