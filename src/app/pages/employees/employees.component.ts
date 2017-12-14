@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
+import {UserService} from '../../services/data/users.service';
 
 @Component({
   selector: 's2m-employees',
@@ -36,7 +37,7 @@ export class EmployeesComponent implements OnInit {
         title: 'Пошта',
         type: 'string',
       },
-      degree: {
+      scienceDegree: {
         title: 'Наукова ступінь',
         type: 'string',
       },
@@ -53,11 +54,23 @@ export class EmployeesComponent implements OnInit {
 
   source: LocalDataSource;
 
-  constructor() {
-    this.source = new LocalDataSource([]);
+  constructor(private userService: UserService) {
+    this.source = new LocalDataSource();
   }
 
   ngOnInit() {
+    this.userService.getUsers().subscribe(response => {
+      const users = response.map((user) => {
+        return {
+          fioUkr: `${user.firstNameUa} ${user.middleNameUa} ${user.lastNameUa}`,
+          email: user.email,
+          scienceDegree: user.scienceDegree,
+          academicTitle: user.academicTitle,
+          cathedras: user.cathedras && user.cathedras[0].name,
+        };
+      });
+      this.source.load(users);
+    });
   }
 
   onSearch(query: string = '') {
@@ -71,7 +84,7 @@ export class EmployeesComponent implements OnInit {
         search: query,
       },
       {
-        field: 'degree',
+        field: 'scienceDegree',
         search: query,
       },
       {

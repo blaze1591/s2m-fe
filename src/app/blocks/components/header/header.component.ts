@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserById()
+    this.userService.getUserById(this.authService.getUserId())
       .subscribe((response) => this.photo = response.photo);
   }
 

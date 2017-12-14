@@ -12,9 +12,15 @@ export class UserService {
               private auth: AuthService) {
   }
 
-  getUserById(): Observable<any> {
-    return this.http.get(environment.apiUrl + '/user/' + this.auth.getUserId(), this.auth.generateOptions())
-                    .map((res: Response) => res.json())
-                    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  getUserById(userId): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/user/${userId}`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'getUserById error'));
+  }
+
+  getUsers(): Observable<Array<any>> {
+    return this.http.get(`${environment.apiUrl}/user`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'getUsers error'));
   }
 }
