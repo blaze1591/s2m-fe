@@ -11,6 +11,7 @@ import {CloudinaryConfiguration, CloudinaryModule} from '@cloudinary/angular-4.x
 import {Cloudinary} from 'cloudinary-core';
 import {ProfileBarHorizontalComponent} from './profile/profile-bar-horizontal.component';
 import {ChartModule} from 'angular2-chartjs';
+import {DeleteEmployeeComponent} from './employees/delete-employee.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -18,6 +19,7 @@ const PAGES_COMPONENTS = [
   PublicationsComponent,
   ProfileComponent,
   ProfileBarHorizontalComponent,
+  DeleteEmployeeComponent,
 ];
 
 @NgModule({
@@ -30,6 +32,9 @@ const PAGES_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
+  ],
+  entryComponents: [
+    DeleteEmployeeComponent,
   ],
 })
 export class PagesModule {
