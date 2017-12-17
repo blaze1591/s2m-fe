@@ -12,6 +12,7 @@ import {Cloudinary} from 'cloudinary-core';
 import {ProfileBarHorizontalComponent} from './profile/profile-bar-horizontal.component';
 import {ChartModule} from 'angular2-chartjs';
 import {DeleteEmployeeComponent} from './employees/delete-employee.component';
+import {ModalModule} from 'ngx-bootstrap';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -29,6 +30,7 @@ const PAGES_COMPONENTS = [
     BlockModule,
     HomeModule,
     CloudinaryModule.forRoot({Cloudinary}, {cloud_name: 'dp2ty4s0z'} as CloudinaryConfiguration),
+    ModalModule.forRoot(),
   ],
   declarations: [
     ...PAGES_COMPONENTS,

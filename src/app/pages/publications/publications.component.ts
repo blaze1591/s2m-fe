@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
 import {ScienceUnitService} from '../../services/data/science.unit.service';
+import {ModalDirective} from 'ngx-bootstrap';
+import {ScienceUnit} from './model/science.unit';
 
 @Component({
   selector: 's2m-publications',
@@ -8,10 +10,14 @@ import {ScienceUnitService} from '../../services/data/science.unit.service';
   styleUrls: ['./publications.component.scss'],
 })
 export class PublicationsComponent implements OnInit {
+  @ViewChild('lgModal') lgModal: ModalDirective;
+  model = new ScienceUnit();
+  types = ['Book', 'Chapter', 'Conference', 'Journal', 'Other', 'Patent', 'Thesis'];
 
   settings = {
     actions: {
       columnTitle: 'Дії',
+      position: 'right',
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -50,6 +56,7 @@ export class PublicationsComponent implements OnInit {
         type: 'string',
       },
     },
+    mode: 'external',
   };
 
   source: LocalDataSource;
@@ -58,10 +65,25 @@ export class PublicationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadScienceUnits();
+  }
+
+  loadScienceUnits(): void {
     this.scienceUnitService.getAllScienceUnits()
       .subscribe(response => {
         this.source.load(response);
       });
+  }
+
+  create(event): void {
+    this.model = new ScienceUnit();
+    this.lgModal.show();
+  }
+
+  saveUnit(): void {
+    this.scienceUnitService.saveScienceUnit(this.model);
+    this.loadScienceUnits();
+    this.lgModal.hide();
   }
 
   onSearch(query: string = '') {
