@@ -13,6 +13,8 @@ export class AppComponent {
 
   toasterConfig = new ToasterConfig({
     positionClass: 'toast-top-center',
+    limit: 1,
+    preventDuplicates: true,
   });
 
   constructor() {
