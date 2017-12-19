@@ -22,7 +22,8 @@
       <div class="col-lg-12">
         <ng2-smart-table [settings]="settings"
                          [source]="source"
-                         (deleteConfirm)="onDeleteConfirm($event)">
+                         (create)="onAddConfirm($event)"
+                         (delete)="onDeleteConfirm($event)">
         </ng2-smart-table>
       </div>
     </div>

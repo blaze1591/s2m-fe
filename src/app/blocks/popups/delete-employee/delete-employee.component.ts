@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from '../../services/data/users.service';
+import {UserService} from '../../../services/data/users.service';
+import {Toast, ToasterService} from 'angular2-toaster';
 
 @Component({
   selector: 's2m-delete-employee',
@@ -22,18 +23,26 @@ import {UserService} from '../../services/data/users.service';
 })
 export class DeleteEmployeeComponent {
 
+  source: any;
   event: any;
 
   constructor(private activeModal: NgbActiveModal,
-              private userService: UserService) {
+              private userService: UserService,
+              private toastr: ToasterService) {
   }
 
   confirm() {
     this.userService.deleteUser(this.event.data.id)
       .subscribe(() => {
-        this.event.confirm.resolve();
-      }, () => {
-        this.event.confirm.reject();
+        this.source.remove(this.event.data);
+      }, (error) => {
+        const toast: Toast = {
+          type: 'error',
+          title: 'Помилка',
+          body: error.message,
+          showCloseButton: true,
+        };
+        this.toastr.pop(toast);
       }, () => {
         this.activeModal.close();
       });
@@ -41,7 +50,6 @@ export class DeleteEmployeeComponent {
   }
 
   close() {
-    this.event.confirm.reject();
     this.activeModal.close();
     return false;
   }

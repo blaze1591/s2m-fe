@@ -1,0 +1,153 @@
+<div class="modal-header">
+  <span>Новий користувач</span>
+  <button class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <label>Головна інформація</label>
+  <div class="row">
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Логін" type="text">
+    </div>
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Повне ім'я(укр)" type="text">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Повне ім'я(анг)" type="text">
+    </div>
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Повне ім'я(рос)" type="text">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Поштова скринька" type="email">
+    </div>
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Дата народження" type="text">
+    </div>
+  </div>
+  <label>Пароль</label>
+  <div class="row">
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Пароль" type="password">
+    </div>
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Підтвердження пароля" type="password">
+    </div>
+  </div>
+  <label>Індекс Гірша</label>
+  <div class="row">
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Індекс Гірша (Google Scholar)" type="text">
+    </div>
+    <div class="col-lg-6 form-group input-group-sm">
+      <input class="form-control" placeholder="Індекс Гірша (Scopus)" type="text">
+    </div>
+  </div>
+  <div class="row luft">
+    <div class="col-lg-4">
+      <label for="scienceDegree">Наукова ступінь</label>
+      <select id="scienceDegree" class="form-control form-control-sm mini-select">
+        <option>-</option>
+        <option>канд.тех.наук</option>
+      </select>
+    </div>
+    <div class="col-lg-4">
+      <label for="scienceTitle">Вчене звання</label>
+      <select id="scienceTitle" class="form-control form-control-sm mini-select">
+        <option>-</option>
+        <option>доцент</option>
+      </select>
+    </div>
+    <div class="col-lg-4">
+      <label for="role">Право доступу</label>
+      <select id="role" class="form-control form-control-sm mini-select">
+        <option>Admin</option>
+        <option>User</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <label for="cathedra">Кафедра</label>
+      <select id="cathedra" class="form-control form-control-sm mini-select">
+        <option>Кріогенної техніки</option>
+        <option>Менеджменту</option>
+      </select>
+    </div>
+    <div class="col-lg-4 form-group input-group-sm">
+      <label for="workPosition">Посада</label>
+      <input id="workPosition" class="form-control" placeholder="Посада" type="text">
+    </div>
+    <div class="col-lg-2 form-group">
+      <label>Ключова</label>
+      <label class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="customRadio" checked>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"></span>
+      </label>
+    </div>
+    <div class="col-lg-2 form-group">
+      <div class="modify-pos-button">
+        <button class="btn btn-success btn-tn" type="button">
+          <i class="ion-plus-round"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <select class="form-control form-control-sm mini-select">
+        <option>Кріогенної техніки</option>
+        <option>Менеджменту</option>
+      </select>
+    </div>
+    <div class="col-lg-4 form-group input-group-sm">
+      <input class="form-control" placeholder="Посада" type="text">
+    </div>
+    <div class="col-lg-2 form-group">
+
+      <label class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="customRadio">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"></span>
+      </label>
+    </div>
+    <div class="col-lg-2 form-group">
+      <button class="btn btn-danger btn-tn" type="button">
+        <i class="ion-minus-round"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <select class="form-control form-control-sm mini-select">
+        <option>Кріогенної техніки</option>
+        <option>Менеджменту</option>
+      </select>
+    </div>
+    <div class="col-lg-4 form-group input-group-sm">
+      <input class="form-control" placeholder="Посада" type="text">
+    </div>
+    <div class="col-lg-2 form-group">
+      <label class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="customRadio">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"></span>
+      </label>
+    </div>
+    <div class="col-lg-2 form-group">
+      <button class="btn btn-danger btn-tn" type="button">
+        <i class="ion-minus-round"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-sm btn-success" (click)="confirm()">Зберегти</button>
+  <button class="btn btn-sm btn-danger" (click)="close()">Відмінити</button>
+</div>

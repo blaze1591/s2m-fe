@@ -16,3 +16,14 @@
 .luft {
   padding-bottom: inherit;
 }
+
+.icon {
+  &-text {
+    font-size: 1rem;
+    vertical-align: 50%;
+  }
+  &-email {
+    color: #3dcc6d;
+  }
+  font-size: 2.25rem;
+}
