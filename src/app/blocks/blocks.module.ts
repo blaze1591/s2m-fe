@@ -15,8 +15,7 @@ import {DEFAULT_THEME} from './styles/theme.default';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {LoginComponent} from './components/login/login.component';
 import {NbAuthModule} from '@nebular/auth';
-import {AddEmployeeComponent} from './popups/add-employee/add-employee.component';
-import {DeleteEmployeeComponent} from './popups/delete-employee/delete-employee.component';
+import {AddEmployeeComponent, DeleteEmployeeComponent} from './popups';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 

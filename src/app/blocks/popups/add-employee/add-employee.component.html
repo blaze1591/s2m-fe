@@ -71,8 +71,83 @@
       </select>
     </div>
   </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <label for="cathedra">Кафедра</label>
+      <select id="cathedra" class="form-control form-control-sm mini-select">
+        <option>Кріогенної техніки</option>
+        <option>Менеджменту</option>
+      </select>
+    </div>
+    <div class="col-lg-4 form-group input-group-sm">
+      <label for="workPosition">Посада</label>
+      <input id="workPosition" class="form-control" placeholder="Посада" type="text">
+    </div>
+    <div class="col-lg-2 form-group">
+      <label>Ключова</label>
+      <label class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="customRadio" checked>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"></span>
+      </label>
+    </div>
+    <div class="col-lg-2 form-group">
+      <div class="modify-pos-button">
+        <button class="btn btn-success btn-tn" type="button">
+          <i class="ion-plus-round"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <select class="form-control form-control-sm mini-select">
+        <option>Кріогенної техніки</option>
+        <option>Менеджменту</option>
+      </select>
+    </div>
+    <div class="col-lg-4 form-group input-group-sm">
+      <input class="form-control" placeholder="Посада" type="text">
+    </div>
+    <div class="col-lg-2 form-group">
+
+      <label class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="customRadio">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"></span>
+      </label>
+    </div>
+    <div class="col-lg-2 form-group">
+      <button class="btn btn-danger btn-tn" type="button">
+        <i class="ion-minus-round"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <select class="form-control form-control-sm mini-select">
+        <option>Кріогенної техніки</option>
+        <option>Менеджменту</option>
+      </select>
+    </div>
+    <div class="col-lg-4 form-group input-group-sm">
+      <input class="form-control" placeholder="Посада" type="text">
+    </div>
+    <div class="col-lg-2 form-group">
+      <label class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" name="customRadio">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"></span>
+      </label>
+    </div>
+    <div class="col-lg-2 form-group">
+      <button class="btn btn-danger btn-tn" type="button">
+        <i class="ion-minus-round"></i>
+      </button>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-md btn-success" (click)="confirm()">Зберегти</button>
-  <button class="btn btn-md btn-danger" (click)="close()">Відмінити</button>
+  <button class="btn btn-sm btn-success" (click)="confirm()">Зберегти</button>
+  <button class="btn btn-sm btn-danger" (click)="close()">Відмінити</button>
 </div>
