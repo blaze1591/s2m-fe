@@ -11,6 +11,8 @@ import {ScienceUnit} from './model/science.unit';
 })
 export class PublicationsComponent implements OnInit {
   @ViewChild('lgModal') lgModal: ModalDirective;
+  @ViewChild('updateModal') updateModal: ModalDirective;
+  @ViewChild('deleteModal') deleteModal: ModalDirective;
   model = new ScienceUnit();
   types = ['Book', 'Chapter', 'Conference', 'Journal', 'Other', 'Patent', 'Thesis'];
 
@@ -75,6 +77,13 @@ export class PublicationsComponent implements OnInit {
       });
   }
 
+  loadScienceUnit(id: string): void {
+    this.scienceUnitService.getScienceUnitInfo(id)
+      .subscribe(response => {
+        this.model = response;
+      });
+  }
+
   create(event): void {
     this.model = new ScienceUnit();
     this.lgModal.show();
@@ -84,6 +93,28 @@ export class PublicationsComponent implements OnInit {
     this.scienceUnitService.saveScienceUnit(this.model);
     this.loadScienceUnits();
     this.lgModal.hide();
+  }
+
+  edit(event): void {
+    this.loadScienceUnit(event.data.id);
+    this.updateModal.show();
+  }
+
+  updateUnit(): void {
+    this.scienceUnitService.updateScienceUnit(this.model);
+    this.loadScienceUnits();
+    this.updateModal.hide();
+  }
+
+  delete(event) {
+    this.deleteModal.show();
+    this.model.id = event.data.id;
+  }
+
+  deleteUnit() {
+    this.scienceUnitService.deleteScienceUnit(this.model.id);
+    this.loadScienceUnits();
+    this.deleteModal.hide();
   }
 
   onSearch(query: string = '') {

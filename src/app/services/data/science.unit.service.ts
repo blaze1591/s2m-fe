@@ -13,6 +13,12 @@ export class ScienceUnitService {
               private auth: AuthService) {
   }
 
+  getScienceUnitInfo(id: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
+  }
+
   getAllScienceUnits(): Observable<Array<any>> {
     return this.http.get(`${environment.apiUrl}/unit`, this.auth.generateOptions())
       .map((res: Response) => res.json())
@@ -21,6 +27,20 @@ export class ScienceUnitService {
 
   saveScienceUnit(scienceUnit: ScienceUnit): void {
     this.http.post(`${environment.apiUrl}/unit`, scienceUnit, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'))
+      .subscribe();
+  }
+
+  updateScienceUnit(scienceUnit: ScienceUnit): void {
+    this.http.put(`${environment.apiUrl}/unit/${scienceUnit.id}`, scienceUnit, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'))
+      .subscribe();
+  }
+
+  deleteScienceUnit(id: string): void {
+    this.http.delete(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions())
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'))
       .subscribe();
