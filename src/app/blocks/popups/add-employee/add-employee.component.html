@@ -1,153 +1,202 @@
 <div class="modal-header">
   <span>Новий користувач</span>
-  <button class="close" aria-label="Close" (click)="close()">
+  <button class="close"
+          aria-label="Close"
+          (click)="close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <label>Головна інформація</label>
-  <div class="row">
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Логін" type="text">
+<form [formGroup]="addForm"
+      (ngSubmit)="confirm()">
+  <div class="modal-body">
+    <label>Головна інформація</label>
+    <div class="row">
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['login']"
+               placeholder="Логін"
+               type="text">
+      </div>
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['fioUkr']"
+               placeholder="Повне ім'я(укр)"
+               type="text">
+      </div>
     </div>
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Повне ім'я(укр)" type="text">
+    <div class="row">
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['fioEng']"
+               placeholder="Повне ім'я(анг)"
+               type="text">
+      </div>
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['fioRu']"
+               placeholder="Повне ім'я(рос)"
+               type="text">
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Повне ім'я(анг)" type="text">
+    <div class="row">
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['email']"
+               placeholder="Поштова скринька"
+               type="email">
+      </div>
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['birth']"
+               type="date">
+      </div>
     </div>
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Повне ім'я(рос)" type="text">
+    <label>Пароль</label>
+    <div class="row">
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['password']"
+               placeholder="Пароль"
+               type="password">
+      </div>
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               placeholder="Підтвердження пароля"
+               type="password">
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Поштова скринька" type="email">
+    <label>Індекс Гірша</label>
+    <div class="row">
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['hirshScholar']"
+               placeholder="Індекс Гірша (Google Scholar)"
+               type="text">
+      </div>
+      <div class="col-lg-6 form-group input-group-sm">
+        <input class="form-control"
+               [formControl]="addForm.controls['hirshScopus']"
+               placeholder="Індекс Гірша (Scopus)"
+               type="text">
+      </div>
     </div>
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Дата народження" type="text">
+    <div class="row luft">
+      <div class="col-lg-4">
+        <label for="scienceDegree">Наукова ступінь</label>
+        <select id="scienceDegree"
+                [formControl]="addForm.controls['scienceDegree']"
+                class="form-control form-control-sm mini-select">
+          <option>-</option>
+          <option>канд.тех.наук</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label for="scienceTitle">Вчене звання</label>
+        <select id="scienceTitle"
+                [formControl]="addForm.controls['scienceTitle']"
+                class="form-control form-control-sm mini-select">
+          <option value="-">-</option>
+          <option value="доцент">доцент</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label for="role">Право доступу</label>
+        <select id="role"
+                [formControl]="addForm.controls['role']"
+                class="form-control form-control-sm mini-select">
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+      </div>
     </div>
-  </div>
-  <label>Пароль</label>
-  <div class="row">
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Пароль" type="password">
+    <div class="row">
+      <div class="col-lg-4">
+        <label for="cathedra">Кафедра</label>
+        <select id="cathedra"
+                [formControl]="addForm.controls['cathedra']"
+                class="form-control form-control-sm mini-select">
+          <option value="Кріогенної техніки">Кріогенної техніки</option>
+          <option value="Менеджменту">Менеджменту</option>
+        </select>
+      </div>
+      <div class="col-lg-4 form-group input-group-sm">
+        <label for="workPosition">Посада</label>
+        <input id="workPosition"
+               [formControl]="addForm.controls['workPosition']"
+               class="form-control"
+               placeholder="Посада"
+               type="text">
+      </div>
+      <div class="col-lg-2 form-group">
+        <label>Ключова</label>
+        <label class="custom-control custom-radio">
+          <input type="radio"
+                 [formControl]="addForm.controls['keyPosition']"
+                 class="custom-control-input"
+                 name="customRadio"
+                 checked>
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description"></span>
+        </label>
+      </div>
+      <div class="col-lg-2 form-group">
+        <div class="modify-pos-button">
+          <button class="btn btn-success btn-tn" type="button">
+            <i class="ion-plus-round"></i>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Підтвердження пароля" type="password">
+    <div class="row">
+      <div class="col-lg-4">
+        <select class="form-control form-control-sm mini-select">
+          <option>Кріогенної техніки</option>
+          <option>Менеджменту</option>
+        </select>
+      </div>
+      <div class="col-lg-4 form-group input-group-sm">
+        <input class="form-control" placeholder="Посада" type="text">
+      </div>
+      <div class="col-lg-2 form-group">
+
+        <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" name="customRadio">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description"></span>
+        </label>
+      </div>
+      <div class="col-lg-2 form-group">
+        <button class="btn btn-danger btn-tn" type="button">
+          <i class="ion-minus-round"></i>
+        </button>
+      </div>
     </div>
-  </div>
-  <label>Індекс Гірша</label>
-  <div class="row">
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Індекс Гірша (Google Scholar)" type="text">
-    </div>
-    <div class="col-lg-6 form-group input-group-sm">
-      <input class="form-control" placeholder="Індекс Гірша (Scopus)" type="text">
-    </div>
-  </div>
-  <div class="row luft">
-    <div class="col-lg-4">
-      <label for="scienceDegree">Наукова ступінь</label>
-      <select id="scienceDegree" class="form-control form-control-sm mini-select">
-        <option>-</option>
-        <option>канд.тех.наук</option>
-      </select>
-    </div>
-    <div class="col-lg-4">
-      <label for="scienceTitle">Вчене звання</label>
-      <select id="scienceTitle" class="form-control form-control-sm mini-select">
-        <option>-</option>
-        <option>доцент</option>
-      </select>
-    </div>
-    <div class="col-lg-4">
-      <label for="role">Право доступу</label>
-      <select id="role" class="form-control form-control-sm mini-select">
-        <option>Admin</option>
-        <option>User</option>
-      </select>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4">
-      <label for="cathedra">Кафедра</label>
-      <select id="cathedra" class="form-control form-control-sm mini-select">
-        <option>Кріогенної техніки</option>
-        <option>Менеджменту</option>
-      </select>
-    </div>
-    <div class="col-lg-4 form-group input-group-sm">
-      <label for="workPosition">Посада</label>
-      <input id="workPosition" class="form-control" placeholder="Посада" type="text">
-    </div>
-    <div class="col-lg-2 form-group">
-      <label>Ключова</label>
-      <label class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" name="customRadio" checked>
-        <span class="custom-control-indicator"></span>
-        <span class="custom-control-description"></span>
-      </label>
-    </div>
-    <div class="col-lg-2 form-group">
-      <div class="modify-pos-button">
-        <button class="btn btn-success btn-tn" type="button">
-          <i class="ion-plus-round"></i>
+    <div class="row">
+      <div class="col-lg-4">
+        <select class="form-control form-control-sm mini-select">
+          <option>Кріогенної техніки</option>
+          <option>Менеджменту</option>
+        </select>
+      </div>
+      <div class="col-lg-4 form-group input-group-sm">
+        <input class="form-control" placeholder="Посада" type="text">
+      </div>
+      <div class="col-lg-2 form-group">
+        <label class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" name="customRadio">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description"></span>
+        </label>
+      </div>
+      <div class="col-lg-2 form-group">
+        <button class="btn btn-danger btn-tn" type="button">
+          <i class="ion-minus-round"></i>
         </button>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-4">
-      <select class="form-control form-control-sm mini-select">
-        <option>Кріогенної техніки</option>
-        <option>Менеджменту</option>
-      </select>
-    </div>
-    <div class="col-lg-4 form-group input-group-sm">
-      <input class="form-control" placeholder="Посада" type="text">
-    </div>
-    <div class="col-lg-2 form-group">
-
-      <label class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" name="customRadio">
-        <span class="custom-control-indicator"></span>
-        <span class="custom-control-description"></span>
-      </label>
-    </div>
-    <div class="col-lg-2 form-group">
-      <button class="btn btn-danger btn-tn" type="button">
-        <i class="ion-minus-round"></i>
-      </button>
-    </div>
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-hero-success" type="submit">Зберегти</button>
+    <button class="btn btn-sm btn-hero-danger" (click)="close()">Відмінити</button>
   </div>
-  <div class="row">
-    <div class="col-lg-4">
-      <select class="form-control form-control-sm mini-select">
-        <option>Кріогенної техніки</option>
-        <option>Менеджменту</option>
-      </select>
-    </div>
-    <div class="col-lg-4 form-group input-group-sm">
-      <input class="form-control" placeholder="Посада" type="text">
-    </div>
-    <div class="col-lg-2 form-group">
-      <label class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" name="customRadio">
-        <span class="custom-control-indicator"></span>
-        <span class="custom-control-description"></span>
-      </label>
-    </div>
-    <div class="col-lg-2 form-group">
-      <button class="btn btn-danger btn-tn" type="button">
-        <i class="ion-minus-round"></i>
-      </button>
-    </div>
-  </div>
-</div>
-<div class="modal-footer">
-  <button class="btn btn-sm btn-success" (click)="confirm()">Зберегти</button>
-  <button class="btn btn-sm btn-danger" (click)="close()">Відмінити</button>
-</div>
+</form>

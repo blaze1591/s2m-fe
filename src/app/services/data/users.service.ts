@@ -24,6 +24,11 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json().error || 'getUsers error'));
   }
 
+  addUser(user): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/user`, user, this.auth.generateOptions())
+      .catch((error: any) => Observable.throw(error.json().error || 'addUser error'));
+  }
+
   deleteUser(userId): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/user/${userId}`, this.auth.generateOptions())
       .catch((error: any) => Observable.throw(error.json().error || 'deleteUser error'));
