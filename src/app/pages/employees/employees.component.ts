@@ -6,11 +6,13 @@ import {DeleteEmployeeComponent} from '../../blocks/popups/delete-employee/delet
 import {AddEmployeeComponent} from '../../blocks/popups/add-employee/add-employee.component';
 import {AuthService} from '../../services/auth.service';
 import {Toast, ToasterService} from 'angular2-toaster';
+import {UserFromBEPipe} from '../../blocks/pipes';
 
 @Component({
   selector: 's2m-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss'],
+  providers: [UserFromBEPipe],
 })
 export class EmployeesComponent implements OnInit {
 
@@ -43,26 +45,14 @@ export class EmployeesComponent implements OnInit {
   constructor(private userService: UserService,
               private modalService: NgbModal,
               private auth: AuthService,
-              private toastr: ToasterService) {
+              private toastr: ToasterService,
+              private userConverter: UserFromBEPipe) {
     this.source = new LocalDataSource();
   }
 
   ngOnInit() {
     this.userService.getUsers().subscribe(response => {
-      const users = response.map((user) => {
-        return {
-          id: user.id,
-          fioUkr: `${user.firstNameUa} ${user.middleNameUa} ${user.lastNameUa}`,
-          fioRu: `${user.firstNameRu} ${user.middleNameRu} ${user.lastNameRu}`,
-          fioEng: `${user.firstName} ${user.middleName} ${user.lastName}`,
-          email: user.email,
-          institute: user.institute,
-          faculty: user.faculty,
-          academicTitle: user.academicTitle,
-          scienceDegree: user.scienceDegree,
-          cathedra: user.cathedras && user.cathedras[0].name,
-        };
-      });
+      const users = this.userConverter.transform(response);
       this.source.load(users);
     });
   }

@@ -196,7 +196,16 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-sm btn-hero-success" type="submit">Зберегти</button>
-    <button class="btn btn-sm btn-hero-danger" (click)="close()">Відмінити</button>
+    <button class="btn btn-sm btn-hero-success"
+            [disabled]="submitted || !addForm.valid"
+            [class.btn-pulse]="submitted"
+            type="submit">
+      Зберегти
+    </button>
+    <button class="btn btn-sm btn-hero-danger"
+            [disabled]="submitted"
+            (click)="close()">
+      Відмінити
+    </button>
   </div>
 </form>

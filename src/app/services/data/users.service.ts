@@ -26,6 +26,7 @@ export class UserService {
 
   addUser(user): Observable<any> {
     return this.http.post(`${environment.apiUrl}/user`, user, this.auth.generateOptions())
+      .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'addUser error'));
   }
 
