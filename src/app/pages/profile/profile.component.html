@@ -77,7 +77,7 @@
                   <label for="cathedras">Кафедры</label>
                   <select id="cathedras" disabled class="form-control" multiple>
                     <option *ngFor="let cathedra of user.cathedras" [attr.title]="cathedra.name">
-                      {{cathedra.shortName}}: {{cathedra.post}}
+                      {{cathedra.name}}: {{cathedra.post}}
                     </option>
                   </select>
                 </div>

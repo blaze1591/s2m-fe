@@ -15,7 +15,7 @@ export class UserFromBEPipe implements PipeTransform {
         faculty: user.faculty,
         academicTitle: user.academicTitle,
         scienceDegree: user.scienceDegree,
-        cathedra: user.cathedras && user.cathedras[0].name,
+        cathedra: user.cathedras && user.cathedras.find((c) => c.key).name,
       };
     });
   }
