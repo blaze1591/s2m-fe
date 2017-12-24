@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from '../../../services/data/users.service';
 import {Toast, ToasterService} from 'angular2-toaster';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserFromBEPipe} from '../../pipes';
 
 @Component({
@@ -17,6 +17,9 @@ export class AddEmployeeComponent {
   event: any;
 
   submitted = false;
+  loading = false;
+
+  dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
 
   constructor(private activeModal: NgbActiveModal,
               private userFromBeConverter: UserFromBEPipe,
@@ -24,12 +27,13 @@ export class AddEmployeeComponent {
               private toastr: ToasterService,
               private fb: FormBuilder) {
     this.addForm = fb.group({
-      'login': ['blaze159'],
-      'fioUkr': ['Кожухар Олександр Сергійнович'],
-      'fioEng': ['Kozhuchar Oleksandr Sergiovich'],
-      'fioRu': ['Кожухарь Александр Сергеевич'],
+      'login': ['blaze159', [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
+      'fioUkr': ['Кожухар Олександр Сергійович', [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
+      'fioEng': ['Kozhuchar Aleksandr Sergiiovich', [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){3}$')]],
+      'fioRu': ['Кожухарь Александр Сергеевич', [Validators.required, Validators.pattern('^([А-Я][а-я]+[\\-\\s]?){3}$')]],
       'email': ['alex.kozhuchar@gmail.com'],
-      'birth': [''],
+      'birth': ['15/11/1994', [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+        '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'password': [''],
       'hirshScholar': [''],
       'hirshScopus': [''],
@@ -44,18 +48,22 @@ export class AddEmployeeComponent {
 
   confirm() {
     this.submitted = true;
-    const user = this.convertUserFromForm();
-    this.userService.addUser(user)
-      .subscribe((responseUser) => {
-        const conversion: Array<any> = this.userFromBeConverter.transform([responseUser]);
-        this.source.append(conversion.pop());
-      }, (error) => {
-        const toast: Toast = {type: 'error', title: 'Помилка', body: error.message, showCloseButton: true};
-        this.toastr.pop(toast);
-      }, () => {
-        this.submitted = false;
-        this.activeModal.close();
-      });
+    if (this.addForm.valid) {
+      this.loading = true;
+      const user = this.convertUserFromForm();
+      this.userService.addUser(user)
+        .finally(() => {
+          this.loading = false;
+        })
+        .subscribe((responseUser) => {
+          const conversion: Array<any> = this.userFromBeConverter.transform([responseUser]);
+          this.source.append(conversion.pop());
+          this.activeModal.close();
+        }, (error) => {
+          const toast: Toast = {type: 'error', title: 'Помилка', body: error.message, showCloseButton: true};
+          this.toastr.pop(toast);
+        });
+    }
     return false;
   }
 
@@ -84,12 +92,13 @@ export class AddEmployeeComponent {
     const fioEng = formValue.fioEng.split(' ');
     const keyPosition = formValue.keyPosition;
     formValue.cathedras[keyPosition].key = true;
+    const [day, month, year] = formValue.birth.split('/');
     return {
       firstName: fioEng[0], middleName: fioEng[1], lastName: fioEng[2],
       firstNameUa: fioUkr[0], middleNameUa: fioUkr[1], lastNameUa: fioUkr[2],
       firstNameRu: fioRu[0], middleNameRu: fioRu[1], lastNameRu: fioRu[2],
       email: formValue.email,
-      birthDate: new Date(formValue.birth),
+      birthDate: new Date(year, month - 1, day),
       academicTitle: formValue.scienceTitle,
       scienceDegree: formValue.scienceDegree,
       cathedras: formValue.cathedras,

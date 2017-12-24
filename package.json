@@ -46,6 +46,7 @@
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.26",
     "@swimlane/ngx-charts": "5.2.0",
     "angular2-chartjs": "^0.3.0",
+    "angular2-text-mask": "^8.0.4",
     "angular2-toaster": "4.0.0",
     "bootstrap": "4.0.0-alpha.6",
     "chart.js": "2.5.0",
@@ -61,9 +62,11 @@
     "ionicons": "2.0.1",
     "leaflet": "1.0.3",
     "nebular-icons": "1.0.6",
+    "ng2-bootstrap": "latest",
     "ng2-ckeditor": "1.1.6",
     "ng2-smart-table": "1.1.0",
     "ng2-tree": "2.0.0-alpha.5",
+    "ngx-bootstrap": "latest",
     "ngx-echarts": "1.2.2",
     "normalize.css": "6.0.0",
     "roboto-fontface": "0.8.0",
@@ -73,9 +76,7 @@
     "tinymce": "4.5.7",
     "typeface-exo": "0.0.22",
     "web-animations-js": "2.2.5",
-    "zone.js": "0.8.16",
-    "ng2-bootstrap": "latest",
-    "ngx-bootstrap": "latest"
+    "zone.js": "0.8.16"
   },
   "devDependencies": {
     "@angular/cli": "1.4.2",

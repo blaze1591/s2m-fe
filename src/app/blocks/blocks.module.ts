@@ -16,6 +16,7 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {LoginComponent} from './components/login/login.component';
 import {NbAuthModule} from '@nebular/auth';
 import {AddEmployeeComponent, DeleteEmployeeComponent} from './popups';
+import {TextMaskModule} from 'angular2-text-mask';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -31,6 +32,7 @@ const NB_MODULES = [
   NbSidebarModule,
   NbCheckboxModule,
   NgbModule,
+  TextMaskModule,
   Ng2SmartTableModule,
   NbAuthModule,
 ];

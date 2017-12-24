@@ -15,27 +15,64 @@
         <input class="form-control"
                formControlName="login"
                placeholder="Логін"
-               type="text">
+               type="text"
+               [attr.maxlength]="15"
+               [class.form-control-danger]="submitted && !addForm.controls['login'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['login'].hasError('required')">
+          Потрібен логін
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['login'].hasError('pattern')">
+          Неправильний формат
+        </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
         <input class="form-control"
                formControlName="fioUkr"
-               placeholder="Повне ім'я(укр)"
-               type="text">
+               placeholder="Прізвище ім`я по батькові(укр)"
+               type="text"
+               [class.form-control-danger]="submitted && !addForm.controls['fioUkr'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['fioUkr'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['fioUkr'].hasError('pattern')">
+          Неправильний формат
+        </small>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-6 form-group input-group-sm">
         <input class="form-control"
                formControlName="fioEng"
-               placeholder="Повне ім'я(анг)"
-               type="text">
+               placeholder="Прізвище ім`я по батькові(анг)"
+               type="text"
+               [class.form-control-danger]="submitted && !addForm.controls['fioEng'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['fioEng'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['fioEng'].hasError('pattern')">
+          Неправильний формат
+        </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
         <input class="form-control"
                formControlName="fioRu"
-               placeholder="Повне ім'я(рос)"
-               type="text">
+               placeholder="Прізвище ім`я по батькові(рос)"
+               type="text"
+               [class.form-control-danger]="submitted && !addForm.controls['fioRu'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['fioRu'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['fioRu'].hasError('pattern')">
+          Неправильний формат
+        </small>
       </div>
     </div>
     <div class="row">
@@ -43,12 +80,28 @@
         <input class="form-control"
                formControlName="email"
                placeholder="Поштова скринька"
-               type="email">
+               [class.form-control-danger]="submitted && !addForm.controls['email'].valid"
+               email>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['email'].hasError('email')">
+          Введіть електронну пошту у правильному форматі
+        </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
         <input class="form-control"
                formControlName="birth"
-               type="date">
+               type="text"
+               placeholder="dd/mm/yyyy"
+               [class.form-control-danger]="submitted && !addForm.controls['birth'].valid"
+               [textMask]="{mask: dateMask, keepCharPositions: true}">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['birth'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['birth'].hasError('pattern')">
+          Введіть коректну дату
+        </small>
       </div>
     </div>
     <label>Пароль</label>
@@ -162,13 +215,13 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-sm btn-hero-success"
-            [disabled]="submitted || !addForm.valid"
-            [class.btn-pulse]="submitted"
+            [class.btn-pulse]="loading"
+            [disabled]="loading"
             type="submit">
       Зберегти
     </button>
     <button class="btn btn-sm btn-hero-danger"
-            [disabled]="submitted"
+            [disabled]="loading"
             (click)="close()">
       Відмінити
     </button>
