@@ -32,6 +32,7 @@
                formControlName="fioUkr"
                placeholder="Прізвище ім`я по батькові(укр)"
                type="text"
+               [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['fioUkr'].valid">
         <small class="form-text error"
                *ngIf="submitted && addForm.controls['fioUkr'].hasError('required')">
@@ -49,6 +50,7 @@
                formControlName="fioEng"
                placeholder="Прізвище ім`я по батькові(анг)"
                type="text"
+               [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['fioEng'].valid">
         <small class="form-text error"
                *ngIf="submitted && addForm.controls['fioEng'].hasError('required')">
@@ -64,6 +66,7 @@
                formControlName="fioRu"
                placeholder="Прізвище ім`я по батькові(рос)"
                type="text"
+               [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['fioRu'].valid">
         <small class="form-text error"
                *ngIf="submitted && addForm.controls['fioRu'].hasError('required')">
@@ -80,6 +83,7 @@
         <input class="form-control"
                formControlName="email"
                placeholder="Поштова скринька"
+               [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['email'].valid"
                email>
         <small class="form-text error"
@@ -110,12 +114,33 @@
         <input class="form-control"
                formControlName="password"
                placeholder="Пароль"
-               type="password">
+               type="password"
+               [attr.maxlength]="50"
+               [class.form-control-danger]="submitted && !addForm.controls['password'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['password'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['password'].hasError('min')">
+          Введіть мінімум 6 символів
+        </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
         <input class="form-control"
+               formControlName="confirmPassword"
                placeholder="Підтвердження пароля"
-               type="password">
+               [attr.maxlength]="50"
+               type="password"
+               [class.form-control-danger]="submitted && !addForm.controls['confirmPassword'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['confirmPassword'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['confirmPassword'].hasError('confirmPassword')">
+          Пароль не співпадає
+        </small>
       </div>
     </div>
     <label>Індекс Гірша</label>
@@ -124,13 +149,39 @@
         <input class="form-control"
                formControlName="hirshScholar"
                placeholder="Індекс Гірша (Google Scholar)"
-               type="text">
+               type="number" step="0.1"
+               [class.form-control-danger]="submitted && !addForm.controls['hirshScholar'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['hirshScholar'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['hirshScholar'].hasError('min')">
+          Значення потрібно бути більше 0
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['hirshScholar'].hasError('max')">
+          Значення потрібно бути меньше 100
+        </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
         <input class="form-control"
                formControlName="hirshScopus"
                placeholder="Індекс Гірша (Scopus)"
-               type="text">
+               type="number" step="0.1"
+               [class.form-control-danger]="submitted && !addForm.controls['hirshScopus'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['hirshScopus'].hasError('required')">
+          Потрібне поле
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['hirshScopus'].hasError('min')">
+          Значення потрібно бути більше 0
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && addForm.controls['hirshScopus'].hasError('max')">
+          Значення потрібно бути меньше 100
+        </small>
       </div>
     </div>
     <div class="row luft">
@@ -139,8 +190,9 @@
         <select id="scienceDegree"
                 [formControl]="addForm.controls['scienceDegree']"
                 class="form-control form-control-sm mini-select">
-          <option>-</option>
-          <option>канд.тех.наук</option>
+          <option *ngFor="let scienceDegree of getScienceDegrees()" [value]="scienceDegree">
+            {{scienceDegree}}
+          </option>
         </select>
       </div>
       <div class="col-lg-4">
@@ -148,8 +200,9 @@
         <select id="scienceTitle"
                 [formControl]="addForm.controls['scienceTitle']"
                 class="form-control form-control-sm mini-select">
-          <option value="-">-</option>
-          <option value="доцент">доцент</option>
+          <option *ngFor="let scienceTitle of getScienceTitles()" [value]="scienceTitle">
+            {{scienceTitle}}
+          </option>
         </select>
       </div>
       <div class="col-lg-4">
@@ -157,8 +210,9 @@
         <select id="role"
                 [formControl]="addForm.controls['role']"
                 class="form-control form-control-sm mini-select">
-          <option value="Admin">Admin</option>
-          <option value="User">User</option>
+          <option *ngFor="let role of getRoles()" [value]="role.value">
+            {{role.name}}
+          </option>
         </select>
       </div>
     </div>
@@ -169,8 +223,9 @@
             <label *ngIf="i === 0">Кафедра</label>
             <select formControlName="name"
                     class="form-control form-control-sm mini-select">
-              <option value="Кріогенної техніки">Кріогенної техніки</option>
-              <option value="Менеджменту">Менеджменту</option>
+              <option *ngFor="let cathedra of getCathedras()" [value]="cathedra">
+                {{cathedra}}
+              </option>
             </select>
           </div>
           <div class="col-lg-4 form-group input-group-sm">
@@ -178,7 +233,9 @@
             <input formControlName="post"
                    class="form-control"
                    placeholder="Посада"
-                   type="text">
+                   type="text"
+                   [attr.maxlength]="30"
+                   [class.form-control-danger]="submitted && !pos.controls['post'].valid">
           </div>
           <div class="col-lg-2 form-group">
             <label *ngIf="i === 0">Ключова</label>

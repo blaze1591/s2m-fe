@@ -4,6 +4,8 @@ import {UserService} from '../../../services/data/users.service';
 import {Toast, ToasterService} from 'angular2-toaster';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserFromBEPipe} from '../../pipes';
+import {PasswordConfirmValidator} from '../../validators/password-confirm.validator';
+import {CATHEDRAS} from './cathedras.const';
 
 @Component({
   selector: 's2m-add-employee',
@@ -27,21 +29,24 @@ export class AddEmployeeComponent {
               private toastr: ToasterService,
               private fb: FormBuilder) {
     this.addForm = fb.group({
-      'login': ['blaze159', [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
-      'fioUkr': ['Кожухар Олександр Сергійович', [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
-      'fioEng': ['Kozhuchar Aleksandr Sergiiovich', [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){3}$')]],
-      'fioRu': ['Кожухарь Александр Сергеевич', [Validators.required, Validators.pattern('^([А-Я][а-я]+[\\-\\s]?){3}$')]],
-      'email': ['alex.kozhuchar@gmail.com'],
-      'birth': ['15/11/1994', [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+      'login': ['', [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
+      'fioUkr': ['', [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
+      'fioEng': ['', [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){3}$')]],
+      'fioRu': ['', [Validators.required, Validators.pattern('^([А-Я][а-я]+[\\-\\s]?){3}$')]],
+      'email': [''],
+      'birth': ['', [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
-      'password': [''],
-      'hirshScholar': [''],
-      'hirshScopus': [''],
+      'password': ['', [Validators.required, Validators.min(6)]],
+      'confirmPassword': ['', Validators.required],
+      'hirshScholar': [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      'hirshScopus': [0, [Validators.required, Validators.min(0), Validators.max(100)]],
       'scienceDegree': ['-'],
       'scienceTitle': ['-'],
       'role': ['Admin'],
       'cathedras': fb.array([this.initPositionRow()]),
       'keyPosition': [],
+    }, {
+      validator: PasswordConfirmValidator.confirm,
     });
     this.addForm.controls['keyPosition'].setValue(0);
   }
@@ -85,6 +90,30 @@ export class AddEmployeeComponent {
     return false;
   }
 
+  getScienceDegrees(): Array<string> {
+    return ['-',
+      'канд.тех.наук',
+      'канд.екон.наук',
+      'канд.ф-мат.наук',
+      'докт.тех.наук',
+      'докт.екон.наук',
+      'докт.ф-мат.наук'];
+  }
+
+  getScienceTitles(): Array<string> {
+    return ['-', 'доцент', 'професор'];
+  }
+
+  getRoles(): Array<any> {
+    return [{name: 'Адмін', value: 'Admin'},
+      {name: 'Користувач', value: 'User'},
+      {name: 'Вповноважений', value: 'Responsible'}];
+  }
+
+  getCathedras(): Array<string> {
+    return CATHEDRAS;
+  }
+
   private convertUserFromForm(): any {
     const formValue = this.addForm.value;
     const fioUkr = formValue.fioUkr.split(' ');
@@ -94,9 +123,9 @@ export class AddEmployeeComponent {
     formValue.cathedras[keyPosition].key = true;
     const [day, month, year] = formValue.birth.split('/');
     return {
-      firstName: fioEng[0], middleName: fioEng[1], lastName: fioEng[2],
-      firstNameUa: fioUkr[0], middleNameUa: fioUkr[1], lastNameUa: fioUkr[2],
-      firstNameRu: fioRu[0], middleNameRu: fioRu[1], lastNameRu: fioRu[2],
+      firstName: fioEng[1], middleName: fioEng[2], lastName: fioEng[0],
+      firstNameUa: fioUkr[1], middleNameUa: fioUkr[2], lastNameUa: fioUkr[0],
+      firstNameRu: fioRu[1], middleNameRu: fioRu[2], lastNameRu: fioRu[0],
       email: formValue.email,
       birthDate: new Date(year, month - 1, day),
       academicTitle: formValue.scienceTitle,
@@ -108,8 +137,8 @@ export class AddEmployeeComponent {
 
   private initPositionRow() {
     return this.fb.group({
-      'name': ['Менеджменту'],
-      'post': ['Посада'],
+      'name': ['-'],
+      'post': ['', Validators.required],
       'key': [false],
     });
   }
