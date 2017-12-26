@@ -130,6 +130,8 @@ export class AddEmployeeComponent {
       birthDate: new Date(year, month - 1, day),
       academicTitle: formValue.scienceTitle,
       scienceDegree: formValue.scienceDegree,
+      hirshScopus: formValue.hirshScopus,
+      hirshScholar: formValue.hirshScholar,
       cathedras: formValue.cathedras,
       credentials: {userName: formValue.login, password: formValue.password, role: formValue.role},
     };

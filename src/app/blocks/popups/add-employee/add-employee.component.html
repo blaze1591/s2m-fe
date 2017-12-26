@@ -12,9 +12,9 @@
     <label>Головна інформація</label>
     <div class="row">
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Логін</label>
         <input class="form-control"
                formControlName="login"
-               placeholder="Логін"
                type="text"
                [attr.maxlength]="15"
                [class.form-control-danger]="submitted && !addForm.controls['login'].valid">
@@ -28,9 +28,9 @@
         </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Прізвище ім`я по батькові(укр)</label>
         <input class="form-control"
                formControlName="fioUkr"
-               placeholder="Прізвище ім`я по батькові(укр)"
                type="text"
                [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['fioUkr'].valid">
@@ -46,9 +46,9 @@
     </div>
     <div class="row">
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Прізвище ім`я по батькові(анг)</label>
         <input class="form-control"
                formControlName="fioEng"
-               placeholder="Прізвище ім`я по батькові(анг)"
                type="text"
                [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['fioEng'].valid">
@@ -62,9 +62,9 @@
         </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Прізвище ім`я по батькові(рос)</label>
         <input class="form-control"
                formControlName="fioRu"
-               placeholder="Прізвище ім`я по батькові(рос)"
                type="text"
                [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['fioRu'].valid">
@@ -80,9 +80,9 @@
     </div>
     <div class="row">
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Поштова скринька</label>
         <input class="form-control"
                formControlName="email"
-               placeholder="Поштова скринька"
                [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['email'].valid"
                email>
@@ -92,6 +92,7 @@
         </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Дата народження</label>
         <input class="form-control"
                formControlName="birth"
                type="text"
@@ -108,12 +109,11 @@
         </small>
       </div>
     </div>
-    <label>Пароль</label>
     <div class="row">
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Пароль</label>
         <input class="form-control"
                formControlName="password"
-               placeholder="Пароль"
                type="password"
                [attr.maxlength]="50"
                [class.form-control-danger]="submitted && !addForm.controls['password'].valid">
@@ -127,9 +127,9 @@
         </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Підтвердження пароля</label>
         <input class="form-control"
                formControlName="confirmPassword"
-               placeholder="Підтвердження пароля"
                [attr.maxlength]="50"
                type="password"
                [class.form-control-danger]="submitted && !addForm.controls['confirmPassword'].valid">
@@ -146,9 +146,9 @@
     <label>Індекс Гірша</label>
     <div class="row">
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Google Scholar</label>
         <input class="form-control"
                formControlName="hirshScholar"
-               placeholder="Індекс Гірша (Google Scholar)"
                type="number" step="0.1"
                [class.form-control-danger]="submitted && !addForm.controls['hirshScholar'].valid">
         <small class="form-text error"
@@ -165,9 +165,9 @@
         </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
+        <label>Scopus</label>
         <input class="form-control"
                formControlName="hirshScopus"
-               placeholder="Індекс Гірша (Scopus)"
                type="number" step="0.1"
                [class.form-control-danger]="submitted && !addForm.controls['hirshScopus'].valid">
         <small class="form-text error"

@@ -7,9 +7,9 @@ export class UserFromBEPipe implements PipeTransform {
     return input.map((user) => {
       return {
         id: user.id,
-        fioUkr: `${user.firstNameUa} ${user.middleNameUa} ${user.lastNameUa}`,
-        fioRu: `${user.firstNameRu} ${user.middleNameRu} ${user.lastNameRu}`,
-        fioEng: `${user.firstName} ${user.middleName} ${user.lastName}`,
+        fioUkr: `${user.lastNameUa} ${user.firstNameUa} ${user.middleNameUa}`,
+        fioRu: `${user.lastNameRu} ${user.firstNameRu} ${user.middleNameRu}`,
+        fioEng: `${user.lastName} ${user.firstName} ${user.middleName}`,
         email: user.email,
         institute: user.institute,
         faculty: user.faculty,
