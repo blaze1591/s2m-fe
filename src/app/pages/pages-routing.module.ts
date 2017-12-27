@@ -23,7 +23,7 @@ const routes: Routes = [{
       component: PublicationsComponent,
     },
     {
-      path: 'profile',
+      path: 'profile/:id',
       component: ProfileComponent,
     },
     {

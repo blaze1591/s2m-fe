@@ -23,7 +23,8 @@
         <ng2-smart-table [settings]="settings"
                          [source]="source"
                          (create)="onAddConfirm($event)"
-                         (delete)="onDeleteConfirm($event)">
+                         (delete)="onDeleteConfirm($event)"
+                         (userRowSelect)="goToProfile($event)">
         </ng2-smart-table>
       </div>
     </div>

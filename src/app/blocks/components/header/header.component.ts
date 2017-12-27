@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   photo: string;
 
-  userMenu = [{title: 'Профіль', link: 'profile'}, {title: 'Вийти'}];
+  userMenu = [{title: 'Профіль', link: `profile/${this.authService.getUserId()}`}, {title: 'Вийти'}];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,

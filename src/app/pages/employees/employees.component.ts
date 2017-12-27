@@ -7,6 +7,7 @@ import {AddEmployeeComponent} from '../../blocks/popups/add-employee/add-employe
 import {AuthService} from '../../services/auth.service';
 import {Toast, ToasterService} from 'angular2-toaster';
 import {UserFromBEPipe} from '../../blocks/pipes';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 's2m-employees',
@@ -42,7 +43,8 @@ export class EmployeesComponent implements OnInit {
 
   source: LocalDataSource;
 
-  constructor(private userService: UserService,
+  constructor(private router: Router,
+              private userService: UserService,
               private modalService: NgbModal,
               private auth: AuthService,
               private toastr: ToasterService,
@@ -61,6 +63,10 @@ export class EmployeesComponent implements OnInit {
     const addModal = this.modalService.open(AddEmployeeComponent, {size: 'lg', container: 'nb-layout'});
     addModal.componentInstance.source = this.source;
     addModal.componentInstance.event = event;
+  }
+
+  goToProfile(event) {
+    this.router.navigate(['pages/profile', event.data.id]);
   }
 
   onDeleteConfirm(event) {
