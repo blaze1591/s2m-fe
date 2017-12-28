@@ -1,12 +1,12 @@
 <div class="modal-header">
-  <span>Новий користувач</span>
+  <span>{{event.data ? 'Модифікація існуючого користувача' : 'Новий користувач'}}</span>
   <button class="close"
           aria-label="Close"
           (click)="close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<form [formGroup]="addForm"
+<form [formGroup]="modifyForm"
       (ngSubmit)="confirm()">
   <div class="modal-body">
     <label>Головна інформація</label>
@@ -17,13 +17,13 @@
                formControlName="login"
                type="text"
                [attr.maxlength]="15"
-               [class.form-control-danger]="submitted && !addForm.controls['login'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['login'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['login'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['login'].hasError('required')">
           Потрібен логін
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['login'].hasError('pattern')">
+               *ngIf="submitted && modifyForm.controls['login'].hasError('pattern')">
           Неправильний формат
         </small>
       </div>
@@ -33,13 +33,13 @@
                formControlName="fioUkr"
                type="text"
                [attr.maxlength]="50"
-               [class.form-control-danger]="submitted && !addForm.controls['fioUkr'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['fioUkr'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['fioUkr'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['fioUkr'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['fioUkr'].hasError('pattern')">
+               *ngIf="submitted && modifyForm.controls['fioUkr'].hasError('pattern')">
           Неправильний формат
         </small>
       </div>
@@ -51,13 +51,13 @@
                formControlName="fioEng"
                type="text"
                [attr.maxlength]="50"
-               [class.form-control-danger]="submitted && !addForm.controls['fioEng'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['fioEng'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['fioEng'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['fioEng'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['fioEng'].hasError('pattern')">
+               *ngIf="submitted && modifyForm.controls['fioEng'].hasError('pattern')">
           Неправильний формат
         </small>
       </div>
@@ -67,13 +67,13 @@
                formControlName="fioRu"
                type="text"
                [attr.maxlength]="50"
-               [class.form-control-danger]="submitted && !addForm.controls['fioRu'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['fioRu'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['fioRu'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['fioRu'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['fioRu'].hasError('pattern')">
+               *ngIf="submitted && modifyForm.controls['fioRu'].hasError('pattern')">
           Неправильний формат
         </small>
       </div>
@@ -84,10 +84,10 @@
         <input class="form-control"
                formControlName="email"
                [attr.maxlength]="50"
-               [class.form-control-danger]="submitted && !addForm.controls['email'].valid"
+               [class.form-control-danger]="submitted && !modifyForm.controls['email'].valid"
                email>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['email'].hasError('email')">
+               *ngIf="submitted && modifyForm.controls['email'].hasError('email')">
           Введіть електронну пошту у правильному форматі
         </small>
       </div>
@@ -97,32 +97,32 @@
                formControlName="birth"
                type="text"
                placeholder="dd/mm/yyyy"
-               [class.form-control-danger]="submitted && !addForm.controls['birth'].valid"
+               [class.form-control-danger]="submitted && !modifyForm.controls['birth'].valid"
                [textMask]="{mask: dateMask, keepCharPositions: true}">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['birth'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['birth'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['birth'].hasError('pattern')">
+               *ngIf="submitted && modifyForm.controls['birth'].hasError('pattern')">
           Введіть коректну дату
         </small>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!event.data">
       <div class="col-lg-6 form-group input-group-sm">
         <label>Пароль</label>
         <input class="form-control"
                formControlName="password"
                type="password"
                [attr.maxlength]="50"
-               [class.form-control-danger]="submitted && !addForm.controls['password'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['password'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['password'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['password'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['password'].hasError('min')">
+               *ngIf="submitted && modifyForm.controls['password'].hasError('min')">
           Введіть мінімум 6 символів
         </small>
       </div>
@@ -132,13 +132,13 @@
                formControlName="confirmPassword"
                [attr.maxlength]="50"
                type="password"
-               [class.form-control-danger]="submitted && !addForm.controls['confirmPassword'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['confirmPassword'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['confirmPassword'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['confirmPassword'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['confirmPassword'].hasError('confirmPassword')">
+               *ngIf="submitted && modifyForm.controls['confirmPassword'].hasError('confirmPassword')">
           Пароль не співпадає
         </small>
       </div>
@@ -150,17 +150,17 @@
         <input class="form-control"
                formControlName="hirshScholar"
                type="number" step="0.1"
-               [class.form-control-danger]="submitted && !addForm.controls['hirshScholar'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['hirshScholar'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['hirshScholar'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['hirshScholar'].hasError('min')">
+               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('min')">
           Значення потрібно бути більше 0
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['hirshScholar'].hasError('max')">
+               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('max')">
           Значення потрібно бути меньше 100
         </small>
       </div>
@@ -169,17 +169,17 @@
         <input class="form-control"
                formControlName="hirshScopus"
                type="number" step="0.1"
-               [class.form-control-danger]="submitted && !addForm.controls['hirshScopus'].valid">
+               [class.form-control-danger]="submitted && !modifyForm.controls['hirshScopus'].valid">
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['hirshScopus'].hasError('required')">
+               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('required')">
           Потрібне поле
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['hirshScopus'].hasError('min')">
+               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('min')">
           Значення потрібно бути більше 0
         </small>
         <small class="form-text error"
-               *ngIf="submitted && addForm.controls['hirshScopus'].hasError('max')">
+               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('max')">
           Значення потрібно бути меньше 100
         </small>
       </div>
@@ -188,7 +188,7 @@
       <div class="col-lg-4">
         <label for="scienceDegree">Наукова ступінь</label>
         <select id="scienceDegree"
-                [formControl]="addForm.controls['scienceDegree']"
+                [formControl]="modifyForm.controls['scienceDegree']"
                 class="form-control form-control-sm mini-select">
           <option *ngFor="let scienceDegree of getScienceDegrees()" [value]="scienceDegree">
             {{scienceDegree}}
@@ -198,7 +198,7 @@
       <div class="col-lg-4">
         <label for="scienceTitle">Вчене звання</label>
         <select id="scienceTitle"
-                [formControl]="addForm.controls['scienceTitle']"
+                [formControl]="modifyForm.controls['scienceTitle']"
                 class="form-control form-control-sm mini-select">
           <option *ngFor="let scienceTitle of getScienceTitles()" [value]="scienceTitle">
             {{scienceTitle}}
@@ -208,7 +208,7 @@
       <div class="col-lg-4">
         <label for="role">Право доступу</label>
         <select id="role"
-                [formControl]="addForm.controls['role']"
+                [formControl]="modifyForm.controls['role']"
                 class="form-control form-control-sm mini-select">
           <option *ngFor="let role of getRoles()" [value]="role.value">
             {{role.name}}
@@ -217,7 +217,7 @@
       </div>
     </div>
     <div formArrayName="cathedras">
-      <div *ngFor="let pos of addForm.get('cathedras')['controls']; let i=index" [formGroupName]="i">
+      <div *ngFor="let pos of modifyForm.get('cathedras')['controls']; let i=index" [formGroupName]="i">
         <div class="row">
           <div class="col-lg-4">
             <label *ngIf="i === 0">Кафедра</label>
@@ -241,7 +241,7 @@
             <label *ngIf="i === 0">Ключова</label>
             <label class="custom-control custom-radio">
               <input type="radio"
-                     [formControl]="addForm.controls['keyPosition']"
+                     [formControl]="modifyForm.controls['keyPosition']"
                      [checked]="i === 0"
                      [value]="i"
                      class="custom-control-input">

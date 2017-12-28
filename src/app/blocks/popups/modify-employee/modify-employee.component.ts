@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from '../../../services/data/users.service';
 import {Toast, ToasterService} from 'angular2-toaster';
@@ -8,13 +8,13 @@ import {PasswordConfirmValidator} from '../../validators/password-confirm.valida
 import {CATHEDRAS} from './cathedras.const';
 
 @Component({
-  selector: 's2m-add-employee',
-  templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.scss'],
+  selector: 's2m-modify-employee',
+  templateUrl: './modify-employee.component.html',
+  styleUrls: ['./modify-employee.component.scss'],
   providers: [UserFromBEPipe],
 })
-export class AddEmployeeComponent {
-  addForm: FormGroup;
+export class ModifyEmployeeComponent implements OnInit {
+  modifyForm: FormGroup;
   source: any;
   event: any;
 
@@ -28,32 +28,39 @@ export class AddEmployeeComponent {
               private userService: UserService,
               private toastr: ToasterService,
               private fb: FormBuilder) {
-    this.addForm = fb.group({
-      'login': ['', [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
-      'fioUkr': ['', [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
-      'fioEng': ['', [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){3}$')]],
-      'fioRu': ['', [Validators.required, Validators.pattern('^([А-Я][а-я]+[\\-\\s]?){3}$')]],
-      'email': [''],
-      'birth': ['', [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+  }
+
+  ngOnInit() {
+    const edit = this.event.data;
+    this.modifyForm = this.fb.group({
+      'login': [{
+        value: edit && edit.login,
+        disabled: this.event.data
+      }, [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
+      'fioUkr': [edit && edit.fioUkr, [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
+      'fioEng': [edit && edit.fioEng, [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){3}$')]],
+      'fioRu': [edit && edit.fioRu, [Validators.required, Validators.pattern('^([А-Я][а-я]+[\\-\\s]?){3}$')]],
+      'email': [{value: edit && edit.email, disabled: this.event.data}],
+      'birth': [edit && edit.birth, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'password': ['', [Validators.required, Validators.min(6)]],
       'confirmPassword': ['', Validators.required],
-      'hirshScholar': [0, [Validators.required, Validators.min(0), Validators.max(100)]],
-      'hirshScopus': [0, [Validators.required, Validators.min(0), Validators.max(100)]],
-      'scienceDegree': ['-'],
-      'scienceTitle': ['-'],
-      'role': ['Admin'],
-      'cathedras': fb.array([this.initPositionRow()]),
+      'hirshScholar': [edit && edit.hirshScholar || 0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      'hirshScopus': [edit && edit.hirshScopus || 0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      'scienceDegree': [edit && edit.scienceDegree],
+      'scienceTitle': [edit && edit.academicTitle],
+      'role': [edit && edit.role],
+      'cathedras': this.fb.array([this.initPositionRow()]),
       'keyPosition': [],
     }, {
       validator: PasswordConfirmValidator.confirm,
     });
-    this.addForm.controls['keyPosition'].setValue(0);
+    this.modifyForm.controls['keyPosition'].setValue(0);
   }
 
   confirm() {
     this.submitted = true;
-    if (this.addForm.valid) {
+    if (this.modifyForm.valid) {
       this.loading = true;
       const user = this.convertUserFromForm();
       this.userService.addUser(user)
@@ -78,15 +85,15 @@ export class AddEmployeeComponent {
   }
 
   addNewPosition() {
-    const control = <FormArray>this.addForm.controls['cathedras'];
+    const control = <FormArray>this.modifyForm.controls['cathedras'];
     control.push(this.initPositionRow());
     return false;
   }
 
   deletePosition(index: number) {
-    const control = <FormArray>this.addForm.controls['cathedras'];
+    const control = <FormArray>this.modifyForm.controls['cathedras'];
     control.removeAt(index);
-    this.addForm.controls['keyPosition'].setValue(0);
+    this.modifyForm.controls['keyPosition'].setValue(0);
     return false;
   }
 
@@ -115,7 +122,7 @@ export class AddEmployeeComponent {
   }
 
   private convertUserFromForm(): any {
-    const formValue = this.addForm.value;
+    const formValue = this.modifyForm.value;
     const fioUkr = formValue.fioUkr.split(' ');
     const fioRu = formValue.fioRu.split(' ');
     const fioEng = formValue.fioEng.split(' ');

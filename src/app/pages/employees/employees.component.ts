@@ -3,7 +3,7 @@ import {LocalDataSource} from 'ng2-smart-table';
 import {UserService} from '../../services/data/users.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeleteEmployeeComponent} from '../../blocks/popups/delete-employee/delete-employee.component';
-import {AddEmployeeComponent} from '../../blocks/popups/add-employee/add-employee.component';
+import {ModifyEmployeeComponent} from '../../blocks/popups/modify-employee/modify-employee.component';
 import {AuthService} from '../../services/auth.service';
 import {Toast, ToasterService} from 'angular2-toaster';
 import {UserFromBEPipe} from '../../blocks/pipes';
@@ -60,9 +60,15 @@ export class EmployeesComponent implements OnInit {
   }
 
   onAddConfirm(event) {
-    const addModal = this.modalService.open(AddEmployeeComponent, {size: 'lg', container: 'nb-layout'});
+    const addModal = this.modalService.open(ModifyEmployeeComponent, {size: 'lg', container: 'nb-layout'});
     addModal.componentInstance.source = this.source;
     addModal.componentInstance.event = event;
+  }
+
+  onEditConfirm(event) {
+    const editModal = this.modalService.open(ModifyEmployeeComponent, {size: 'lg', container: 'nb-layout'});
+    editModal.componentInstance.source = this.source;
+    editModal.componentInstance.event = event;
   }
 
   goToProfile(event) {
