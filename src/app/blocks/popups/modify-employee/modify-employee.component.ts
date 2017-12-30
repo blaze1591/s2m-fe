@@ -35,7 +35,7 @@ export class ModifyEmployeeComponent implements OnInit {
     this.modifyForm = this.fb.group({
       'login': [{
         value: edit && edit.login,
-        disabled: this.event.data
+        disabled: this.event.data,
       }, [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
       'fioUkr': [edit && edit.fioUkr, [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
       'fioEng': [edit && edit.fioEng, [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){3}$')]],
@@ -47,15 +47,18 @@ export class ModifyEmployeeComponent implements OnInit {
       'confirmPassword': ['', Validators.required],
       'hirshScholar': [edit && edit.hirshScholar || 0, [Validators.required, Validators.min(0), Validators.max(100)]],
       'hirshScopus': [edit && edit.hirshScopus || 0, [Validators.required, Validators.min(0), Validators.max(100)]],
-      'scienceDegree': [edit && edit.scienceDegree],
-      'scienceTitle': [edit && edit.academicTitle],
-      'role': [edit && edit.role],
-      'cathedras': this.fb.array([this.initPositionRow()]),
-      'keyPosition': [],
+      'scienceDegree': [edit && edit.scienceDegree || '-'],
+      'scienceTitle': [edit && edit.academicTitle || '-'],
+      'role': [edit && edit.role || 'User'],
+      'cathedras': this.fb.array(edit && edit.cathedras.map((c) => this.initPositionRow(c)) || [this.initPositionRow()]),
+      'keyPosition': [edit && edit.cathedras.findIndex((c) => c.key) || 0],
     }, {
       validator: PasswordConfirmValidator.confirm,
     });
-    this.modifyForm.controls['keyPosition'].setValue(0);
+    if (edit) {
+      this.modifyForm.controls['password'].clearValidators();
+      this.modifyForm.controls['confirmPassword'].clearValidators();
+    }
   }
 
   confirm() {
@@ -63,13 +66,17 @@ export class ModifyEmployeeComponent implements OnInit {
     if (this.modifyForm.valid) {
       this.loading = true;
       const user = this.convertUserFromForm();
-      this.userService.addUser(user)
+      this.userService.modifyUser(user)
         .finally(() => {
           this.loading = false;
         })
         .subscribe((responseUser) => {
           const conversion: Array<any> = this.userFromBeConverter.transform([responseUser]);
-          this.source.append(conversion.pop());
+          if (this.event.data) {
+            this.source.update(this.event.data, conversion.pop());
+          } else {
+            this.source.append(conversion.pop());
+          }
           this.activeModal.close();
         }, (error) => {
           const toast: Toast = {type: 'error', title: 'Помилка', body: error.message, showCloseButton: true};
@@ -122,14 +129,18 @@ export class ModifyEmployeeComponent implements OnInit {
   }
 
   private convertUserFromForm(): any {
-    const formValue = this.modifyForm.value;
+    const formValue = this.modifyForm.getRawValue();
     const fioUkr = formValue.fioUkr.split(' ');
     const fioRu = formValue.fioRu.split(' ');
     const fioEng = formValue.fioEng.split(' ');
     const keyPosition = formValue.keyPosition;
+    for (const c of formValue.cathedras) {
+      c.key = false;
+    }
     formValue.cathedras[keyPosition].key = true;
     const [day, month, year] = formValue.birth.split('/');
     return {
+      id: this.event.data && this.event.data.id,
       firstName: fioEng[1], middleName: fioEng[2], lastName: fioEng[0],
       firstNameUa: fioUkr[1], middleNameUa: fioUkr[2], lastNameUa: fioUkr[0],
       firstNameRu: fioRu[1], middleNameRu: fioRu[2], lastNameRu: fioRu[0],
@@ -144,11 +155,11 @@ export class ModifyEmployeeComponent implements OnInit {
     };
   }
 
-  private initPositionRow() {
+  private initPositionRow(cathedra?: any) {
     return this.fb.group({
-      'name': ['-'],
-      'post': ['', Validators.required],
-      'key': [false],
+      'name': [cathedra && cathedra.name || '-'],
+      'post': [cathedra && cathedra.post || '', Validators.required],
+      'key': [cathedra && cathedra.key || false],
     });
   }
 }

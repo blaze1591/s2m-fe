@@ -242,8 +242,8 @@
             <label class="custom-control custom-radio">
               <input type="radio"
                      [formControl]="modifyForm.controls['keyPosition']"
-                     [checked]="i === 0"
                      [value]="i"
+                     [checked]="i === modifyForm.controls['keyPosition'].value"
                      class="custom-control-input">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description"></span>
@@ -273,7 +273,7 @@
   <div class="modal-footer">
     <button class="btn btn-sm btn-hero-success"
             [class.btn-pulse]="loading"
-            [disabled]="loading"
+            [disabled]="loading || modifyForm.pristine"
             type="submit">
       Зберегти
     </button>
