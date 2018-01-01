@@ -15,22 +15,22 @@
               <div class="col-lg-2">
                 <h5 class="grid-h">Аватар</h5>
                 <img class="thumbnail inline"
-                     [src]="user.photo">
+                     [attr.src]="user?.photo">
               </div>
 
               <div class="col-lg-4">
                 <h5 class="grid-h">Ім'я</h5>
                 <div class="form-group">
                   <input type="text" placeholder="Ім'я українською" class="form-control" disabled
-                         value="{{user.lastNameUa}} {{user.firstNameUa}} {{user.middleNameUa}}"/>
+                         value="{{user?.lastNameUa}} {{user?.firstNameUa}} {{user?.middleNameUa}}"/>
                 </div>
                 <div class="form-group">
                   <input type="text" placeholder="Ім'я англійською" class="form-control" disabled
-                         value="{{user.lastName}} {{user.firstName}} {{user.middleName}}"/>
+                         value="{{user?.lastName}} {{user?.firstName}} {{user?.middleName}}"/>
                 </div>
                 <div class="form-group">
                   <input type="text" placeholder="Ім'я російською" class="form-control" disabled
-                         value="{{user.lastNameRu}} {{user.firstNameRu}} {{user.middleNameRu}}"/>
+                         value="{{user?.lastNameRu}} {{user?.firstNameRu}} {{user?.middleNameRu}}"/>
                 </div>
               </div>
 
@@ -44,7 +44,7 @@
                            placeholder="Наукова ступінь"
                            type="text"
                            disabled
-                           [attr.value]="user.scienceDegree"/>
+                           [attr.value]="user?.scienceDegree"/>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -55,7 +55,7 @@
                            placeholder="Вчене звання"
                            type="text"
                            disabled
-                           [attr.value]="user.academicTitle"/>
+                           [attr.value]="user?.academicTitle"/>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -66,7 +66,7 @@
                            placeholder="Дата народження"
                            type="text"
                            disabled
-                           [attr.value]="user.birthDate | date :'dd-MM-yyyy'"/>
+                           [attr.value]="user?.birthDate | date :'dd-MM-yyyy'"/>
                   </div>
                 </div>
               </div>
@@ -76,8 +76,8 @@
                 <div class="form-group">
                   <label for="cathedras">Кафедры</label>
                   <select id="cathedras" disabled class="form-control" multiple>
-                    <option *ngFor="let cathedra of user.cathedras" [attr.title]="cathedra.name">
-                      {{cathedra.name}}: {{cathedra.post}}
+                    <option *ngFor="let cathedra of user?.cathedras" [attr.title]="cathedra.name">
+                      {{cathedra.name | truncate : 20}} : {{cathedra.post}}
                     </option>
                   </select>
                 </div>
@@ -95,7 +95,8 @@
             Індекс Гірша
           </nb-card-header>
           <nb-card-body>
-            <s2m-profile-bar-horizontal></s2m-profile-bar-horizontal>
+            <s2m-profile-bar-horizontal [user]="user">
+            </s2m-profile-bar-horizontal>
           </nb-card-body>
         </nb-card>
       </div>
@@ -107,37 +108,37 @@
           </nb-card-header>
           <nb-card-body>
             <div class="row">
-              <div [attr.title]="user.email" class="icon col-lg-4">
+              <div [attr.title]="user?.email" class="icon col-lg-4">
                 <i class="ion-email"></i>
                 <span class="icon-text"
-                      [ngClass]="{'icon-email' : user.email}">
+                      [ngClass]="{'icon-email' : user?.email}">
                   E-mail
                 </span>
               </div>
-              <div [attr.title]="user.researcherId" class="icon col-lg-4">
+              <div [attr.title]="user?.researcherId" class="icon col-lg-4">
                 <img [src]="'assets/images/researcher.png'"/>
-                <a [attr.href]="user.researcherId" class="icon-text">Researcher</a>
+                <a [attr.href]="user?.researcherId" class="icon-text">Researcher</a>
               </div>
-              <div [attr.title]="user.orcid" class="icon col-lg-4">
+              <div [attr.title]="user?.orcid" class="icon col-lg-4">
                 <img [src]="'assets/images/orcid-logo.png'"/>
-                <a [attr.href]="user.orcid" class="icon-text">Orcid</a>
+                <a [attr.href]="user?.orcid" class="icon-text">Orcid</a>
               </div>
             </div>
             <div class="row">
-              <div [attr.title]="user.linkedIn" class="icon col-lg-4">
+              <div [attr.title]="user?.linkedIn" class="icon col-lg-4">
                 <i class="ion ion-social-linkedin"></i>
-                <a [attr.href]="user.linkedIn"
+                <a [attr.href]="user?.linkedIn"
                    class="icon-text">
                   LinkedIn
                 </a>
               </div>
-              <div [attr.title]="user.scopus" class="icon col-lg-4">
+              <div [attr.title]="user?.scopus" class="icon col-lg-4">
                 <img [src]="'assets/images/scopus.png'"/>
-                <a [attr.href]="user.scopus" class="icon-text">Scopus</a>
+                <a [attr.href]="user?.scopus" class="icon-text">Scopus</a>
               </div>
-              <div [attr.title]="user.googleScholar" class="icon col-lg-4">
+              <div [attr.title]="user?.googleScholar" class="icon col-lg-4">
                 <img [src]="'assets/images/google-scholar.png'"/>
-                <a [attr.href]="user.googleScholar" class="icon-text">Google Scholar</a>
+                <a [attr.href]="user?.googleScholar" class="icon-text">Google Scholar</a>
               </div>
             </div>
           </nb-card-body>

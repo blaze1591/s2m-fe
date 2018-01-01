@@ -9,7 +9,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  user: any = {};
+  user: any;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute) {

@@ -1,5 +1,7 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NbThemeService} from '@nebular/theme';
+import {DatePipe} from '@angular/common';
+import {ChartComponent} from 'angular2-chartjs';
 
 @Component({
   selector: 's2m-profile-bar-horizontal',
@@ -7,28 +9,34 @@ import {NbThemeService} from '@nebular/theme';
     <chart type="horizontalBar" [data]="data" [options]="options"></chart>
   `,
 })
-export class ProfileBarHorizontalComponent implements OnDestroy {
+export class ProfileBarHorizontalComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() user: any;
+  @ViewChild(ChartComponent) hbChart: ChartComponent;
   data: any;
   options: any;
   themeSubscription: any;
+  datePipe: DatePipe = new DatePipe('uk-UA');
 
   constructor(private theme: NbThemeService) {
+  }
+
+  ngOnInit() {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const colors: any = config.variables;
       const chartjs: any = config.variables.chartjs;
 
       this.data = {
-        labels: ['02/07/2016', '03/07/2016'],
+        labels: [],
         datasets: [{
           label: 'Google Scholar',
           backgroundColor: colors.infoLight,
           borderWidth: 1,
-          data: [this.random(), this.random()],
+          data: [],
         }, {
           label: 'Scopus',
           backgroundColor: colors.successLight,
-          data: [this.random(), this.random()],
+          data: [],
         },
         ],
       };
@@ -73,6 +81,17 @@ export class ProfileBarHorizontalComponent implements OnDestroy {
         },
       };
     });
+  }
+
+  ngOnChanges() {
+    if (this.user) {
+      this.data.labels = this.user.hirshScholar.map((hirsh) =>
+        this.datePipe.transform(hirsh.indexDate, 'dd/MM/yyyy'),
+      );
+      this.data.datasets[0]['data'] = this.user.hirshScholar.map((hirsh) => hirsh.index);
+      this.data.datasets[1]['data'] = this.user.hirshScopus.map((hirsh) => hirsh.index);
+      this.hbChart.chart.update();
+    }
   }
 
   ngOnDestroy(): void {

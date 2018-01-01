@@ -45,8 +45,10 @@ export class ModifyEmployeeComponent implements OnInit {
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'password': ['', [Validators.required, Validators.min(6)]],
       'confirmPassword': ['', Validators.required],
-      'hirshScholar': [edit && edit.hirshScholar || 0, [Validators.required, Validators.min(0), Validators.max(100)]],
-      'hirshScopus': [edit && edit.hirshScopus || 0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      'hirshScholar': [edit && edit.hirshScholar[edit.hirshScholar.length - 1]['index'] || 0,
+        [Validators.required, Validators.min(0), Validators.max(100)]],
+      'hirshScopus': [edit && edit.hirshScopus[edit.hirshScopus.length - 1]['index'] || 0,
+        [Validators.required, Validators.min(0), Validators.max(100)]],
       'scienceDegree': [edit && edit.scienceDegree || '-'],
       'scienceTitle': [edit && edit.academicTitle || '-'],
       'role': [edit && edit.role || 'User'],
@@ -129,18 +131,21 @@ export class ModifyEmployeeComponent implements OnInit {
   }
 
   private convertUserFromForm(): any {
-    const formValue = this.modifyForm.getRawValue();
-    const fioUkr = formValue.fioUkr.split(' ');
-    const fioRu = formValue.fioRu.split(' ');
-    const fioEng = formValue.fioEng.split(' ');
-    const keyPosition = formValue.keyPosition;
+    const formValue = this.modifyForm.getRawValue(),
+      fioUkr = formValue.fioUkr.split(' '),
+      fioRu = formValue.fioRu.split(' '),
+      fioEng = formValue.fioEng.split(' '),
+      keyPosition = formValue.keyPosition;
     for (const c of formValue.cathedras) {
       c.key = false;
     }
     formValue.cathedras[keyPosition].key = true;
-    const [day, month, year] = formValue.birth.split('/');
+    const [day, month, year] = formValue.birth.split('/'),
+      editData = this.event.data,
+      scopusEntity = {index: formValue.hirshScopus, indexDate: new Date()},
+      scholarEntity = {index: formValue.hirshScholar, indexDate: new Date()};
     return {
-      id: this.event.data && this.event.data.id,
+      id: editData && editData.id,
       firstName: fioEng[1], middleName: fioEng[2], lastName: fioEng[0],
       firstNameUa: fioUkr[1], middleNameUa: fioUkr[2], lastNameUa: fioUkr[0],
       firstNameRu: fioRu[1], middleNameRu: fioRu[2], lastNameRu: fioRu[0],
@@ -148,8 +153,8 @@ export class ModifyEmployeeComponent implements OnInit {
       birthDate: new Date(year, month - 1, day),
       academicTitle: formValue.scienceTitle,
       scienceDegree: formValue.scienceDegree,
-      hirshScopus: formValue.hirshScopus,
-      hirshScholar: formValue.hirshScholar,
+      hirshScopus: editData ? editData.hirshScopus.concat(scopusEntity) : [scopusEntity],
+      hirshScholar: editData ? editData.hirshScholar.concat(scholarEntity) : [scholarEntity],
       cathedras: formValue.cathedras,
       credentials: {userName: formValue.login, password: formValue.password, role: formValue.role},
     };
