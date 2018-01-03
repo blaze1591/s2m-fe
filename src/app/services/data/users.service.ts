@@ -36,4 +36,13 @@ export class UserService {
     return this.http.delete(`${environment.apiUrl}/user/${userId}`, this.auth.generateOptions())
       .catch((error: any) => Observable.throw(error.json().error || 'deleteUser error'));
   }
+
+  changePassword(userId, password): Observable<any> {
+    const opts = this.auth.generateOptions();
+    opts.params.append('newPassword', password);
+    return this.http.post(`${environment.apiUrl}/user/password/${userId}`, null, opts)
+      .catch(error => {
+        throw Error(error.json().message);
+      });
+  }
 }
