@@ -39,49 +39,105 @@
 
           <div class = "form-group">
             <label for = "type">Science Unit Type:</label>
-            <select class = "form-control" id="type" name="type" [(ngModel)]="model.unitType">
+            <select class = "form-control" id="type" name="type" [(ngModel)]="model.unitType" (change)="onTypeChange()">
               <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
             </select>
           </div>
 
+          <!--Common fields for all ScienceUnits-->
+          <div *ngIf="model.unitType != null">
+            <div class = "form-group">
+              <label for = "name">Name</label>
+              <input type = "text" class = "form-control" id = "name"
+                     [(ngModel)] = "model.name" name = "name">
+            </div>
 
-          <div class = "form-group">
-            <label for = "name">Name</label>
-            <input type = "text" class = "form-control" id = "name"
-                   [(ngModel)] = "model.name" name = "name">
+            <div class = "form-group">
+              <label for = "name">Title</label>
+              <input type = "text" class = "form-control" id = "title"
+                     [(ngModel)] = "model.title" name = "title">
+            </div>
+
+            <div class = "form-group">
+              <label for = "year">Year</label>
+              <input type = "text" class = "form-control" id = "year"
+                     [(ngModel)] = "model.year" name = "year">
+            </div>
+
+            <div class = "form-group">
+              <label for = "year">Url</label>
+              <input type = "text" class = "form-control" id = "Url"
+                     [(ngModel)] = "model.url" name = "Url">
+            </div>
           </div>
 
-          <div class = "form-group">
-            <label for = "name">Title</label>
-            <input type = "text" class = "form-control" id = "title"
-                   [(ngModel)] = "model.title" name = "title">
+          <!--Present on Chapter and Conference-->
+          <div class = "form-group" *ngIf="isBookTitleShouldBePresent()">
+            <label for = "bookTitle">Book Title</label>
+            <input type = "text" class = "form-control" id = "bookTitle"
+                   [(ngModel)] = "model.bookTitle" name = "bookTitle">
           </div>
 
-          <div class = "form-group">
-            <label for = "year">Year</label>
-            <input type = "text" class = "form-control" id = "year"
-                   [(ngModel)] = "model.year" name = "year">
+          <!--Journal and Other-->
+          <div class = "form-group" *ngIf="isJournalShouldBePresent()">
+            <label for = "journal">Journal</label>
+            <input type = "text" class = "form-control" id = "journal"
+                   [(ngModel)] = "model.journal" name = "journal">
           </div>
 
-          <div class = "form-group">
-            <label for = "year">Url</label>
-            <input type = "text" class = "form-control" id = "Url"
-                   [(ngModel)] = "model.url" name = "Url">
-          </div>
-
-          <div class = "form-group">
-            <label for = "volume">Volume</label>
-            <input type = "text" class = "form-control" id = "volume"
-                   [(ngModel)] = "model.volume" name = "volume">
-          </div>
-
-          <div class = "form-group">
+          <!--Present on Book and Journal-->
+          <div class = "form-group" *ngIf="isPublisherShouldBePresent()">
             <label for = "publisher">Publisher</label>
             <input type = "text" class = "form-control" id = "publisher"
                    [(ngModel)] = "model.publisher" name = "publisher">
           </div>
 
-          <input type="button" class="btn btn-info" value="Save" (click)="saveUnit()">
+          <!--Chapter and Conference field-->
+          <div class = "form-group" *ngIf="isOrganizationShouldBePresent()">
+            <label for = "organization">Organization</label>
+            <input type = "text" class = "form-control" id = "organization"
+                   [(ngModel)] = "model.organization" name = "organization">
+          </div>
+
+          <!--Present on every type except Other, Patent and Thesis-->
+          <div class = "form-group" *ngIf="isVolumeShouldBePresent()">
+            <label for = "volume">Volume</label>
+            <input type = "text" class = "form-control" id = "volume"
+                   [(ngModel)] = "model.volume" name = "volume">
+          </div>
+
+          <!--Everywhere except Patent, Thesis, Book-->
+          <div class = "form-group" *ngIf="isNumberShouldBePresent()">
+            <label for = "number">Number</label>
+            <input type = "text" class = "form-control" id = "number"
+                   [(ngModel)] = "model.number" name = "number">
+          </div>
+
+          <!--Chapter Conference Journal-->
+          <div class = "form-group" *ngIf="isPagesShouldBePresent()">
+            <label for = "pages">Pages</label>
+            <input type = "text" class = "form-control" id = "pages"
+                   [(ngModel)] = "model.pages" name = "pages">
+          </div>
+
+          <!--Under Patent-->
+          <div class = "form-group" *ngIf="isNoteShouldBePresent()">
+            <label for = "note">Note</label>
+            <input type = "text" class = "form-control" id = "note"
+                   [(ngModel)] = "model.note" name = "note">
+          </div>
+
+          <!--Under Thesis-->
+          <div class = "form-group" *ngIf="isSchoolShouldBePresent()">
+            <label for = "school">School</label>
+            <input type = "text" class = "form-control" id = "school"
+                   [(ngModel)] = "model.school" name = "school">
+          </div>
+
+          <div *ngIf="model.unitType != null">
+            <input type="button" class="btn btn-info" value="Save" (click)="saveUnit()">
+          </div>
+
         </form>
 
 

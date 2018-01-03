@@ -116,6 +116,17 @@ export class PublicationsComponent implements OnInit {
     this.loadScienceUnits();
     this.deleteModal.hide();
   }
+  onTypeChange() {
+    const scienceUnit: ScienceUnit = this.model;
+    this.model = new ScienceUnit();
+
+    this.model.unitType = scienceUnit.unitType;
+
+    this.model.name = scienceUnit.name;
+    this.model.title = scienceUnit.title;
+    this.model.year = scienceUnit.year;
+    this.model.url = scienceUnit.url;
+  }
 
   onSearch(query: string = '') {
     this.source.setFilter([
@@ -141,5 +152,56 @@ export class PublicationsComponent implements OnInit {
       },
     ]);
   }
+//  Fields presence checks
+  isVolumeShouldBePresent(): boolean {
+    return this.model.unitType != null
+      && this.model.unitType !== 'Other'
+      && this.model.unitType !== 'Patent'
+      && this.model.unitType !== 'Thesis';
+  }
 
+  isPublisherShouldBePresent(): boolean {
+    return this.model.unitType === 'Book'
+      || this.model.unitType === 'Journal';
+  }
+
+  isChapterOrConference(): boolean {
+    return this.model.unitType === 'Chapter'
+      || this.model.unitType === 'Conference';
+  }
+
+  isBookTitleShouldBePresent(): boolean {
+    return this.isChapterOrConference();
+  }
+
+  isNumberShouldBePresent(): boolean {
+    return this.model.unitType != null
+      && this.model.unitType !== 'Patent'
+      && this.model.unitType !== 'Thesis'
+      && this.model.unitType !== 'Book';
+  }
+
+  isPagesShouldBePresent(): boolean {
+    return this.model.unitType === 'Chapter'
+      || this.model.unitType === 'Conference'
+      || this.model.unitType === 'Journal';
+  }
+
+  isOrganizationShouldBePresent(): boolean {
+    return this.model.unitType === 'Chapter'
+      || this.model.unitType === 'Conference';
+  }
+
+  isJournalShouldBePresent(): boolean {
+    return this.model.unitType === 'Journal'
+      || this.model.unitType === 'Other';
+  }
+
+  isNoteShouldBePresent(): boolean {
+    return this.model.unitType === 'Patent';
+  }
+
+  isSchoolShouldBePresent(): boolean {
+    return this.model.unitType === 'Thesis';
+  }
 }
