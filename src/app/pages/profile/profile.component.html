@@ -107,7 +107,7 @@
             Контактна інформація
           </nb-card-header>
           <nb-card-body>
-            <div class="row">
+            <div class="form-group row">
               <div [attr.title]="user?.email" class="icon col-lg-4">
                 <i class="ion-email"></i>
                 <span class="icon-text"
@@ -124,7 +124,7 @@
                 <a [attr.href]="user?.orcid" class="icon-text">Orcid</a>
               </div>
             </div>
-            <div class="row">
+            <div class="form-group row">
               <div [attr.title]="user?.linkedIn" class="icon col-lg-4">
                 <i class="ion ion-social-linkedin"></i>
                 <a [attr.href]="user?.linkedIn"
@@ -139,6 +139,13 @@
               <div [attr.title]="user?.googleScholar" class="icon col-lg-4">
                 <img [src]="'assets/images/google-scholar.png'"/>
                 <a [attr.href]="user?.googleScholar" class="icon-text">Google Scholar</a>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="user?.id === authService.getUserId()">
+              <div class="col-lg-2">
+                <button class="btn btn-success btn-sm" (click)="openLinksPopup()">
+                  Змінити
+                </button>
               </div>
             </div>
           </nb-card-body>

@@ -15,7 +15,7 @@ import {DEFAULT_THEME} from './styles/theme.default';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {LoginComponent} from './components/login/login.component';
 import {NbAuthModule} from '@nebular/auth';
-import {DeleteEmployeeComponent, ModifyEmployeeComponent} from './popups';
+import {DeleteEmployeeComponent, ModifyEmployeeComponent, ModifyLinksComponent} from './popups';
 import {TextMaskModule} from 'angular2-text-mask';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
@@ -45,6 +45,7 @@ const COMPONENTS = [
   LoginComponent,
   DeleteEmployeeComponent,
   ModifyEmployeeComponent,
+  ModifyLinksComponent,
 ];
 
 const PIPES = [
@@ -73,6 +74,7 @@ const NB_THEME_PROVIDERS = [
   entryComponents: [
     DeleteEmployeeComponent,
     ModifyEmployeeComponent,
+    ModifyLinksComponent,
   ],
 })
 export class BlockModule {

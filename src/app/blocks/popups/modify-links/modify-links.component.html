@@ -1,0 +1,104 @@
+<div class="modal-header">
+  <span>Посилання</span>
+  <button class="close"
+          aria-label="Close"
+          (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="modifyForm"
+      (ngSubmit)="confirm()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12 form-group input-group-rounded">
+        <label>Аватар</label>
+        <input class="form-control"
+               formControlName="photo"
+               type="text"
+               [class.form-control-danger]="submitted && !modifyForm.controls['photo'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['photo'].hasError('pattern')">
+          Неправильний формат
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 form-group input-group-rounded">
+        <label>Researcher</label>
+        <input class="form-control"
+               formControlName="researcherId"
+               type="text"
+               [class.form-control-danger]="submitted && !modifyForm.controls['researcherId'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['researcherId'].hasError('pattern')">
+          Неправильний формат
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 form-group input-group-rounded">
+        <label>LinkedIn</label>
+        <input class="form-control"
+               formControlName="linkedIn"
+               type="text"
+               [class.form-control-danger]="submitted && !modifyForm.controls['linkedIn'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['linkedIn'].hasError('pattern')">
+          Неправильний формат
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 form-group input-group-rounded">
+        <label>Orcid</label>
+        <input class="form-control"
+               formControlName="orcid"
+               type="text"
+               [class.form-control-danger]="submitted && !modifyForm.controls['orcid'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['orcid'].hasError('pattern')">
+          Неправильний формат
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 form-group input-group-rounded">
+        <label>Scopus</label>
+        <input class="form-control"
+               formControlName="scopus"
+               type="text"
+               [class.form-control-danger]="submitted && !modifyForm.controls['scopus'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['scopus'].hasError('pattern')">
+          Неправильний формат
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 form-group input-group-rounded">
+        <label>Google Scholar</label>
+        <input class="form-control"
+               formControlName="googleScholar"
+               type="text"
+               [class.form-control-danger]="submitted && !modifyForm.controls['googleScholar'].valid">
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['googleScholar'].hasError('pattern')">
+          Неправильний формат
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-hero-success"
+            [class.btn-pulse]="loading"
+            [disabled]="loading || modifyForm.pristine"
+            type="submit">
+      Зберегти
+    </button>
+    <button class="btn btn-sm btn-hero-danger"
+            [disabled]="loading"
+            (click)="close()">
+      Відмінити
+    </button>
+  </div>
+</form>
