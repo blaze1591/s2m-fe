@@ -139,7 +139,8 @@ export class AuthService {
   public generateOptions(): RequestOptions {
     const headers = new Headers();
     headers.append('Authorization', this.token);
-    return new RequestOptions({headers: headers});
+    const params = new URLSearchParams();
+    return new RequestOptions({headers: headers, params: params});
   }
 
   // Saves user details with token into sessionStorage as user item

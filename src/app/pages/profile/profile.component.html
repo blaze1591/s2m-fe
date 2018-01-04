@@ -143,24 +143,58 @@
             </div>
           </nb-card-body>
         </nb-card>
-        <nb-card>
+        <nb-card *ngIf="user?.id === authService.getUserId()">
           <nb-card-header>
             Зміна пароля
           </nb-card-header>
           <nb-card-body>
-            <div class="form-group row">
-              <div class="col-lg-6">
-                <input class="form-control" placeholder="Новый пароль" type="password">
+            <form [formGroup]="changePwdForm"
+                  (ngSubmit)="confirm()">
+              <div class="form-group row">
+                <div class="col-lg-6">
+                  <input class="form-control"
+                         formControlName="password"
+                         placeholder="Новый пароль"
+                         type="password"
+                         [attr.maxlength]="50"
+                         [class.form-control-danger]="submitted && !changePwdForm.controls['password'].valid">
+                  <small class="form-text error"
+                         *ngIf="submitted && changePwdForm.controls['password'].hasError('required')">
+                    Потрібне поле
+                  </small>
+                  <small class="form-text error"
+                         *ngIf="submitted && changePwdForm.controls['password'].hasError('min')">
+                    Введіть мінімум 6 символів
+                  </small>
+                </div>
+                <div class="col-lg-6">
+                  <input class="form-control"
+                         placeholder="Підтвердити пароль"
+                         type="password"
+                         formControlName="confirmPassword"
+                         [attr.maxlength]="50"
+                         [class.form-control-danger]="submitted && !changePwdForm.controls['confirmPassword'].valid">
+                  <small class="form-text error"
+                         *ngIf="submitted && changePwdForm.controls['confirmPassword'].hasError('required')">
+                    Потрібне поле
+                  </small>
+                  <small class="form-text error"
+                         *ngIf="submitted && changePwdForm.controls['confirmPassword'].hasError('confirmPassword')">
+                    Пароль не співпадає
+                  </small>
+                </div>
               </div>
-              <div class="col-lg-6">
-                <input class="form-control" placeholder="Підтвердити пароль" type="password">
+              <div class="form-group row">
+                <div class="col-lg-3">
+                  <button class="btn btn-success btn-sm"
+                          [class.btn-pulse]="loading"
+                          [disabled]="loading || changePwdForm.pristine"
+                          type="submit">
+                    Змінити
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-lg-3">
-                <button class="btn btn-success btn-sm">Змінити</button>
-              </div>
-            </div>
+            </form>
           </nb-card-body>
         </nb-card>
       </div>
