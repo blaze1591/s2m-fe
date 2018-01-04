@@ -14,6 +14,7 @@ export class ScienceUnit {
   public journal: string;
   public note: string;
   public school: string;
+  public author: string;
   constructor (
   ) {  }
 }
