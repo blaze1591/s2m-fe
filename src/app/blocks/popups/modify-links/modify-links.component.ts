@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from '../../../services/data/users.service';
-import {ToasterService} from 'angular2-toaster';
+import {Toast, ToasterService} from 'angular2-toaster';
 
 @Component({
   selector: 's2m-modify-links',
@@ -37,6 +37,27 @@ export class ModifyLinksComponent implements OnInit {
 
   confirm() {
     this.submitted = true;
+    if (this.modifyForm.valid) {
+      this.loading = true;
+      const formValues = this.modifyForm.getRawValue();
+      for (const key of Object.keys(formValues)) {
+        if (formValues[key] === '') {
+          formValues[key] = null;
+        }
+      }
+      const mergedUser = Object.assign({}, this.user, formValues);
+      this.userService.modifyUser(mergedUser)
+        .finally(() => {
+          this.loading = false;
+        })
+        .subscribe((responseUser) => {
+          Object.assign(this.user, responseUser);
+          this.activeModal.close();
+        }, (error) => {
+          const toast: Toast = {type: 'error', title: 'Помилка', body: error.message, showCloseButton: true};
+          this.toastr.pop(toast);
+        });
+    }
     return false;
   }
 
