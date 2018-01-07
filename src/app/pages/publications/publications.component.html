@@ -3,18 +3,18 @@
     Публікації
   </nb-card-header>
   <nb-card-body>
-    <div class="row luft">
-      <div class="col-lg-6">
-        <div class="input-group">
-          <input #search class="form-control" placeholder="Пошук..." type="text">
-          <span class="input-group-btn">
-              <button class="btn btn-success" (click)="onSearch(search.value)">
-                Пошук
-              </button>
-          </span>
-        </div>
-      </div>
-    </div>
+    <!--<div class="row luft">-->
+      <!--<div class="col-lg-6">-->
+        <!--<div class="input-group">-->
+          <!--<input #search class="form-control" placeholder="Пошук..." type="text">-->
+          <!--<span class="input-group-btn">-->
+              <!--<button class="btn btn-success" (click)="onSearch(search.value)">-->
+                <!--Пошук-->
+              <!--</button>-->
+          <!--</span>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="row">
       <div class="col-lg-12">
         <ng2-smart-table [settings]="settings" [source]="source" (create)="create($event)" (edit)="edit($event)" (delete)="delete($event)"></ng2-smart-table>
@@ -46,6 +46,16 @@
 
           <!--Common fields for all ScienceUnits-->
           <div *ngIf="model.unitType != null">
+
+            <div class = "form-group input-group-sm">
+              <label for = "users">Bind to Users</label>
+              <ng-select type = "text" id = "users" name = "users"
+                [options]="options"
+                [multiple]="true"
+                [(ngModel)]="model.users">
+              </ng-select>
+            </div>
+
             <div class = "form-group input-group-sm">
               <label for = "name">Name</label>
               <input type = "text" class = "form-control" id = "name"
@@ -159,7 +169,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">Оновити публiкацiю</h4>
-        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+        <button type="button" class="close pull-right" (click)="updateModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -175,6 +185,16 @@
 
           <!--Common fields for all ScienceUnits-->
           <div *ngIf="model.unitType != null">
+
+            <div class = "form-group input-group-sm">
+              <label for = "updateUsers">Bind to Users</label>
+              <ng-select type = "text" id = "updateUsers" name = "updateUsers"
+                         [options]="options"
+                         [multiple]="true"
+                         [(ngModel)]="model.users">
+              </ng-select>
+            </div>
+
             <div class = "form-group input-group-sm">
               <label for = "updateName">Name</label>
               <input type = "text" class = "form-control input-sm" id = "updateName"
@@ -287,7 +307,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">Видалити публiкацiю</h4>
-        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+        <button type="button" class="close pull-right" (click)="deleteModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -297,7 +317,6 @@
           <input type="button" class="btn btn-info" value="Delete" (click)="deleteUnit()">
           <input type="button" class="btn btn-info" value="Ni" (click)="this.deleteModal.hide()">
         </form>
-
 
       </div>
     </div>

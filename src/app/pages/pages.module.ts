@@ -13,6 +13,7 @@ import {ProfileBarHorizontalComponent} from './profile/profile-bar-horizontal.co
 import {ChartModule} from 'angular2-chartjs';
 import {ModalModule} from 'ngx-bootstrap';
 import {TruncateModule} from 'ng2-truncate';
+import {SelectModule} from 'ng-select';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -29,6 +30,7 @@ const PAGES_COMPONENTS = [
     BlockModule,
     HomeModule,
     TruncateModule,
+    SelectModule,
     CloudinaryModule.forRoot({Cloudinary}, {cloud_name: 'dp2ty4s0z'} as CloudinaryConfiguration),
     ModalModule.forRoot(),
   ],
