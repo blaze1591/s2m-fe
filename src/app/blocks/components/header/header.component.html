@@ -14,8 +14,8 @@
   [class.left]="position === 'inverse'">
   <nb-action>
     <nb-user [menu]="userMenu"
-             [name]="authService.getUsername()"
-             [picture]="photo"
+             [name]="user?.credentials['userName']"
+             [picture]="user?.photo"
              (menuClick)="onItemClick($event)"
     ></nb-user>
   </nb-action>

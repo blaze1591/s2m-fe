@@ -13,7 +13,7 @@ import {UserService} from '../../../services/data/users.service';
 export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
 
-  photo: string;
+  user: any;
 
   userMenu = [{title: 'Профіль', link: `profile/${this.authService.getUserId()}`}, {title: 'Вийти'}];
 
@@ -25,8 +25,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserById(this.authService.getUserId())
-      .subscribe((response) => this.photo = response.photo);
+    this.authService.refreshToken(this.authService.getToken())
+      .subscribe(() => {
+        this.userService.getUserById(this.authService.getUserId())
+          .subscribe((response) => this.user = response);
+      });
   }
 
   toggleSidebar(): boolean {

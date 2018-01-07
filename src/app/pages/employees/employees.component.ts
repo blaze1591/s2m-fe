@@ -17,29 +17,7 @@ import {Router} from '@angular/router';
 })
 export class EmployeesComponent implements OnInit {
 
-  settings = {
-    mode: 'external',
-    actions: {
-      columnTitle: 'Дії',
-    },
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-    },
-    noDataMessage: 'Нема даних',
-    columns: {
-      fioUkr: {title: 'ФИО(укр)', type: 'string', filter: false},
-      email: {title: 'Пошта', type: 'string', filter: false},
-      scienceDegree: {title: 'Наукова ступінь', type: 'string', filter: false},
-      academicTitle: {title: 'Вчене звання', type: 'string', filter: false},
-      cathedra: {title: 'Кафедра (Головна)', type: 'string', filter: false},
-    },
-  };
+  settings: any = {actions: false};
 
   source: LocalDataSource;
 
@@ -57,6 +35,24 @@ export class EmployeesComponent implements OnInit {
       const users = this.userConverter.transform(response);
       this.source.load(users);
     });
+    this.userService.getUserById(this.auth.getUserId())
+      .subscribe((user) => {
+        this.settings = {
+          actions: user.credentials.role === 'User' ? false : {columnTitle: 'Дії'},
+          mode: 'external',
+          add: {addButtonContent: '<i class="nb-plus"></i>'},
+          edit: {editButtonContent: '<i class="nb-edit"></i>'},
+          delete: {deleteButtonContent: '<i class="nb-trash"></i>'},
+          noDataMessage: 'Нема даних',
+          columns: {
+            fioUkr: {title: 'ФИО(укр)', type: 'string', filter: false},
+            email: {title: 'Пошта', type: 'string', filter: false},
+            scienceDegree: {title: 'Наукова ступінь', type: 'string', filter: false},
+            academicTitle: {title: 'Вчене звання', type: 'string', filter: false},
+            cathedra: {title: 'Кафедра (Головна)', type: 'string', filter: false},
+          },
+        };
+      });
   }
 
   onAddConfirm(event) {
