@@ -15,6 +15,7 @@ export class ScienceUnit {
   public note: string;
   public school: string;
   public author: string;
+  public users: Array<any>;
   constructor (
   ) {  }
 }
