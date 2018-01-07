@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Toast, ToasterService} from 'angular2-toaster';
 import {PasswordConfirmValidator} from '../../blocks/validators/password-confirm.validator';
 import {AuthService} from '../../services/auth.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModifyLinksComponent} from '../../blocks/popups';
 
 @Component({
   selector: 's2m-profile',
@@ -23,6 +25,7 @@ export class ProfileComponent implements OnInit {
               public authService: AuthService,
               private route: ActivatedRoute,
               private toastr: ToasterService,
+              private modalService: NgbModal,
               private fb: FormBuilder) {
   }
 
@@ -61,5 +64,12 @@ export class ProfileComponent implements OnInit {
     }
     return false;
   }
+
+  openLinksPopup() {
+    const linksModal = this.modalService.open(ModifyLinksComponent, {size: 'lg', container: 'nb-layout'});
+    linksModal.componentInstance.user = this.user;
+    return false;
+  }
+
 
 }
