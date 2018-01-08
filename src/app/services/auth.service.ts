@@ -20,8 +20,6 @@ export class AuthService {
   public static readonly REFRESH_TOKEN_URL = environment.apiUrl + '/api/auth/token/refresh';
 
   private token: string;
-  private username: string;
-  private userId: number;
 
   constructor(private http: Http) {
     this.refreshUserData();
@@ -87,8 +85,6 @@ export class AuthService {
   public logout(): void {
     sessionStorage.removeItem('user');
     this.token = null;
-    this.username = null;
-    this.userId = null;
   }
 
   /**
@@ -118,14 +114,16 @@ export class AuthService {
    * @return username if exists
    */
   public getUsername(): string {
-    return this.username;
+    const claims = this.getTokenClaims(this.token);
+    return claims.sub;
   }
 
   /**
    * @return userId if exists
    */
   public getUserId(): number {
-    return this.userId;
+    const claims = this.getTokenClaims(this.token);
+    return claims.id;
   }
 
   /**
@@ -133,6 +131,11 @@ export class AuthService {
    */
   public getToken(): string {
     return this.token;
+  }
+
+  public getRole(): string {
+    const claims = this.getTokenClaims(this.token);
+    return claims.role[0]['authority'];
   }
 
   // Generates Headers
@@ -159,8 +162,6 @@ export class AuthService {
   // Saves user details into service properties
   private saveUserDetails(user): void {
     this.token = user.token || '';
-    this.username = user.sub || '';
-    this.userId = user.id || 0;
   }
 
   // Retrieves user details from token
