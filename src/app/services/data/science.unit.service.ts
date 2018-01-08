@@ -25,6 +25,12 @@ export class ScienceUnitService {
       .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
   }
 
+  getAllScienceUnitsByUserId(userId: string): Observable<Array<any>> {
+    return this.http.get(`${environment.apiUrl}/unit/user/${userId}`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
+  }
+
   saveScienceUnit(scienceUnit: ScienceUnit): Observable<any> {
     return this.http.post(`${environment.apiUrl}/unit`, scienceUnit, this.auth.generateOptions())
       .map((res: Response) => res.json())
@@ -38,6 +44,8 @@ export class ScienceUnitService {
   }
 
   deleteScienceUnit(id: string): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions());
+    return this.http.delete(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
   }
 }

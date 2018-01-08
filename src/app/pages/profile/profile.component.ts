@@ -7,6 +7,8 @@ import {PasswordConfirmValidator} from '../../blocks/validators/password-confirm
 import {AuthService} from '../../services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModifyLinksComponent} from '../../blocks/popups';
+import {LocalDataSource} from 'ng2-smart-table';
+import {ScienceUnitService} from '../../services/data/science.unit.service';
 
 @Component({
   selector: 's2m-profile',
@@ -21,12 +23,43 @@ export class ProfileComponent implements OnInit {
   submitted = false;
   loading = false;
 
+  source: LocalDataSource;
+  settings = {
+    actions: false,
+    noDataMessage: 'Нема даних',
+    columns: {
+      name: {
+        title: 'Назва',
+        type: 'string',
+      },
+      title: {
+        title: 'Титулка',
+        type: 'string',
+      },
+      unitType: {
+        title: 'Тип',
+        type: 'string',
+      },
+      author: {
+        title: 'Автор',
+        type: 'string',
+      },
+      year: {
+        title: 'Рiк',
+        type: 'string',
+      },
+    },
+    mode: 'external',
+  };
+
   constructor(private userService: UserService,
               public authService: AuthService,
               private route: ActivatedRoute,
               private toastr: ToasterService,
               private modalService: NgbModal,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private scienceUnitService: ScienceUnitService) {
+    this.source = new LocalDataSource([]);
   }
 
   ngOnInit() {
@@ -34,7 +67,13 @@ export class ProfileComponent implements OnInit {
       .switchMap((params: ParamMap) =>
         this.userService.getUserById(params.get('id')));
 
-    user$.subscribe((response) => this.user = response);
+    user$.subscribe((response) => {
+      this.user = response;
+      this.scienceUnitService.getAllScienceUnitsByUserId(this.user.id)
+        .subscribe(scienceUnitsResponse => {
+          this.source.load(scienceUnitsResponse);
+        });
+    });
     this.changePwdForm = this.fb.group({
       'password': ['', [Validators.required, Validators.min(6)]],
       'confirmPassword': ['', Validators.required],

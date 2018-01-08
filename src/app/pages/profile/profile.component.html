@@ -205,6 +205,18 @@
           </nb-card-body>
         </nb-card>
       </div>
+      <nb-card *ngIf="user?.id === authService.getUserId()">
+        <nb-card-header>
+          Публікації користувача
+        </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-lg-12">
+              <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
     </div>
   </nb-card-body>
 </nb-card>
