@@ -25,22 +25,19 @@ export class ScienceUnitService {
       .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
   }
 
-  saveScienceUnit(scienceUnit: ScienceUnit): void {
-    this.http.post(`${environment.apiUrl}/unit`, scienceUnit, this.auth.generateOptions())
+  saveScienceUnit(scienceUnit: ScienceUnit): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/unit`, scienceUnit, this.auth.generateOptions())
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'))
-      .subscribe();
+      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
   }
 
-  updateScienceUnit(scienceUnit: ScienceUnit): void {
-    this.http.put(`${environment.apiUrl}/unit/${scienceUnit.id}`, scienceUnit, this.auth.generateOptions())
+  updateScienceUnit(scienceUnit: ScienceUnit): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/unit/${scienceUnit.id}`, scienceUnit, this.auth.generateOptions())
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'))
-      .subscribe();
+      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
   }
 
-  deleteScienceUnit(id: string): void {
-    this.http.delete(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions())
-      .subscribe();
+  deleteScienceUnit(id: string): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions());
   }
 }

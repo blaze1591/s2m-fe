@@ -125,8 +125,11 @@ export class PublicationsComponent implements OnInit {
 
   saveUnit(): void {
     this.transformIdsToUsers();
-    this.scienceUnitService.saveScienceUnit(this.model);
-    this.loadScienceUnits();
+    this.scienceUnitService.saveScienceUnit(this.model)
+      .subscribe(() => {
+        // TODO: update only in table
+        this.loadScienceUnits();
+      });
     this.lgModal.hide();
   }
 
@@ -137,8 +140,11 @@ export class PublicationsComponent implements OnInit {
 
   updateUnit(): void {
     this.transformIdsToUsers();
-    this.scienceUnitService.updateScienceUnit(this.model);
-    this.loadScienceUnits();
+    this.scienceUnitService.updateScienceUnit(this.model)
+      .subscribe(() => {
+        // TODO: update only in table
+        this.loadScienceUnits();
+      });
     this.updateModal.hide();
   }
 
@@ -148,8 +154,11 @@ export class PublicationsComponent implements OnInit {
   }
 
   deleteUnit() {
-    this.scienceUnitService.deleteScienceUnit(this.model.id);
-    this.loadScienceUnits();
+    this.scienceUnitService.deleteScienceUnit(this.model.id)
+      .subscribe(() => {
+        // TODO: update only in table
+        this.loadScienceUnits();
+      });
     this.deleteModal.hide();
   }
   onTypeChange() {
