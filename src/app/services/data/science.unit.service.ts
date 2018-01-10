@@ -44,8 +44,6 @@ export class ScienceUnitService {
   }
 
   deleteScienceUnit(id: string): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions())
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Get all science units error'));
+    return this.http.delete(`${environment.apiUrl}/unit/${id}`, this.auth.generateOptions());
   }
 }
