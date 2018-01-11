@@ -24,7 +24,7 @@
 </nb-card>
 
 <!--insert modal-->
-<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" name="addModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -59,8 +59,11 @@
             <div class = "form-group input-group-sm">
               <label for = "name">Name</label>
               <input type = "text" class = "form-control" id = "name"
-                     [(ngModel)] = "model.name" name = "name">
+                     [(ngModel)] = "model.name" name = "name" #name="ngModel" required>
             </div>
+            <small *ngIf="name.errors && (name.dirty || name.touched)" class="form-text error">
+              <p>Name field is required!</p>
+            </small>
 
             <div class = "form-group input-group-sm">
               <label for = "name">Title</label>
