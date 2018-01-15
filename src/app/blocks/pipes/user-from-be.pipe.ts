@@ -12,7 +12,7 @@ export class UserFromBEPipe implements PipeTransform {
         id: user.id,
         fioUkr: `${user.lastNameUa} ${user.firstNameUa} ${user.middleNameUa}`,
         fioRu: `${user.lastNameRu} ${user.firstNameRu} ${user.middleNameRu}`,
-        fioEng: `${user.lastName} ${user.firstName} ${user.middleName}`,
+        fioEng: `${user.lastName} ${user.firstName}`,
         login: user.credentials['userName'],
         birth: this.datePipe.transform(user.birthDate, 'dd/MM/yyyy'),
         hirshScholar: user.hirshScholar,

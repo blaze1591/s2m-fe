@@ -80,7 +80,7 @@
     </div>
     <div class="row">
       <div class="col-lg-6 form-group input-group-sm">
-        <label>Поштова скринька</label>
+        <label>Email</label>
         <input class="form-control"
                formControlName="email"
                [attr.maxlength]="50"
@@ -99,10 +99,6 @@
                placeholder="dd/mm/yyyy"
                [class.form-control-danger]="submitted && !modifyForm.controls['birth'].valid"
                [textMask]="{mask: dateMask, keepCharPositions: true}">
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['birth'].hasError('required')">
-          Потрібне поле
-        </small>
         <small class="form-text error"
                *ngIf="submitted && modifyForm.controls['birth'].hasError('pattern')">
           Введіть коректну дату
@@ -149,7 +145,7 @@
         <label>Google Scholar</label>
         <input class="form-control"
                formControlName="hirshScholar"
-               type="number" step="0.1"
+               type="number" step="1"
                [class.form-control-danger]="submitted && !modifyForm.controls['hirshScholar'].valid">
         <small class="form-text error"
                *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('required')">
@@ -163,12 +159,16 @@
                *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('max')">
           Значення потрібно бути меньше 100
         </small>
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('pattern')">
+          Значення потрібно бути цілим
+        </small>
       </div>
       <div class="col-lg-6 form-group input-group-sm">
         <label>Scopus</label>
         <input class="form-control"
                formControlName="hirshScopus"
-               type="number" step="0.1"
+               type="number" step="1"
                [class.form-control-danger]="submitted && !modifyForm.controls['hirshScopus'].valid">
         <small class="form-text error"
                *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('required')">
@@ -181,6 +181,10 @@
         <small class="form-text error"
                *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('max')">
           Значення потрібно бути меньше 100
+        </small>
+        <small class="form-text error"
+               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('pattern')">
+          Значення потрібно бути цілим
         </small>
       </div>
     </div>

@@ -38,17 +38,17 @@ export class ModifyEmployeeComponent implements OnInit {
         disabled: this.event.data,
       }, [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
       'fioUkr': [edit && edit.fioUkr, [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
-      'fioEng': [edit && edit.fioEng, [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){3}$')]],
+      'fioEng': [edit && edit.fioEng, [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){2}$')]],
       'fioRu': [edit && edit.fioRu, [Validators.required, Validators.pattern('^([А-Я][а-я]+[\\-\\s]?){3}$')]],
       'email': [{value: edit && edit.email, disabled: this.event.data}],
-      'birth': [edit && edit.birth, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+      'birth': [edit && edit.birth, [Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'password': ['', [Validators.required, Validators.min(6)]],
       'confirmPassword': ['', Validators.required],
       'hirshScholar': [edit && edit.hirshScholar[edit.hirshScholar.length - 1]['index'] || 0,
-        [Validators.required, Validators.min(0), Validators.max(100)]],
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
       'hirshScopus': [edit && edit.hirshScopus[edit.hirshScopus.length - 1]['index'] || 0,
-        [Validators.required, Validators.min(0), Validators.max(100)]],
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
       'scienceDegree': [edit && edit.scienceDegree || '-'],
       'scienceTitle': [edit && edit.academicTitle || '-'],
       'role': [edit && edit.role || 'User'],
@@ -140,17 +140,21 @@ export class ModifyEmployeeComponent implements OnInit {
       c.key = false;
     }
     formValue.cathedras[keyPosition].key = true;
-    const [day, month, year] = formValue.birth.split('/'),
-      editData = this.event.data,
+    const editData = this.event.data,
       scopusEntity = {index: formValue.hirshScopus, indexDate: new Date()},
       scholarEntity = {index: formValue.hirshScholar, indexDate: new Date()};
+    let birthDate;
+    if (formValue.birth) {
+      const [day, month, year] = formValue.birth.split('/');
+      birthDate = new Date(year, month - 1, day);
+    }
     return {
       id: editData && editData.id,
-      firstName: fioEng[1], middleName: fioEng[2], lastName: fioEng[0],
+      firstName: fioEng[1], lastName: fioEng[0],
       firstNameUa: fioUkr[1], middleNameUa: fioUkr[2], lastNameUa: fioUkr[0],
       firstNameRu: fioRu[1], middleNameRu: fioRu[2], lastNameRu: fioRu[0],
       email: formValue.email,
-      birthDate: new Date(year, month - 1, day),
+      birthDate: birthDate,
       academicTitle: formValue.scienceTitle,
       scienceDegree: formValue.scienceDegree,
       hirshScopus: editData ? editData.hirshScopus.concat(scopusEntity) : [scopusEntity],
