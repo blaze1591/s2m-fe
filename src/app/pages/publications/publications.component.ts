@@ -161,6 +161,18 @@ export class PublicationsComponent implements OnInit {
       });
     this.deleteModal.hide();
   }
+
+  uploadBibtex(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length === 0) {
+      alert('return');
+      return;
+    }
+    let file = fileList[0];
+    alert(file.name);
+    this.scienceUnitService.uploadBibtex(file).subscribe(() => alert('called'));
+  }
+
   onTypeChange() {
     const scienceUnit: ScienceUnit = this.model;
     this.model = new ScienceUnit();
