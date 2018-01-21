@@ -94,8 +94,8 @@ export class PublicationsComponent implements OnInit {
   loadEmployees(): void {
     this.userService.getUsers()
       .subscribe(response => {
-        let users = [];
-        for (let user of response) {
+        const users = [];
+        for (const user of response) {
           users.push({label: user.firstNameUa + ' ' + user.middleNameUa + ' ' + user.lastNameUa, value: user.id});
         }
         this.options = users;
@@ -103,16 +103,16 @@ export class PublicationsComponent implements OnInit {
   }
 
   transformIdsToUsers(): void {
-    let users = [];
-    for (let userId of this.model.users) {
+    const users = [];
+    for (const userId of this.model.users) {
       users.push({id: userId});
     }
     this.model.users = users;
   }
 
   transformUserToIds(): void {
-    let users = [];
-    for (let user of this.model.users) {
+    const users = [];
+    for (const user of this.model.users) {
       users.push(user.id);
     }
     this.model.users = users;
@@ -163,14 +163,16 @@ export class PublicationsComponent implements OnInit {
   }
 
   uploadBibtex(event) {
-    let fileList: FileList = event.target.files;
+    const fileList: FileList = event.target.files;
     if (fileList.length === 0) {
-      alert('return');
       return;
     }
-    let file = fileList[0];
+    const file = fileList[0];
     alert(file.name);
-    this.scienceUnitService.uploadBibtex(file).subscribe(() => alert('called'));
+    this.scienceUnitService.uploadBibtex(file).subscribe((response) => {
+      alert('called');
+      console.log(response);
+    });
   }
 
   onTypeChange() {
