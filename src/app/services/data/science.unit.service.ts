@@ -54,6 +54,7 @@ export class ScienceUnitService {
     formData.append('file', bibtexFile, bibtexFile.name);
 
     return this.http.post(`${environment.apiUrl}/unit/upload`, formData, this.auth.generateOptions())
+      .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Uploading bibtex file error'));
   }
 }

@@ -15,6 +15,7 @@ export class PublicationsComponent implements OnInit {
   @ViewChild('lgModal') lgModal: ModalDirective;
   @ViewChild('updateModal') updateModal: ModalDirective;
   @ViewChild('deleteModal') deleteModal: ModalDirective;
+  @ViewChild('bibtexModal') bibtexModal: ModalDirective;
 
   model = new ScienceUnit();
   types = ['Book', 'Chapter', 'Conference', 'Journal', 'Other', 'Patent', 'Thesis'];
@@ -65,10 +66,51 @@ export class PublicationsComponent implements OnInit {
     mode: 'external',
   };
 
+  bibtexSettings = {
+    actions: {
+      add: false,
+      columnTitle: 'Дії',
+      position: 'right',
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>'
+    },
+    noDataMessage: 'Нема даних',
+    columns: {
+      name: {
+        title: 'Назва',
+        type: 'string',
+      },
+      title: {
+        title: 'Титулка',
+        type: 'string',
+      },
+      unitType: {
+        title: 'Тип',
+        type: 'string',
+      },
+      author: {
+        title: 'Автор',
+        type: 'string',
+      },
+      year: {
+        title: 'Рiк',
+        type: 'string',
+      },
+    }
+  };
+
   source: LocalDataSource;
+  bibtexSource: LocalDataSource;
   constructor(private scienceUnitService: ScienceUnitService,
               private userService: UserService) {
     this.source = new LocalDataSource([]);
+    this.bibtexSource = new LocalDataSource([]);
   }
 
   ngOnInit() {
@@ -169,9 +211,10 @@ export class PublicationsComponent implements OnInit {
     }
     const file = fileList[0];
     alert(file.name);
-    this.scienceUnitService.uploadBibtex(file).subscribe((response) => {
-      alert('called');
-      console.log(response);
+    this.scienceUnitService.uploadBibtex(file)
+      .subscribe((response) => {
+        console.log(response);
+        this.bibtexSource.load(response);
     });
   }
 
@@ -185,6 +228,11 @@ export class PublicationsComponent implements OnInit {
     this.model.title = scienceUnit.title;
     this.model.year = scienceUnit.year;
     this.model.url = scienceUnit.url;
+  }
+
+  callBibtexModal() {
+    this.bibtexModal.show();
+    this.bibtexSource.load([]);
   }
 
   onSearch(query: string = '') {
