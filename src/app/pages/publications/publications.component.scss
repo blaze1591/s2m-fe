@@ -9,3 +9,21 @@
 .modal-table .modal-lg {
   max-width: 80%;
 }
+
+.file-upload input[type=file] {
+  display:none;
+  margin:10px;
+}
+.file-upload input[type=file] + label {
+  display:inline-block;
+  margin:20px;
+  padding: 4px 32px;
+  background-color: #ffffff;
+  border:solid 1px #666f77;
+  border-radius: 6px;
+  color:#666f77;
+}
+.file-upload input[type=file]:active + label {
+  background: #2d6c7a none;
+  color:#ffffff;
+}

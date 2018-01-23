@@ -20,6 +20,7 @@ export class PublicationsComponent implements OnInit {
   model = new ScienceUnit();
   types = ['Book', 'Chapter', 'Conference', 'Journal', 'Other', 'Patent', 'Thesis'];
   options: Array<IOption>;
+  fileName: any;
 
   settings = {
     actions: {
@@ -210,10 +211,9 @@ export class PublicationsComponent implements OnInit {
       return;
     }
     const file = fileList[0];
-    alert(file.name);
+    this.fileName = file.name;
     this.scienceUnitService.uploadBibtex(file)
       .subscribe((response) => {
-        console.log(response);
         this.bibtexSource.load(response);
     });
   }
@@ -233,6 +233,15 @@ export class PublicationsComponent implements OnInit {
   callBibtexModal() {
     this.bibtexModal.show();
     this.bibtexSource.load([]);
+    this.fileName = '';
+  }
+
+  saveBibtexUnits() {
+    this.bibtexSource.getAll().then((data) => {
+      this.scienceUnitService.bulkSaveScienceUnits(data)
+        .subscribe(() => this.loadScienceUnits());
+    });
+    this.bibtexModal.hide();
   }
 
   onSearch(query: string = '') {

@@ -57,4 +57,9 @@ export class ScienceUnitService {
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Uploading bibtex file error'));
   }
+
+  bulkSaveScienceUnits(scienceUnits: Array<any>): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/unit/bulk`, scienceUnits, this.auth.generateOptions())
+      .catch((error: any) => Observable.throw(error.json().error || 'Bulk uploading science units error'));
+  }
 }
