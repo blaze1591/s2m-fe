@@ -24,6 +24,12 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json().error || 'getUsers error'));
   }
 
+  getTop10(): Observable<Array<any>> {
+    return this.http.get(`${environment.apiUrl}/user/topTenDashboard`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'getTop10 error'));
+  }
+
   modifyUser(user): Observable<any> {
     return this.http.post(`${environment.apiUrl}/user`, user, this.auth.generateOptions())
       .map((res: Response) => res.json())

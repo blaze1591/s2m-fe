@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NbThemeService} from '@nebular/theme';
 
 @Component({
@@ -6,7 +6,7 @@ import {NbThemeService} from '@nebular/theme';
   template: `
     <ngx-charts-bar-vertical
       [scheme]="colorScheme"
-      [results]="results"
+      [results]="users"
       [xAxis]="showXAxis"
       [yAxis]="showYAxis"
       [legend]="showLegend"
@@ -16,21 +16,10 @@ import {NbThemeService} from '@nebular/theme';
     </ngx-charts-bar-vertical>
   `,
 })
-export class RatingChartComponent implements OnDestroy {
-
-  results = [
-    {name: 'user1', value: 34},
-    {name: 'user2', value: 23},
-    {name: 'user3', value: 21},
-    {name: 'user4', value: 19},
-    {name: 'user5', value: 15},
-    {name: 'user6', value: 9},
-    {name: 'user7', value: 5},
-    {name: 'user8', value: 3},
-    {name: 'user9', value: 0},
-  ];
+export class RatingChartComponent implements OnInit, OnDestroy {
+  @Input() users: Array<any>;
   showLegend = true;
-  showXAxis = true;
+  showXAxis = false;
   showYAxis = true;
   xAxisLabel = 'Користувач';
   yAxisLabel = 'Кількість цитувань';
@@ -38,6 +27,9 @@ export class RatingChartComponent implements OnDestroy {
   themeSubscription: any;
 
   constructor(private theme: NbThemeService) {
+  }
+
+  ngOnInit(): void {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
       const colors: any = config.variables;
       this.colorScheme = {

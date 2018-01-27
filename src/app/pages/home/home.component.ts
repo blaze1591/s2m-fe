@@ -1,9 +1,20 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/data/users.service';
 
 @Component({
   selector: 's2m-home',
   styleUrls: ['./home.component.scss'],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  users: any[] = [];
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit() {
+    this.userService.getTop10().subscribe(response => {
+      this.users = response;
+    });
+  }
 }
