@@ -45,14 +45,11 @@ export class ModifyEmployeeComponent implements OnInit {
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'password': ['', [Validators.required, Validators.min(6)]],
       'confirmPassword': ['', Validators.required],
-      'hirshScholar': [edit && edit.hirshScholar[edit.hirshScholar.length - 1]['index'] || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
-      'hirshScopus': [edit && edit.hirshScopus[edit.hirshScopus.length - 1]['index'] || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'hirshCollection': this.fb.array(edit && edit.hirshCollection.map((s) => this.initScopusRow(s)) || [this.initScopusRow()]),
       'scienceDegree': [edit && edit.scienceDegree || '-'],
       'scienceTitle': [edit && edit.academicTitle || '-'],
       'role': [edit && edit.role || 'User'],
-      'cathedras': this.fb.array(edit && edit.cathedras.map((c) => this.initPositionRow(c)) || [this.initPositionRow()]),
+      'cathedras': this.fb.array(edit && edit.cathedras.map((c) => this.initCathedraRow(c)) || [this.initCathedraRow()]),
       'keyPosition': [edit && edit.cathedras.findIndex((c) => c.key) || 0],
     }, {
       validator: PasswordConfirmValidator.confirm,
@@ -93,16 +90,22 @@ export class ModifyEmployeeComponent implements OnInit {
     return false;
   }
 
-  addNewPosition() {
-    const control = <FormArray>this.modifyForm.controls['cathedras'];
-    control.push(this.initPositionRow());
+  addNewPosition(collection: string) {
+    const control = <FormArray>this.modifyForm.controls[collection];
+    if (collection === 'cathedras') {
+      control.push(this.initCathedraRow());
+    } else if (collection === 'hirshCollection') {
+      control.push(this.initScopusRow());
+    }
     return false;
   }
 
-  deletePosition(index: number) {
-    const control = <FormArray>this.modifyForm.controls['cathedras'];
+  deletePosition(collection: string, index: number) {
+    const control = <FormArray>this.modifyForm.controls[collection];
     control.removeAt(index);
-    this.modifyForm.controls['keyPosition'].setValue(0);
+    if (collection === 'cathedras') {
+      this.modifyForm.controls['keyPosition'].setValue(0);
+    }
     return false;
   }
 
@@ -136,18 +139,10 @@ export class ModifyEmployeeComponent implements OnInit {
       fioRu = formValue.fioRu.split(' '),
       fioEng = formValue.fioEng.split(' '),
       keyPosition = formValue.keyPosition;
-    for (const c of formValue.cathedras) {
-      c.key = false;
-    }
-    formValue.cathedras[keyPosition].key = true;
-    const editData = this.event.data,
-      scopusEntity = {index: formValue.hirshScopus, indexDate: new Date()},
-      scholarEntity = {index: formValue.hirshScholar, indexDate: new Date()};
-    let birthDate;
-    if (formValue.birth) {
-      const [day, month, year] = formValue.birth.split('/');
-      birthDate = new Date(year, month - 1, day);
-    }
+    this.convertCathedras(formValue, keyPosition);
+    const editData = this.event.data;
+    this.convertDateForHirsh(formValue);
+    const birthDate = this.convertBirthDate(formValue);
     return {
       id: editData && editData.id,
       firstName: fioEng[1], lastName: fioEng[0],
@@ -157,18 +152,55 @@ export class ModifyEmployeeComponent implements OnInit {
       birthDate: birthDate,
       academicTitle: formValue.scienceTitle,
       scienceDegree: formValue.scienceDegree,
-      hirshScopus: editData ? editData.hirshScopus.concat(scopusEntity) : [scopusEntity],
-      hirshScholar: editData ? editData.hirshScholar.concat(scholarEntity) : [scholarEntity],
+      hirshCollection: formValue.hirshCollection,
       cathedras: formValue.cathedras,
       credentials: {userName: formValue.login, password: formValue.password, role: formValue.role},
     };
   }
 
-  private initPositionRow(cathedra?: any) {
+  private convertCathedras(formValue, keyPosition) {
+    for (const c of formValue.cathedras) {
+      c.key = false;
+    }
+    formValue.cathedras[keyPosition].key = true;
+  }
+
+  private convertDateForHirsh(formValue) {
+    for (const s of formValue.hirshCollection) {
+      const [day, month, year] = s.indexDate.split('/');
+      s.indexDate = new Date(year, month - 1, day);
+    }
+  }
+
+  private convertBirthDate(formValue): Date {
+    let birthDate;
+    if (formValue.birth) {
+      const [day, month, year] = formValue.birth.split('/');
+      birthDate = new Date(year, month - 1, day);
+    }
+    return birthDate;
+  }
+
+  private initCathedraRow(cathedra?: any) {
     return this.fb.group({
       'name': [cathedra && cathedra.name || '-'],
       'post': [cathedra && cathedra.post || '', Validators.required],
       'key': [cathedra && cathedra.key || false],
+    });
+  }
+
+  private initScopusRow(scopus?: any) {
+    return this.fb.group({
+      'indexScopus': [scopus && scopus.indexScopus || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'indexScholar': [scopus && scopus.indexScholar || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'indexDate': [scopus && scopus.indexDate, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+        '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
+      'citationCount': [scopus && scopus.citationCount || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'docCount': [scopus && scopus.docCount || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
     });
   }
 }

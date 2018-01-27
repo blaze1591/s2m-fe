@@ -85,11 +85,11 @@ export class ProfileBarHorizontalComponent implements OnInit, OnChanges, OnDestr
 
   ngOnChanges() {
     if (this.user) {
-      this.data.labels = this.user.hirshScholar.map((hirsh) =>
+      this.data.labels = this.user.hirshCollection.map((hirsh) =>
         this.datePipe.transform(hirsh.indexDate, 'dd/MM/yyyy'),
       );
-      this.data.datasets[0]['data'] = this.user.hirshScholar.map((hirsh) => hirsh.index);
-      this.data.datasets[1]['data'] = this.user.hirshScopus.map((hirsh) => hirsh.index);
+      this.data.datasets[0]['data'] = this.user.hirshCollection.map((hirsh) => hirsh.indexScholar);
+      this.data.datasets[1]['data'] = this.user.hirshCollection.map((hirsh) => hirsh.indexScopus);
       this.hbChart.chart.update();
     }
   }

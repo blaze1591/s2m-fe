@@ -139,55 +139,6 @@
         </small>
       </div>
     </div>
-    <label>Індекс Гірша</label>
-    <div class="row">
-      <div class="col-lg-6 form-group input-group-sm">
-        <label>Google Scholar</label>
-        <input class="form-control"
-               formControlName="hirshScholar"
-               type="number" step="1"
-               [class.form-control-danger]="submitted && !modifyForm.controls['hirshScholar'].valid">
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('required')">
-          Потрібне поле
-        </small>
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('min')">
-          Значення потрібно бути більше 0
-        </small>
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('max')">
-          Значення потрібно бути меньше 100
-        </small>
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScholar'].hasError('pattern')">
-          Значення потрібно бути цілим
-        </small>
-      </div>
-      <div class="col-lg-6 form-group input-group-sm">
-        <label>Scopus</label>
-        <input class="form-control"
-               formControlName="hirshScopus"
-               type="number" step="1"
-               [class.form-control-danger]="submitted && !modifyForm.controls['hirshScopus'].valid">
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('required')">
-          Потрібне поле
-        </small>
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('min')">
-          Значення потрібно бути більше 0
-        </small>
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('max')">
-          Значення потрібно бути меньше 100
-        </small>
-        <small class="form-text error"
-               *ngIf="submitted && modifyForm.controls['hirshScopus'].hasError('pattern')">
-          Значення потрібно бути цілим
-        </small>
-      </div>
-    </div>
     <div class="row luft">
       <div class="col-lg-4">
         <label for="scienceDegree">Наукова ступінь</label>
@@ -218,6 +169,71 @@
             {{role.name}}
           </option>
         </select>
+      </div>
+    </div>
+    <label>Індекс Гірша</label>
+    <div formArrayName="hirshCollection">
+      <div *ngFor="let pos of modifyForm.get('hirshCollection')['controls']; let i=index" [formGroupName]="i">
+        <div class="row">
+          <div class="col-2 form-group input-group-sm">
+            <label *ngIf="i === 0">Scopus</label>
+            <input class="form-control"
+                   formControlName="indexScopus"
+                   type="number" step="1"
+                   [class.form-control-danger]="submitted && !pos.controls['indexScopus'].valid">
+          </div>
+          <div class="col-2 form-group input-group-sm">
+            <label *ngIf="i === 0">Scholar</label>
+            <input class="form-control"
+                   formControlName="indexScholar"
+                   type="number" step="1"
+                   [class.form-control-danger]="submitted && !pos.controls['indexScholar'].valid">
+          </div>
+          <div class="col-3 form-group input-group-sm">
+            <label *ngIf="i === 0">Дата</label>
+            <input class="form-control"
+                   formControlName="indexDate"
+                   type="text"
+                   placeholder="dd/mm/yyyy"
+                   [class.form-control-danger]="submitted && !pos.controls['indexDate'].valid"
+                   [textMask]="{mask: dateMask, keepCharPositions: true}">
+          </div>
+          <div class="col-3">
+            <div class="row">
+              <div class="col-6 form-group input-group-sm">
+                <label *ngIf="i === 0">цит.</label>
+                <input class="form-control"
+                       formControlName="citationCount"
+                       type="number" step="1"
+                       [class.form-control-danger]="submitted && !pos.controls['citationCount'].valid">
+              </div>
+              <div class="col-6 form-group input-group-sm">
+                <label *ngIf="i === 0">док.</label>
+                <input class="form-control"
+                       formControlName="docCount"
+                       type="number" step="1"
+                       [class.form-control-danger]="submitted && !pos.controls['docCount'].valid">
+              </div>
+            </div>
+          </div>
+          <div class="col-2 form-group">
+            <div [class.modify-pos-button]="i === 0">
+              <button *ngIf="i === 0; else minusButton"
+                      class="btn btn-success btn-tn"
+                      type="button"
+                      (click)="addNewPosition('hirshCollection')">
+                <i class="ion-plus-round"></i>
+              </button>
+              <ng-template #minusButton>
+                <button class="btn btn-danger btn-tn"
+                        type="button"
+                        (click)="deletePosition('hirshCollection',i)">
+                  <i class="ion-minus-round"></i>
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div formArrayName="cathedras">
@@ -258,13 +274,13 @@
               <button *ngIf="i === 0; else buttonMinus"
                       class="btn btn-success btn-tn"
                       type="button"
-                      (click)="addNewPosition()">
+                      (click)="addNewPosition('cathedras')">
                 <i class="ion-plus-round"></i>
               </button>
               <ng-template #buttonMinus>
                 <button class="btn btn-danger btn-tn"
                         type="button"
-                        (click)="deletePosition(i)">
+                        (click)="deletePosition('cathedras',i)">
                   <i class="ion-minus-round"></i>
                 </button>
               </ng-template>
