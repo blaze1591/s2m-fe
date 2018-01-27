@@ -108,6 +108,7 @@ export class PublicationsComponent implements OnInit {
 
   source: LocalDataSource;
   bibtexSource: LocalDataSource;
+  bibtexUsers: any;
   constructor(private scienceUnitService: ScienceUnitService,
               private userService: UserService) {
     this.source = new LocalDataSource([]);
@@ -139,7 +140,7 @@ export class PublicationsComponent implements OnInit {
       .subscribe(response => {
         const users = [];
         for (const user of response) {
-          users.push({label: user.firstNameUa + ' ' + user.middleNameUa + ' ' + user.lastNameUa, value: user.id});
+          users.push({label: user.lastNameUa + ' ' + user.firstNameUa + ' ' + user.middleNameUa, value: user.id});
         }
         this.options = users;
       });
@@ -233,12 +234,13 @@ export class PublicationsComponent implements OnInit {
   callBibtexModal() {
     this.bibtexModal.show();
     this.bibtexSource.load([]);
+    this.bibtexUsers = null;
     this.fileName = '';
   }
 
   saveBibtexUnits() {
     this.bibtexSource.getAll().then((data) => {
-      this.scienceUnitService.bulkSaveScienceUnits(data)
+      this.scienceUnitService.bulkSaveScienceUnits(this.bibtexUsers, data)
         .subscribe(() => this.loadScienceUnits());
     });
     this.bibtexModal.hide();
