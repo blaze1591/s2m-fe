@@ -34,7 +34,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Добавити нову публiкацiю</h4>
+        <h4 class="modal-title pull-left">Добавити Нову Публiкацiю</h4>
         <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -44,9 +44,9 @@
         <form #addForm="ngForm">
 
           <div class = "form-group">
-            <label for = "type">Science Unit Type:</label>
+            <label for = "type">Тип Наукової Одиниці:</label>
             <select class = "form-control" id="type" name="type" [(ngModel)]="model.unitType" (change)="onTypeChange()">
-              <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
+              <option *ngFor="let type of types" [ngValue]="type.en">{{type.ua}}</option>
             </select>
           </div>
 
@@ -54,7 +54,7 @@
           <div *ngIf="model.unitType != null">
 
             <div class = "form-group input-group-sm">
-              <label for = "users">Bind to Users</label>
+              <label for = "users">Прив'язати до Користувачів</label>
               <ng-select type = "text" id = "users" name = "users" required #users="ngModel"
                 [options]="options"
                 [multiple]="true"
@@ -66,7 +66,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "name">Name</label>
+              <label for = "name">Назва</label>
               <input type = "text" class = "form-control" id = "name"
                      [(ngModel)] = "model.name" name = "name" #name="ngModel" required>
               <small *ngIf="name.errors && (name.dirty || name.touched)" class="form-text error">
@@ -75,7 +75,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "title">Title</label>
+              <label for = "title">Заголовок</label>
               <input type = "text" class = "form-control" id = "title" required #title="ngModel"
                      [(ngModel)] = "model.title" name = "title">
               <small *ngIf="title.errors && (title.dirty || title.touched)" class="form-text error">
@@ -84,7 +84,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "year">Year</label>
+              <label for = "year">Рік</label>
               <input type = "number" class = "form-control input-sm" id = "year" required #year="ngModel"
                      [(ngModel)] = "model.year" name = "year">
               <small *ngIf="year.errors && (year.dirty || year.touched)" class="form-text error">
@@ -93,7 +93,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "url">Url</label>
+              <label for = "url">URL Посилання</label>
               <input type = "text" class = "form-control input-sm" id = "url" required #url="ngModel"
                      [(ngModel)] = "model.url" name = "url">
               <small *ngIf="url.errors && (url.dirty || url.touched)" class="form-text error">
@@ -102,7 +102,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "author">Author</label>
+              <label for = "author">Автор</label>
               <input type = "text" class = "form-control input-sm" id = "author" required #author="ngModel"
                      [(ngModel)] = "model.author" name = "author">
               <small *ngIf="author.errors && (author.dirty || author.touched)" class="form-text error">
@@ -114,7 +114,7 @@
 
           <!--Present on Chapter and Conference-->
           <div class = "form-group input-group-sm" *ngIf="isBookTitleShouldBePresent()">
-            <label for = "bookTitle">Book Title</label>
+            <label for = "bookTitle">Заголовок Книги</label>
             <input type = "text" class = "form-control input-sm" id = "bookTitle" required #bookTitle="ngModel"
                    [(ngModel)] = "model.bookTitle" name = "bookTitle">
             <small *ngIf="bookTitle.errors && (bookTitle.dirty || bookTitle.touched)" class="form-text error">
@@ -124,7 +124,7 @@
 
           <!--Journal and Other-->
           <div class = "form-group input-group-sm" *ngIf="isJournalShouldBePresent()">
-            <label for = "journal">Journal</label>
+            <label for = "journal">Журнал</label>
             <input type = "text" class = "form-control input-sm" id = "journal" required #journal="ngModel"
                    [(ngModel)] = "model.journal" name = "journal">
             <small *ngIf="journal.errors && (journal.dirty || journal.touched)" class="form-text error">
@@ -134,7 +134,7 @@
           </div>
           <!--Present on Book and Journal-->
           <div class = "form-group input-group-sm" *ngIf="isPublisherShouldBePresent()">
-            <label for = "publisher">Publisher</label>
+            <label for = "publisher">Видавець</label>
             <input type = "text" class = "form-control input-sm" id = "publisher" required #publisher="ngModel"
                    [(ngModel)] = "model.publisher" name = "publisher">
             <small *ngIf="publisher.errors && (publisher.dirty || publisher.touched)" class="form-text error">
@@ -144,7 +144,7 @@
 
           <!--Chapter and Conference field-->
           <div class = "form-group input-group-sm" *ngIf="isOrganizationShouldBePresent()">
-            <label for = "organization">Organization</label>
+            <label for = "organization">Організація</label>
             <input type = "text" class = "form-control input-sm" id = "organization" required #organization="ngModel"
                    [(ngModel)] = "model.organization" name = "organization">
             <small *ngIf="organization.errors && (organization.dirty || organization.touched)" class="form-text error">
@@ -154,7 +154,7 @@
 
           <!--Present on every type except Other, Patent and Thesis-->
           <div class = "form-group input-group-sm" *ngIf="isVolumeShouldBePresent()">
-            <label for = "volume">Volume</label>
+            <label for = "volume">Том</label>
             <input type = "number" class = "form-control input-sm" id = "volume" required #volume="ngModel"
                    [(ngModel)] = "model.volume" name = "volume">
             <small *ngIf="volume.errors && (volume.dirty || volume.touched)" class="form-text error">
@@ -164,7 +164,7 @@
 
           <!--Everywhere except Patent, Thesis, Book-->
           <div class = "form-group input-group-sm" *ngIf="isNumberShouldBePresent()">
-            <label for = "number">Number</label>
+            <label for = "number">Номер</label>
             <input type = "number" class = "form-control input-sm" id = "number" required #number="ngModel"
                    [(ngModel)] = "model.number" name = "number">
             <small *ngIf="number.errors && (number.dirty || number.touched)" class="form-text error">
@@ -174,7 +174,7 @@
 
           <!--Chapter Conference Journal-->
           <div class = "form-group input-group-sm" *ngIf="isPagesShouldBePresent()">
-            <label for = "pages">Pages</label>
+            <label for = "pages">Кількість Сторінок</label>
             <input type = "number" class = "form-control input-sm" id = "pages" required #pages="ngModel"
                    [(ngModel)] = "model.pages" name = "pages">
             <small *ngIf="pages.errors && (pages.dirty || pages.touched)" class="form-text error">
@@ -184,7 +184,7 @@
 
           <!--Under Patent-->
           <div class = "form-group input-group-sm" *ngIf="isNoteShouldBePresent()">
-            <label for = "note">Note</label>
+            <label for = "note">Примітка</label>
             <input type = "text" class = "form-control input-sm" id = "note" required #note="ngModel"
                    [(ngModel)] = "model.note" name = "note">
             <small *ngIf="note.errors && (note.dirty || note.touched)" class="form-text error">
@@ -194,7 +194,7 @@
 
           <!--Under Thesis-->
           <div class = "form-group input-group-sm" *ngIf="isSchoolShouldBePresent()">
-            <label for = "school">School</label>
+            <label for = "school">Факультет</label>
             <input type = "text" class = "form-control input-sm" id = "school" required #school="ngModel"
                    [(ngModel)] = "model.school" name = "school">
             <small *ngIf="school.errors && (school.dirty || school.touched)" class="form-text error">
@@ -203,7 +203,7 @@
           </div>
 
           <div *ngIf="model.unitType != null">
-            <input type="button" class="btn btn-info" value="Save" (click)="saveUnit()" [disabled] ="!addForm.form.valid">
+            <input type="button" class="btn btn-info" value="Добавити" (click)="saveUnit()" [disabled] ="!addForm.form.valid">
           </div>
 
         </form>
@@ -220,7 +220,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Оновити публiкацiю</h4>
+        <h4 class="modal-title pull-left">Оновити Публiкацiю</h4>
         <button type="button" class="close pull-right" (click)="updateModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -229,9 +229,9 @@
 
         <form #updateForm="ngForm">
           <div class = "form-group">
-            <label for = "updateType">Science Unit Type:</label>
+            <label for = "updateType">Тип Наукової Одиниці:</label>
             <select class = "form-control" id="updateType" name="updateType" [(ngModel)]="model.unitType" (change)="onTypeChange()">
-              <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
+              <option *ngFor="let type of types" [ngValue]="type.en">{{type.ua}}</option>
             </select>
           </div>
 
@@ -239,7 +239,7 @@
           <div *ngIf="model.unitType != null">
 
             <div class = "form-group input-group-sm">
-              <label for = "updateUsers">Bind to Users</label>
+              <label for = "updateUsers">Прив'язати до Користувачів</label>
               <ng-select type = "text" id = "updateUsers" name = "updateUsers" #updateUsers="ngModel" required
                          [options]="options"
                          [multiple]="true"
@@ -251,7 +251,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "updateName">Name</label>
+              <label for = "updateName">Назва</label>
               <input type = "text" class = "form-control input-sm" id = "updateName" #updateName="ngModel" required
                      [(ngModel)] = "model.name" name = "updateName">
               <small *ngIf="updateName.errors && (updateName.dirty || updateName.touched)" class="form-text error">
@@ -260,7 +260,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "updateTitle">Title</label>
+              <label for = "updateTitle">Заголовок</label>
               <input type = "text" class = "form-control input-sm" id = "updateTitle" #updateTitle="ngModel" required
                      [(ngModel)] = "model.title" name = "updateTitle">
               <small *ngIf="updateTitle.errors && (updateTitle.dirty || updateTitle.touched)" class="form-text error">
@@ -269,7 +269,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "updateYear">Year</label>
+              <label for = "updateYear">Рік</label>
               <input type = "number" class = "form-control input-sm" id = "updateYear" #updateYear="ngModel" required
                      [(ngModel)] = "model.year" name = "updateYear">
               <small *ngIf="updateYear.errors && (updateYear.dirty || updateYear.touched)" class="form-text error">
@@ -278,7 +278,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "updateUrl">Url</label>
+              <label for = "updateUrl">URL Посилання</label>
               <input type = "text" class = "form-control input-sm" id = "updateUrl" #updateUrl="ngModel" required
                      [(ngModel)] = "model.url" name = "updateUrl">
               <small *ngIf="updateUrl.errors && (updateUrl.dirty || updateUrl.touched)" class="form-text error">
@@ -287,7 +287,7 @@
             </div>
 
             <div class = "form-group input-group-sm">
-              <label for = "updateAuthor">Author</label>
+              <label for = "updateAuthor">Автор</label>
               <input type = "text" class = "form-control input-sm" id = "updateAuthor" #updateAuthor="ngModel" required
                      [(ngModel)] = "model.author" name = "updateAuthor">
               <small *ngIf="updateAuthor.errors && (updateAuthor.dirty || updateAuthor.touched)" class="form-text error">
@@ -298,7 +298,7 @@
 
           <!--Present on Chapter and Conference-->
           <div class = "form-group input-group-sm" *ngIf="isBookTitleShouldBePresent()">
-            <label for = "updateBookTitle">Book Title</label>
+            <label for = "updateBookTitle">Заголовок Книги</label>
             <input type = "text" class = "form-control input-sm" id = "updateBookTitle" #updateBookTitle="ngModel" required
                    [(ngModel)] = "model.bookTitle" name = "updateBookTitle">
             <small *ngIf="updateBookTitle.errors && (updateBookTitle.dirty || updateBookTitle.touched)" class="form-text error">
@@ -308,7 +308,7 @@
 
           <!--Journal and Other-->
           <div class = "form-group input-group-sm" *ngIf="isJournalShouldBePresent()">
-            <label for = "updateJournal">Journal</label>
+            <label for = "updateJournal">Журнал</label>
             <input type = "text" class = "form-control input-sm" id = "updateJournal" #updateJournal="ngModel" required
                    [(ngModel)] = "model.journal" name = "updateJournal">
             <small *ngIf="updateJournal.errors && (updateJournal.dirty || updateJournal.touched)" class="form-text error">
@@ -318,7 +318,7 @@
 
           <!--Present on Book and Journal-->
           <div class = "form-group input-group-sm" *ngIf="isPublisherShouldBePresent()">
-            <label for = "updatePublisher">Publisher</label>
+            <label for = "updatePublisher">Видавець</label>
             <input type = "text" class = "form-control input-sm" id = "updatePublisher" #updatePublisher="ngModel" required
                    [(ngModel)] = "model.publisher" name = "updatePublisher">
             <small *ngIf="updatePublisher.errors && (updatePublisher.dirty || updatePublisher.touched)" class="form-text error">
@@ -328,7 +328,7 @@
 
           <!--Chapter and Conference field-->
           <div class = "form-group input-group-sm" *ngIf="isOrganizationShouldBePresent()">
-            <label for = "updateOrganization">Organization</label>
+            <label for = "updateOrganization">Організація</label>
             <input type = "text" class = "form-control input-sm" id = "updateOrganization" #updateOrganization="ngModel" required
                    [(ngModel)] = "model.organization" name = "updateOrganization">
             <small *ngIf="updateOrganization.errors && (updateOrganization.dirty || updateOrganization.touched)" class="form-text error">
@@ -338,7 +338,7 @@
 
           <!--Present on every type except Other, Patent and Thesis-->
           <div class = "form-group input-group-sm" *ngIf="isVolumeShouldBePresent()">
-            <label for = "updateVolume">Volume</label>
+            <label for = "updateVolume">Том</label>
             <input type = "number" class = "form-control input-sm" id = "updateVolume" #updateVolume="ngModel" required
                    [(ngModel)] = "model.volume" name = "updateVolume">
             <small *ngIf="updateVolume.errors && (updateVolume.dirty || updateVolume.touched)" class="form-text error">
@@ -348,7 +348,7 @@
 
           <!--Everywhere except Patent, Thesis, Book-->
           <div class = "form-group input-group-sm" *ngIf="isNumberShouldBePresent()">
-            <label for = "updateNumber">Number</label>
+            <label for = "updateNumber">Номер</label>
             <input type = "number" class = "form-control input-sm" id = "updateNumber" #updateNumber="ngModel" required
                    [(ngModel)] = "model.number" name = "updateNumber">
             <small *ngIf="updateNumber.errors && (updateNumber.dirty || updateNumber.touched)" class="form-text error">
@@ -358,7 +358,7 @@
 
           <!--Chapter Conference Journal-->
           <div class = "form-group input-group-sm" *ngIf="isPagesShouldBePresent()">
-            <label for = "updatePages">Pages</label>
+            <label for = "updatePages">Кількість Сторінок</label>
             <input type = "number" class = "form-control input-sm" id = "updatePages" #updatePages="ngModel" required
                    [(ngModel)] = "model.pages" name = "updatePages">
             <small *ngIf="updatePages.errors && (updatePages.dirty || updatePages.touched)" class="form-text error">
@@ -368,7 +368,7 @@
 
           <!--Under Patent-->
           <div class = "form-group input-group-sm" *ngIf="isNoteShouldBePresent()">
-            <label for = "updateNote">Note</label>
+            <label for = "updateNote">Примітка</label>
             <input type = "text" class = "form-control input-sm" id = "updateNote" #updateNote="ngModel" required
                    [(ngModel)] = "model.note" name = "updateNote">
             <small *ngIf="updateNote.errors && (updateNote.dirty || updateNote.touched)" class="form-text error">
@@ -378,7 +378,7 @@
 
           <!--Under Thesis-->
           <div class = "form-group input-group-sm" *ngIf="isSchoolShouldBePresent()">
-            <label for = "updateSchool">School</label>
+            <label for = "updateSchool">Факультет</label>
             <input type = "text" class = "form-control input-sm" id = "updateSchool" #updateSchool="ngModel" required
                    [(ngModel)] = "model.school" name = "updateSchool">
             <small *ngIf="updateSchool.errors && (updateSchool.dirty || updateSchool.touched)" class="form-text error">
@@ -387,7 +387,7 @@
           </div>
 
           <div *ngIf="model.unitType != null">
-            <input type="button" class="btn btn-info" value="Update" (click)="updateUnit()" [disabled] ="!updateForm.form.valid">
+            <input type="button" class="btn btn-info" value="Оновити" (click)="updateUnit()" [disabled] ="!updateForm.form.valid">
           </div>
 
         </form>
@@ -403,7 +403,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Видалити публiкацiю</h4>
+        <h4 class="modal-title pull-left">Видалити Публiкацiю</h4>
         <button type="button" class="close pull-right" (click)="deleteModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -411,8 +411,8 @@
       <div class="modal-body">
 
         <form>
-          <input type="button" class="btn btn-info" value="Delete" (click)="deleteUnit()">
-          <input type="button" class="btn btn-info" value="Ni" (click)="this.deleteModal.hide()">
+          <input type="button" class="btn btn-info" value="Так" (click)="deleteUnit()">
+          <input type="button" class="btn btn-info" value="Ні" (click)="this.deleteModal.hide()">
         </form>
 
       </div>

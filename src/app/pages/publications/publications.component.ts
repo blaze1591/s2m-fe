@@ -18,7 +18,14 @@ export class PublicationsComponent implements OnInit {
   @ViewChild('bibtexModal') bibtexModal: ModalDirective;
 
   model = new ScienceUnit();
-  types = ['Book', 'Chapter', 'Conference', 'Journal', 'Other', 'Patent', 'Thesis'];
+  types = [{ua : 'Книга', en:'Book'},
+    {ua : 'Глава', en : 'Chapter'},
+    {ua : 'Конференція', en : 'Conference'},
+    {ua : 'Журнал', en : 'Journal'},
+    {ua : 'Інше', en : 'Other'},
+    {ua : 'Патент', en : 'Patent'},
+    {ua : 'Тезис', en : 'Thesis'}];
+
   options: Array<IOption>;
   fileName: any;
 
@@ -79,7 +86,7 @@ export class PublicationsComponent implements OnInit {
       cancelButtonContent: '<i class="nb-close"></i>',
     },
     delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>'
+      deleteButtonContent: '<i class="nb-trash"></i>',
     },
     noDataMessage: 'Нема даних',
     columns: {
@@ -103,7 +110,7 @@ export class PublicationsComponent implements OnInit {
         title: 'Рiк',
         type: 'string',
       },
-    }
+    },
   };
 
   source: LocalDataSource;
