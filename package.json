@@ -81,7 +81,7 @@
     "ng-select": "latest"
   },
   "devDependencies": {
-    "@angular/cli": "^1.6.3",
+    "@angular/cli": "1.4.2",
     "@angular/compiler-cli": "4.3.2",
     "@angular/language-service": "4.3.2",
     "@types/d3-color": "1.0.4",
@@ -107,6 +107,6 @@
     "ts-node": "3.0.4",
     "tslint": "5.4.2",
     "tslint-language-service": "0.9.6",
-    "typescript": "2.3.0"
+    "typescript": "2.3.4"
   }
 }
