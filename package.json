@@ -28,6 +28,8 @@
     "npm": "~3.10.5"
   },
   "dependencies": {
+    "@angular/cli": "1.4.2",
+    "@angular/compiler-cli": "4.3.2",
     "@agm/core": "1.0.0-beta.0",
     "@angular/animations": "4.3.2",
     "@angular/common": "4.3.2",
@@ -81,8 +83,6 @@
     "zone.js": "0.8.16"
   },
   "devDependencies": {
-    "@angular/cli": "1.4.2",
-    "@angular/compiler-cli": "4.3.2",
     "@angular/language-service": "4.3.2",
     "@types/d3-color": "1.0.4",
     "@types/jasmine": "2.5.38",
