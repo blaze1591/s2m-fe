@@ -1,0 +1,49 @@
+<nb-card size="large">
+  <div class="consumption-table">
+    <div class="table-header">
+      <div>Звіт</div>
+      <div class="subtitle">Scopus</div>
+    </div>
+
+    <nb-tabset fullWidth>
+      <nb-tab *ngFor="let year of data" [tabTitle]="year.title" [active]="year.active">
+        <div class="stats-month" *ngFor="let month of year.months">
+          <div>
+            <span class="month">{{ month.month }}</span>
+          </div>
+          <div class="results">
+            <b>{{ month.cit }}</b> цит. / <b>{{ month.doc }}</b> док
+          </div>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-header">
+      <div class="header-stats">
+        <div class="stats-block">
+          <div class="subtitle">Всього цитувань</div>
+          <div>
+            <span class="value">27</span>
+            <span class="unit">цит.</span>
+          </div>
+        </div>
+
+        <div class="stats-block">
+          <div class="subtitle">Всього документів</div>
+          <div>
+            <span class="value">28</span>
+            <span class="unit">док.</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn btn-success btn-semin-round btn-demo">Зробити звіт</button>
+      </div>
+
+    </div>
+    <s2m-scopus-statistic-chart></s2m-scopus-statistic-chart>
+  </div>
+</nb-card>

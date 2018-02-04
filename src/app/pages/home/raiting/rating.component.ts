@@ -7,7 +7,7 @@ import {NbMediaBreakpoint, NbMediaBreakpointsService, NbThemeService} from '@neb
   template: `
     <nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'large' : 'xlarge'">
       <nb-tabset fullWidth>
-        <nb-tab tabTitle="Рейтинг цитувань">
+        <nb-tab tabTitle="Рейтинг цитувань Scopus">
           <div class="contact" *ngFor="let u of users; let i = index;">
             <nb-user [picture]="u.photo" [name]="u.name" [title]="'Кількість цитувань: '+u.value"
                      size="large"></nb-user>
