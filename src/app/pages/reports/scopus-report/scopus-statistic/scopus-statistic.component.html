@@ -40,7 +40,12 @@
       </div>
 
       <div>
-        <button class="btn btn-success btn-semin-round btn-demo">Зробити звіт</button>
+        <button class="btn btn-success btn-semin-round btn-demo"
+                [disabled]="inProgress"
+                [class.btn-pulse]="inProgress"
+                (click)="generatePdf()">
+          Зробити звіт
+        </button>
       </div>
 
     </div>

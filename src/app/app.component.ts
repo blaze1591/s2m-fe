@@ -3,8 +3,6 @@ import {ToasterConfig} from 'angular2-toaster';
 
 import 'style-loader!angular2-toaster/toaster.css';
 
-declare var jsPDF: any;
-
 @Component({
   selector: 's2m-app',
   template: `
