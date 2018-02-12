@@ -20,6 +20,7 @@ export class UserFromBEPipe implements PipeTransform {
         login: user.credentials['userName'],
         birth: this.datePipe.transform(user.birthDate, 'dd/MM/yyyy'),
         hirshCollection: user.hirshCollection,
+        wosCollection: user.wosCollection,
         email: user.email,
         institute: user.institute,
         faculty: user.faculty,

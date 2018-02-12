@@ -46,6 +46,7 @@ export class ModifyEmployeeComponent implements OnInit {
       'password': ['', [Validators.required, Validators.min(6)]],
       'confirmPassword': ['', Validators.required],
       'hirshCollection': this.fb.array(edit && edit.hirshCollection.map((s) => this.initScopusRow(s)) || [this.initScopusRow()]),
+      'WoSCollection': this.fb.array(edit && edit.WoSCollection.map((s) => this.initWoSRow(s)) || [this.initWoSRow()]),
       'scienceDegree': [edit && edit.scienceDegree || '-'],
       'scienceTitle': [edit && edit.academicTitle || '-'],
       'role': [edit && edit.role || 'User'],
@@ -153,6 +154,7 @@ export class ModifyEmployeeComponent implements OnInit {
       academicTitle: formValue.scienceTitle,
       scienceDegree: formValue.scienceDegree,
       hirshCollection: formValue.hirshCollection,
+      WoSCollection: formValue.WoSCollecton,
       cathedras: formValue.cathedras,
       credentials: {userName: formValue.login, password: formValue.password, role: formValue.role},
     };
@@ -200,6 +202,19 @@ export class ModifyEmployeeComponent implements OnInit {
       'citationCount': [scopus && scopus.citationCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
       'docCount': [scopus && scopus.docCount || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+    });
+  }
+
+  private initWoSRow(wos?: any) {
+    return this.fb.group({
+      'indexWoS': [wos && wos.indexWoS || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'indexWoSDate': [wos && wos.indexWoSDate, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+        '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
+      'citationWoSCount': [wos && wos.citationWoSCount || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'docWoSCount': [wos && wos.docWoSCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
     });
   }

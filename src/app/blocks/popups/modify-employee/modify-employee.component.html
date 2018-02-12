@@ -236,6 +236,63 @@
         </div>
       </div>
     </div>
+    <div formArrayName="WoSCollection">
+      <div *ngFor="let pos of modifyForm.get('WoSCollection')['controls']; let i=index" [formGroupName]="i">
+        <div class="row">
+          <div class="col-4 form-group input-group-sm">
+            <label *ngIf="i === 0">Web Of Science</label>
+            <input class="form-control"
+                   formControlName="indexWoS"
+                   type="number" step="1"
+                   [class.form-control-danger]="submitted && !pos.controls['indexWoS'].valid">
+          </div>
+          <div class="col-3 form-group input-group-sm">
+            <label *ngIf="i === 0">Дата</label>
+            <input class="form-control"
+                   formControlName="indexWoSDate"
+                   type="text"
+                   placeholder="dd/mm/yyyy"
+                   [class.form-control-danger]="submitted && !pos.controls['indexWoSDate'].valid"
+                   [textMask]="{mask: dateMask, keepCharPositions: true}">
+          </div>
+          <div class="col-3">
+            <div class="row">
+              <div class="col-6 form-group input-group-sm">
+                <label *ngIf="i === 0">цит.</label>
+                <input class="form-control"
+                       formControlName="citationWoSCount"
+                       type="number" step="1"
+                       [class.form-control-danger]="submitted && !pos.controls['citationWoSCount'].valid">
+              </div>
+              <div class="col-6 form-group input-group-sm">
+                <label *ngIf="i === 0">док.</label>
+                <input class="form-control"
+                       formControlName="docWoSCount"
+                       type="number" step="1"
+                       [class.form-control-danger]="submitted && !pos.controls['docWoSCount'].valid">
+              </div>
+            </div>
+          </div>
+          <div class="col-2 form-group">
+            <div [class.modify-pos-button]="i === 0">
+              <button *ngIf="i === 0; else minusButton"
+                      class="btn btn-success btn-tn"
+                      type="button"
+                      (click)="addNewPosition('hirshCollection')">
+                <i class="ion-plus-round"></i>
+              </button>
+              <ng-template #minusButton>
+                <button class="btn btn-danger btn-tn"
+                        type="button"
+                        (click)="deletePosition('hirshCollection',i)">
+                  <i class="ion-minus-round"></i>
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div formArrayName="cathedras">
       <div *ngFor="let pos of modifyForm.get('cathedras')['controls']; let i=index" [formGroupName]="i">
         <div class="row">
