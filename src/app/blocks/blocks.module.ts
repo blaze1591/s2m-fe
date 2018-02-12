@@ -4,11 +4,20 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {
-  NbActionsModule, NbCardModule, NbCheckboxModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule,
-  NbSearchModule, NbSidebarModule, NbTabsetModule, NbThemeModule, NbUserModule,
+  NbActionsModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbLayoutModule,
+  NbMenuModule,
+  NbRouteTabsetModule,
+  NbSearchModule,
+  NbSidebarModule,
+  NbTabsetModule,
+  NbThemeModule,
+  NbUserModule,
 } from '@nebular/theme';
 
-import {CustomEditorComponent, FooterComponent, HeaderComponent} from './components';
+import {CustomEditorComponent, FooterComponent, HeaderComponent, StatusCardComponent} from './components';
 import {CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, UserFromBEPipe} from './pipes';
 import {SampleLayoutComponent} from './layouts';
 import {DEFAULT_THEME} from './styles/theme.default';
@@ -42,6 +51,7 @@ const COMPONENTS = [
   FooterComponent,
   SampleLayoutComponent,
   CustomEditorComponent,
+  StatusCardComponent,
   LoginComponent,
   DeleteEmployeeComponent,
   ModifyEmployeeComponent,

@@ -9,7 +9,10 @@ import {FacultiesReportComponent} from './faculties-report/faculties-report.comp
 import {InstitutesReportComponent} from './institutes-report/institutes-report.component';
 import {ScopusReportComponent} from './scopus-report/scopus-report.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
-import {CustomEditorComponent} from '../../blocks/components/custom-editor/custom-editor.component';
+import {CustomEditorComponent} from '../../blocks/components';
+import {ScopusStatisticComponent} from './scopus-report/scopus-statistic/scopus-statistic.component';
+import {ScopusStatisticChartComponent} from './scopus-report/scopus-statistic/scopus-statistic-chart/scopus-statistic-chart.component';
+import {AngularEchartsModule} from 'ngx-echarts';
 
 const components = [
   ReportsComponent,
@@ -18,6 +21,8 @@ const components = [
   FacultiesReportComponent,
   InstitutesReportComponent,
   ScopusReportComponent,
+  ScopusStatisticComponent,
+  ScopusStatisticChartComponent,
 ];
 
 @NgModule({
@@ -25,6 +30,7 @@ const components = [
     BlockModule,
     ReportsRoutingModule,
     Ng2SmartTableModule,
+    AngularEchartsModule,
   ],
   declarations: [
     ...components,

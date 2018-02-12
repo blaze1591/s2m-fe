@@ -43,7 +43,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/reports/institutes',
       },
       {
-        title: 'Скопус',
+        title: 'Scopus',
         link: '/pages/reports/scopus',
       },
     ],
