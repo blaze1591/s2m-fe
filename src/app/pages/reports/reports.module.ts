@@ -12,7 +12,7 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {CustomEditorComponent} from '../../blocks/components';
 import {ScopusStatisticComponent} from './scopus-report/scopus-statistic/scopus-statistic.component';
 import {ScopusStatisticChartComponent} from './scopus-report/scopus-statistic/scopus-statistic-chart/scopus-statistic-chart.component';
-import {AngularEchartsModule} from 'ngx-echarts';
+import {ChartModule} from 'angular2-chartjs';
 
 const components = [
   ReportsComponent,
@@ -30,7 +30,7 @@ const components = [
     BlockModule,
     ReportsRoutingModule,
     Ng2SmartTableModule,
-    AngularEchartsModule,
+    ChartModule,
   ],
   declarations: [
     ...components,
