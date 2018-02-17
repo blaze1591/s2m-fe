@@ -18,7 +18,16 @@ import {
 } from '@nebular/theme';
 
 import {CustomEditorComponent, FooterComponent, HeaderComponent, StatusCardComponent} from './components';
-import {CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, UserFromBEPipe} from './pipes';
+import {
+  CapitalizePipe,
+  KeysPipe,
+  MonthPipe,
+  PluralPipe,
+  RoundPipe,
+  TailPipe,
+  TimingPipe,
+  UserFromBEPipe,
+} from './pipes';
 import {SampleLayoutComponent} from './layouts';
 import {DEFAULT_THEME} from './styles/theme.default';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
@@ -64,6 +73,9 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   UserFromBEPipe,
+  KeysPipe,
+  MonthPipe,
+  TailPipe,
 ];
 
 const NB_THEME_PROVIDERS = [

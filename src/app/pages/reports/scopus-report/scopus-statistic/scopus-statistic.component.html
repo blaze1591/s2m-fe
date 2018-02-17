@@ -6,13 +6,15 @@
     </div>
 
     <nb-tabset fullWidth>
-      <nb-tab *ngFor="let year of data" [tabTitle]="year.title" [active]="year.active">
-        <div class="stats-month" *ngFor="let month of year.months">
+      <nb-tab *ngFor="let year of reportInfo.forGraph | keys | tail : 2; let i=index"
+              [tabTitle]="year" [active]="i === 0">
+        <div class="stats-month" *ngFor="let month of reportInfo.forGraph[year] | keys">
           <div>
-            <span class="month">{{ month.month }}</span>
+            <span class="month">{{ month | month }}</span>
           </div>
           <div class="results">
-            <b>{{ month.cit }}</b> цит. / <b>{{ month.doc }}</b> док
+            <b>{{ reportInfo.forGraph[year][month]['citationCount'] }}</b> цит. / <b>{{
+            reportInfo.forGraph[year][month]['docCount'] }}</b> док
           </div>
         </div>
       </nb-tab>

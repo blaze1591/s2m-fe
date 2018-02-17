@@ -30,6 +30,12 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json().error || 'getTop10 error'));
   }
 
+  getScopusReport(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/user/scopusReport`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'getScopusReport error'));
+  }
+
   modifyUser(user): Observable<any> {
     return this.http.post(`${environment.apiUrl}/user`, user, this.auth.generateOptions())
       .map((res: Response) => res.json())
