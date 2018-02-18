@@ -6,3 +6,5 @@ export * from './user-from-be.pipe';
 export * from './keys.pipe';
 export * from './month.pipe';
 export * from './tail.pipe';
+export * from './year-sum.pipe';
+export * from './points.pipe';

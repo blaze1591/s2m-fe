@@ -23,10 +23,12 @@ import {
   KeysPipe,
   MonthPipe,
   PluralPipe,
+  PointsPipe,
   RoundPipe,
   TailPipe,
   TimingPipe,
   UserFromBEPipe,
+  YearSumPipe,
 } from './pipes';
 import {SampleLayoutComponent} from './layouts';
 import {DEFAULT_THEME} from './styles/theme.default';
@@ -76,6 +78,8 @@ const PIPES = [
   KeysPipe,
   MonthPipe,
   TailPipe,
+  YearSumPipe,
+  PointsPipe,
 ];
 
 const NB_THEME_PROVIDERS = [

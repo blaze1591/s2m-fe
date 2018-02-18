@@ -3,6 +3,7 @@ import {NbThemeService} from '@nebular/theme';
 import {DatePipe} from '@angular/common';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+import {PointsPipe, YearSumPipe} from '../../../../blocks/pipes';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -10,18 +11,31 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   selector: 's2m-scopus-statistic',
   styleUrls: ['./scopus-statistic.component.scss'],
   templateUrl: './scopus-statistic.component.html',
+  providers: [YearSumPipe, PointsPipe],
 })
 export class ScopusStatisticComponent implements OnDestroy {
 
   @Input() reportInfo: any;
+  @Input() sumCit: number;
+  @Input() sumDoc: number;
+  @Input() countOnPage: number;
+  @Input() pointsCit: Array<any>;
+  @Input() pointsDoc: Array<any>;
   inProgress = false;
+
+  yearDropdown = {
+    list: [{key: '3 роки', value: 3}, {key: '5 років', value: 5}],
+    selected: {key: '3 роки', value: 3},
+  };
 
   currentTheme: string;
   themeSubscription: any;
 
   datePipe: DatePipe = new DatePipe('uk-UA');
 
-  constructor(private themeService: NbThemeService) {
+  constructor(private themeService: NbThemeService,
+              private yearSumPipe: YearSumPipe,
+              private pointsPipe: PointsPipe) {
     this.themeSubscription = this.themeService.getJsTheme().subscribe(theme => {
       this.currentTheme = theme.name;
     });
@@ -80,6 +94,20 @@ export class ScopusStatisticComponent implements OnDestroy {
     };
     pdfMake.createPdf(dd).download(`Звіт Scopus від ${currentDate}`);
     this.inProgress = false;
+  }
+
+  changeTab($event: any) {
+    if ($event) {
+      const yearMap = this.reportInfo.forGraph[$event.tabTitle];
+      this.sumCit = this.yearSumPipe.transform(yearMap, 'citationCount');
+      this.sumDoc = this.yearSumPipe.transform(yearMap, 'docCount');
+      this.pointsCit = this.pointsPipe.transform(yearMap, 'citationCount');
+      this.pointsDoc = this.pointsPipe.transform(yearMap, 'docCount');
+    }
+  }
+
+  chooseCount(option) {
+    this.yearDropdown.selected = option;
   }
 
   ngOnDestroy() {

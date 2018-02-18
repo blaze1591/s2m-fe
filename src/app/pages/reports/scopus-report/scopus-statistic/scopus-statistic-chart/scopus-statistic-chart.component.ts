@@ -1,5 +1,6 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NbThemeService} from '@nebular/theme';
+import {ChartComponent} from 'angular2-chartjs';
 
 @Component({
   selector: 's2m-scopus-statistic-chart',
@@ -8,12 +9,18 @@ import {NbThemeService} from '@nebular/theme';
     <chart type="line" [data]="data" [options]="options" class="chartjs"></chart>
   `,
 })
-export class ScopusStatisticChartComponent implements OnDestroy {
-  data: {};
+export class ScopusStatisticChartComponent implements OnDestroy, OnChanges, OnInit {
+  data: any;
   options: any;
   themeSubscription: any;
+  @Input() pointsCit: Array<any>;
+  @Input() pointsDoc: Array<any>;
+  @ViewChild(ChartComponent) lineChart: ChartComponent;
 
   constructor(private theme: NbThemeService) {
+  }
+
+  ngOnInit(): void {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const colors: any = config.variables;
@@ -24,8 +31,7 @@ export class ScopusStatisticChartComponent implements OnDestroy {
           'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
         datasets: [{
           label: 'Документи',
-          data: [this.random(), this.random(), this.random(), this.random(), this.random(), this.random(),
-            this.random(), this.random(), this.random(), this.random(), this.random(), this.random()],
+          data: [],
           borderColor: colors.info,
           backgroundColor: colors.info,
           fill: false,
@@ -33,8 +39,7 @@ export class ScopusStatisticChartComponent implements OnDestroy {
           pointHoverRadius: 10,
         }, {
           label: 'Цитування',
-          data: [this.random(), this.random(), this.random(), this.random(), this.random(), this.random(),
-            this.random(), this.random(), this.random(), this.random(), this.random(), this.random()],
+          data: [],
           borderColor: colors.success,
           backgroundColor: colors.success,
           fill: false,
@@ -93,11 +98,23 @@ export class ScopusStatisticChartComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.themeSubscription.unsubscribe();
+  ngOnChanges() {
+    if (this.pointsCit && this.pointsDoc) {
+      const valuesDoc = Array(12).fill(null),
+        valuesCit = Array(12).fill(null);
+      this.pointsDoc.forEach((point) => {
+        valuesDoc[point.year - 1] = point.value;
+      });
+      this.pointsCit.forEach((point) => {
+        valuesCit[point.year - 1] = point.value;
+      });
+      this.data.datasets[0]['data'] = valuesDoc;
+      this.data.datasets[1]['data'] = valuesCit;
+      this.lineChart.chart.update();
+    }
   }
 
-  private random() {
-    return Math.round(Math.random() * 100);
+  ngOnDestroy(): void {
+    this.themeSubscription.unsubscribe();
   }
 }

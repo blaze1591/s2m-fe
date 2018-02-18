@@ -5,8 +5,8 @@
       <div class="subtitle">Scopus</div>
     </div>
 
-    <nb-tabset fullWidth>
-      <nb-tab *ngFor="let year of reportInfo.forGraph | keys | tail : 2; let i=index"
+    <nb-tabset fullWidth (changeTab)="changeTab($event)">
+      <nb-tab *ngFor="let year of reportInfo.forGraph | keys | tail : countOnPage - 3; let i=index"
               [tabTitle]="year" [active]="i === 0">
         <div class="stats-month" *ngFor="let month of reportInfo.forGraph[year] | keys">
           <div>
@@ -27,7 +27,7 @@
         <div class="stats-block">
           <div class="subtitle">Всього цитувань</div>
           <div>
-            <span class="value">27</span>
+            <span class="value">{{sumCit}}</span>
             <span class="unit">цит.</span>
           </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="stats-block">
           <div class="subtitle">Всього документів</div>
           <div>
-            <span class="value">28</span>
+            <span class="value">{{sumDoc}}</span>
             <span class="unit">док.</span>
           </div>
         </div>
@@ -44,11 +44,14 @@
         <div class="col-5">
           <div class="dropdown" placement="top" ngbDropdown>
             <button class="btn btn-outline-success" type="button" ngbDropdownToggle>
-              2013-2015
+              {{yearDropdown.selected.key}}
             </button>
             <ul class="dropdown-menu" ngbDropdownMenu>
-              <li class="dropdown-item">2013-2015</li>
-              <li class="dropdown-item">2016-2018</li>
+              <li class="dropdown-item"
+                  *ngFor="let option of yearDropdown.list"
+                  (click)="chooseCount(option)">
+                {{option.key}}
+              </li>
             </ul>
           </div>
         </div>
@@ -64,6 +67,9 @@
       </div>
 
     </div>
-    <s2m-scopus-statistic-chart></s2m-scopus-statistic-chart>
+    <s2m-scopus-statistic-chart
+      [pointsDoc]="pointsDoc"
+      [pointsCit]="pointsCit">
+    </s2m-scopus-statistic-chart>
   </div>
 </nb-card>

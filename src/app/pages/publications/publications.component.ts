@@ -18,7 +18,7 @@ export class PublicationsComponent implements OnInit {
   @ViewChild('bibtexModal') bibtexModal: ModalDirective;
 
   model = new ScienceUnit();
-  types = [{ua : 'Книга', en:'Book'},
+  types = [{ua: 'Книга', en: 'Book'},
     {ua : 'Глава', en : 'Chapter'},
     {ua : 'Конференція', en : 'Conference'},
     {ua : 'Журнал', en : 'Journal'},
