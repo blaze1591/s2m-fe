@@ -10,8 +10,7 @@ import {InstitutesReportComponent} from './institutes-report/institutes-report.c
 import {ScopusReportComponent} from './scopus-report/scopus-report.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {CustomEditorComponent} from '../../blocks/components';
-import {ScopusStatisticComponent} from './scopus-report/scopus-statistic/scopus-statistic.component';
-import {ScopusStatisticChartComponent} from './scopus-report/scopus-statistic/scopus-statistic-chart/scopus-statistic-chart.component';
+import {ScopusStatisticChartComponent} from './scopus-report/scopus-statistic-chart/scopus-statistic-chart.component';
 import {ChartModule} from 'angular2-chartjs';
 
 const components = [
@@ -21,7 +20,6 @@ const components = [
   FacultiesReportComponent,
   InstitutesReportComponent,
   ScopusReportComponent,
-  ScopusStatisticComponent,
   ScopusStatisticChartComponent,
 ];
 
