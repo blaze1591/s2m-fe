@@ -29,15 +29,20 @@ export class ProfileBarHorizontalComponent implements OnInit, OnChanges, OnDestr
       this.data = {
         labels: [],
         datasets: [{
-          label: 'Google Scholar',
+          label: 'Scopus',
           backgroundColor: colors.infoLight,
           borderWidth: 1,
           data: [],
         }, {
-          label: 'Scopus',
+          label: 'Google Scholar',
           backgroundColor: colors.successLight,
           data: [],
         },
+          {
+            label: 'Web Of Science',
+            backgroundColor: colors.primaryLight,
+            data: [],
+          },
         ],
       };
 
@@ -85,11 +90,20 @@ export class ProfileBarHorizontalComponent implements OnInit, OnChanges, OnDestr
 
   ngOnChanges() {
     if (this.user) {
-      this.data.labels = this.user.hirshCollection.map((hirsh) =>
-        this.datePipe.transform(hirsh.indexDate, 'dd/MM/yyyy'),
+      this.data.labels = this.user.scopusEntities.map((scopus) =>
+        this.datePipe.transform(scopus.date, 'dd/MM/yyyy'),
       );
-      this.data.datasets[0]['data'] = this.user.hirshCollection.map((hirsh) => hirsh.indexScholar);
-      this.data.datasets[1]['data'] = this.user.hirshCollection.map((hirsh) => hirsh.indexScopus);
+      this.data.labels = this.user.googleScholarEntities.map((googleScholar) =>
+        this.datePipe.transform(googleScholar.date, 'dd/MM/yyyy'),
+      );
+      this.data.labels = this.user.webOfScienceEntities.map((webOfScience) =>
+        this.datePipe.transform(webOfScience.date, 'dd/MM/yyyy'),
+      );
+
+      this.data.datasets[0]['data'] = this.user.scopusEntities.map((scopus) => scopus.index);
+      this.data.datasets[1]['data'] = this.user.googleScholarEntities.map((googleScholar) => googleScholar.index);
+      this.data.datasets[2]['data'] = this.user.webOfScienceEntities.map((webOfScience) => webOfScience.index);
+
       this.hbChart.chart.update();
     }
   }

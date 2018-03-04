@@ -8,9 +8,17 @@ export class UserFromBEPipe implements PipeTransform {
 
   transform(input: Array<any>): Array<any> {
     return input.map((user) => {
-      user.hirshCollection = user.hirshCollection.map((scopus) => {
-        const dateProp = {indexDate: this.datePipe.transform(scopus.indexDate, 'dd/MM/yyyy')};
-        return Object.assign(scopus, dateProp);
+      user.scopusEntities = user.scopusEntities.map((entity) => {
+        const dateProp = {date: this.datePipe.transform(entity.date, 'dd/MM/yyyy')};
+        return Object.assign(entity, dateProp);
+      });
+      user.googleScholarEntities = user.googleScholarEntities.map((entity) => {
+        const dateProp = {date: this.datePipe.transform(entity.date, 'dd/MM/yyyy')};
+        return Object.assign(entity, dateProp);
+      });
+      user.webOfScienceEntities = user.webOfScienceEntities.map((entity) => {
+        const dateProp = {date: this.datePipe.transform(entity.date, 'dd/MM/yyyy')};
+        return Object.assign(entity, dateProp);
       });
       return {
         id: user.id,
@@ -19,8 +27,9 @@ export class UserFromBEPipe implements PipeTransform {
         fioEng: `${user.lastName} ${user.firstName}`,
         login: user.credentials['userName'],
         birth: this.datePipe.transform(user.birthDate, 'dd/MM/yyyy'),
-        hirshCollection: user.hirshCollection,
-        wosCollection: user.wosCollection,
+        scopusEntities: user.scopusEntities,
+        googleScholarEntities: user.googleScholarEntities,
+        webOfScienceEntities: user.webOfScienceEntities,
         email: user.email,
         institute: user.institute,
         faculty: user.faculty,

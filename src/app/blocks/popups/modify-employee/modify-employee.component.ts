@@ -45,8 +45,12 @@ export class ModifyEmployeeComponent implements OnInit {
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'password': ['', [Validators.required, Validators.min(6)]],
       'confirmPassword': ['', Validators.required],
-      'hirshCollection': this.fb.array(edit && edit.hirshCollection.map((s) => this.initScopusRow(s)) || [this.initScopusRow()]),
-      'WoSCollection': this.fb.array(edit && edit.WoSCollection.map((s) => this.initWoSRow(s)) || [this.initWoSRow()]),
+      'scopusEntities': this.fb.array(edit && edit.scopusEntities.map((s) =>
+        this.initScopusRow(s)) || [this.initScopusRow()]),
+      'googleScholarEntities': this.fb.array(edit && edit.googleScholarEntities.map((s) =>
+        this.initGoogleScholarRow(s)) || [this.initGoogleScholarRow()]),
+      'webOfScienceEntities': this.fb.array(edit && edit.webOfScienceEntities.map((s) =>
+        this.initWebOfScienceRow(s)) || [this.initWebOfScienceRow()]),
       'scienceDegree': [edit && edit.scienceDegree || '-'],
       'scienceTitle': [edit && edit.academicTitle || '-'],
       'role': [edit && edit.role || 'User'],
@@ -95,8 +99,12 @@ export class ModifyEmployeeComponent implements OnInit {
     const control = <FormArray>this.modifyForm.controls[collection];
     if (collection === 'cathedras') {
       control.push(this.initCathedraRow());
-    } else if (collection === 'hirshCollection') {
+    } else if (collection === 'scopusEntities') {
       control.push(this.initScopusRow());
+    } else if (collection === 'googleScholarEntities') {
+      control.push(this.initGoogleScholarRow());
+    } else if (collection === 'webOfScienceEntities') {
+      control.push(this.initWebOfScienceRow());
     }
     return false;
   }
@@ -142,7 +150,7 @@ export class ModifyEmployeeComponent implements OnInit {
       keyPosition = formValue.keyPosition;
     this.convertCathedras(formValue, keyPosition);
     const editData = this.event.data;
-    this.convertDateForHirsh(formValue);
+    this.convertDataForHirsh(formValue);
     const birthDate = this.convertBirthDate(formValue);
     return {
       id: editData && editData.id,
@@ -153,8 +161,9 @@ export class ModifyEmployeeComponent implements OnInit {
       birthDate: birthDate,
       academicTitle: formValue.scienceTitle,
       scienceDegree: formValue.scienceDegree,
-      hirshCollection: formValue.hirshCollection,
-      WoSCollection: formValue.WoSCollecton,
+      scopusEntities: formValue.scopusEntities,
+      googleScholarEntities: formValue.googleScholarEntities,
+      webOfScienceEntities: formValue.webOfScienceEntities,
       cathedras: formValue.cathedras,
       credentials: {userName: formValue.login, password: formValue.password, role: formValue.role},
     };
@@ -167,10 +176,30 @@ export class ModifyEmployeeComponent implements OnInit {
     formValue.cathedras[keyPosition].key = true;
   }
 
-  private convertDateForHirsh(formValue) {
-    for (const s of formValue.hirshCollection) {
-      const [day, month, year] = s.indexDate.split('/');
-      s.indexDate = new Date(year, month - 1, day);
+  private convertDataForHirsh(formValue) {
+    for (const entity of formValue.scopusEntities) {
+      entity.index = entity.scopusIndex;
+      entity.citationCount = entity.scopusCitationCount;
+      entity.documentCount = entity.scopusDocumentCount;
+
+      const [day, month, year] = entity.scopusDate.split('/');
+      entity.date = new Date(year, month - 1, day);
+    }
+    for (const entity of formValue.googleScholarEntities) {
+      entity.index = entity.googleScholarIndex;
+      entity.citationCount = entity.googleScholarCitationCount;
+      entity.documentCount = entity.googleScholarDocumentCount;
+
+      const [day, month, year] = entity.googleScholarDate.split('/');
+      entity.date = new Date(year, month - 1, day);
+    }
+    for (const entity of formValue.webOfScienceEntities) {
+      entity.index = entity.webOfScienceIndex;
+      entity.citationCount = entity.webOfScienceCitationCount;
+      entity.documentCount = entity.webOfScienceDocumentCount;
+
+      const [day, month, year] = entity.webOfScienceDate.split('/');
+      entity.date = new Date(year, month - 1, day);
     }
   }
 
@@ -193,28 +222,40 @@ export class ModifyEmployeeComponent implements OnInit {
 
   private initScopusRow(scopus?: any) {
     return this.fb.group({
-      'indexScopus': [scopus && scopus.indexScopus || 0,
+      'scopusIndex': [scopus && scopus.index || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
-      'indexScholar': [scopus && scopus.indexScholar || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
-      'indexDate': [scopus && scopus.indexDate, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+      'scopusDate': [scopus && scopus.date, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
-      'citationCount': [scopus && scopus.citationCount || 0,
+      'scopusCitationCount': [scopus && scopus.citationCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
-      'docCount': [scopus && scopus.docCount || 0,
+      'scopusDocumentCount': [scopus && scopus.documentCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
     });
   }
 
-  private initWoSRow(wos?: any) {
+  private initGoogleScholarRow(googleScholar?: any) {
     return this.fb.group({
-      'indexWoS': [wos && wos.indexWoS || 0,
+      'googleScholarIndex': [googleScholar && googleScholar.index || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
-      'indexWoSDate': [wos && wos.indexWoSDate, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+      'googleScholarDate': [googleScholar && googleScholar.date,
+        [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
-      'citationWoSCount': [wos && wos.citationWoSCount || 0,
+      'googleScholarCitationCount': [googleScholar && googleScholar.citationCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
-      'docWoSCount': [wos && wos.docWoSCount || 0,
+      'googleScholarDocumentCount': [googleScholar && googleScholar.documentCount || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+    });
+  }
+
+  private initWebOfScienceRow(wos?: any) {
+    return this.fb.group({
+      'webOfScienceIndex': [wos && wos.index || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'webOfScienceDate': [wos && wos.date, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
+        '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
+      'webOfScienceCitationCount': [wos && wos.citationCount || 0,
+        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+      'webOfScienceDocumentCount': [wos && wos.documentCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
     });
   }

@@ -171,48 +171,41 @@
         </select>
       </div>
     </div>
-    <label>Індекс Гірша</label>
-    <div formArrayName="hirshCollection">
-      <div *ngFor="let pos of modifyForm.get('hirshCollection')['controls']; let i=index" [formGroupName]="i">
+    <label>Індекси Гірша</label>
+    <div formArrayName="scopusEntities">
+      <div *ngFor="let pos of modifyForm.get('scopusEntities')['controls']; let i=index" [formGroupName]="i">
         <div class="row">
-          <div class="col-2 form-group input-group-sm">
+          <div class="col-3 form-group input-group-sm">
             <label *ngIf="i === 0">Scopus</label>
             <input class="form-control"
-                   formControlName="indexScopus"
+                   formControlName="scopusIndex"
                    type="number" step="1"
-                   [class.form-control-danger]="submitted && !pos.controls['indexScopus'].valid">
-          </div>
-          <div class="col-2 form-group input-group-sm">
-            <label *ngIf="i === 0">Scholar</label>
-            <input class="form-control"
-                   formControlName="indexScholar"
-                   type="number" step="1"
-                   [class.form-control-danger]="submitted && !pos.controls['indexScholar'].valid">
+                   [class.form-control-danger]="submitted && !pos.controls['scopusIndex'].valid">
           </div>
           <div class="col-3 form-group input-group-sm">
             <label *ngIf="i === 0">Дата</label>
             <input class="form-control"
-                   formControlName="indexDate"
+                   formControlName="scopusDate"
                    type="text"
                    placeholder="dd/mm/yyyy"
-                   [class.form-control-danger]="submitted && !pos.controls['indexDate'].valid"
+                   [class.form-control-danger]="submitted && !pos.controls['scopusDate'].valid"
                    [textMask]="{mask: dateMask, keepCharPositions: true}">
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <div class="row">
               <div class="col-6 form-group input-group-sm">
                 <label *ngIf="i === 0">цит.</label>
                 <input class="form-control"
-                       formControlName="citationCount"
+                       formControlName="scopusCitationCount"
                        type="number" step="1"
-                       [class.form-control-danger]="submitted && !pos.controls['citationCount'].valid">
+                       [class.form-control-danger]="submitted && !pos.controls['scopusCitationCount'].valid">
               </div>
               <div class="col-6 form-group input-group-sm">
                 <label *ngIf="i === 0">док.</label>
                 <input class="form-control"
-                       formControlName="docCount"
+                       formControlName="scopusDocumentCount"
                        type="number" step="1"
-                       [class.form-control-danger]="submitted && !pos.controls['docCount'].valid">
+                       [class.form-control-danger]="submitted && !pos.controls['scopusDocumentCount'].valid">
               </div>
             </div>
           </div>
@@ -221,13 +214,13 @@
               <button *ngIf="i === 0; else minusButton"
                       class="btn btn-success btn-tn"
                       type="button"
-                      (click)="addNewPosition('hirshCollection')">
+                      (click)="addNewPosition('scopusEntities')">
                 <i class="ion-plus-round"></i>
               </button>
               <ng-template #minusButton>
                 <button class="btn btn-danger btn-tn"
                         type="button"
-                        (click)="deletePosition('hirshCollection',i)">
+                        (click)="deletePosition('scopusEntities',i)">
                   <i class="ion-minus-round"></i>
                 </button>
               </ng-template>
@@ -236,40 +229,99 @@
         </div>
       </div>
     </div>
-    <div formArrayName="WoSCollection">
-      <div *ngFor="let pos of modifyForm.get('WoSCollection')['controls']; let i=index" [formGroupName]="i">
+
+    <div formArrayName="googleScholarEntities">
+      <div *ngFor="let pos of modifyForm.get('googleScholarEntities')['controls']; let i=index" [formGroupName]="i">
         <div class="row">
-          <div class="col-4 form-group input-group-sm">
+          <div class="col-3 form-group input-group-sm">
+            <label *ngIf="i === 0">Google Scholar</label>
+            <input class="form-control"
+                   formControlName="googleScholarIndex"
+                   type="number" step="1"
+                   [class.form-control-danger]="submitted && !pos.controls['googleScholarIndex'].valid">
+          </div>
+          <div class="col-3 form-group input-group-sm">
+            <label *ngIf="i === 0">Дата</label>
+            <input class="form-control"
+                   formControlName="googleScholarDate"
+                   type="text"
+                   placeholder="dd/mm/yyyy"
+                   [class.form-control-danger]="submitted && !pos.controls['googleScholarDate'].valid"
+                   [textMask]="{mask: dateMask, keepCharPositions: true}">
+          </div>
+          <div class="col-4">
+            <div class="row">
+              <div class="col-6 form-group input-group-sm">
+                <label *ngIf="i === 0">цит.</label>
+                <input class="form-control"
+                       formControlName="googleScholarCitationCount"
+                       type="number" step="1"
+                       [class.form-control-danger]="submitted && !pos.controls['googleScholarCitationCount'].valid">
+              </div>
+              <div class="col-6 form-group input-group-sm">
+                <label *ngIf="i === 0">док.</label>
+                <input class="form-control"
+                       formControlName="googleScholarDocumentCount"
+                       type="number" step="1"
+                       [class.form-control-danger]="submitted && !pos.controls['googleScholarDocumentCount'].valid">
+              </div>
+            </div>
+          </div>
+          <div class="col-2 form-group">
+            <div [class.modify-pos-button]="i === 0">
+              <button *ngIf="i === 0; else minusButton"
+                      class="btn btn-success btn-tn"
+                      type="button"
+                      (click)="addNewPosition('googleScholarEntities')">
+                <i class="ion-plus-round"></i>
+              </button>
+              <ng-template #minusButton>
+                <button class="btn btn-danger btn-tn"
+                        type="button"
+                        (click)="deletePosition('googleScholarEntities',i)">
+                  <i class="ion-minus-round"></i>
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div formArrayName="webOfScienceEntities">
+      <div *ngFor="let pos of modifyForm.get('webOfScienceEntities')['controls']; let i=index" [formGroupName]="i">
+        <div class="row">
+          <div class="col-3 form-group input-group-sm">
             <label *ngIf="i === 0">Web Of Science</label>
             <input class="form-control"
-                   formControlName="indexWoS"
+                   formControlName="webOfScienceIndex"
                    type="number" step="1"
-                   [class.form-control-danger]="submitted && !pos.controls['indexWoS'].valid">
+                   [class.form-control-danger]="submitted && !pos.controls['webOfScienceIndex'].valid">
           </div>
           <div class="col-3 form-group input-group-sm">
             <label *ngIf="i === 0">Дата</label>
             <input class="form-control"
-                   formControlName="indexWoSDate"
+                   formControlName="webOfScienceDate"
                    type="text"
                    placeholder="dd/mm/yyyy"
-                   [class.form-control-danger]="submitted && !pos.controls['indexWoSDate'].valid"
+                   [class.form-control-danger]="submitted && !pos.controls['webOfScienceDate'].valid"
                    [textMask]="{mask: dateMask, keepCharPositions: true}">
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <div class="row">
               <div class="col-6 form-group input-group-sm">
                 <label *ngIf="i === 0">цит.</label>
                 <input class="form-control"
-                       formControlName="citationWoSCount"
+                       formControlName="webOfScienceCitationCount"
                        type="number" step="1"
-                       [class.form-control-danger]="submitted && !pos.controls['citationWoSCount'].valid">
+                       [class.form-control-danger]="submitted && !pos.controls['webOfScienceCitationCount'].valid">
               </div>
               <div class="col-6 form-group input-group-sm">
                 <label *ngIf="i === 0">док.</label>
                 <input class="form-control"
-                       formControlName="docWoSCount"
+                       formControlName="webOfScienceDocumentCount"
                        type="number" step="1"
-                       [class.form-control-danger]="submitted && !pos.controls['docWoSCount'].valid">
+                       [class.form-control-danger]="submitted && !pos.controls['webOfScienceDocumentCount'].valid">
               </div>
             </div>
           </div>
@@ -278,13 +330,13 @@
               <button *ngIf="i === 0; else minusButton"
                       class="btn btn-success btn-tn"
                       type="button"
-                      (click)="addNewPosition('hirshCollection')">
+                      (click)="addNewPosition('webOfScienceEntities')">
                 <i class="ion-plus-round"></i>
               </button>
               <ng-template #minusButton>
                 <button class="btn btn-danger btn-tn"
                         type="button"
-                        (click)="deletePosition('hirshCollection',i)">
+                        (click)="deletePosition('webOfScienceEntities',i)">
                   <i class="ion-minus-round"></i>
                 </button>
               </ng-template>
@@ -293,6 +345,8 @@
         </div>
       </div>
     </div>
+
+
     <div formArrayName="cathedras">
       <div *ngFor="let pos of modifyForm.get('cathedras')['controls']; let i=index" [formGroupName]="i">
         <div class="row">
@@ -350,7 +404,7 @@
   <div class="modal-footer">
     <button class="btn btn-sm btn-hero-success"
             [class.btn-pulse]="loading"
-            [disabled]="loading || modifyForm.pristine"
+            [disabled]="loading || modifyForm.pristine || !modifyForm.valid"
             type="submit">
       Зберегти
     </button>
