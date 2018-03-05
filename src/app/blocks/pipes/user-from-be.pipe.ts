@@ -8,18 +8,18 @@ export class UserFromBEPipe implements PipeTransform {
 
   transform(input: Array<any>): Array<any> {
     return input.map((user) => {
-      user.scopusEntities = user.scopusEntities.map((entity) => {
+      user.scopusEntities = user.scopusEntities && user.scopusEntities.map((entity) => {
         const dateProp = {date: this.datePipe.transform(entity.date, 'dd/MM/yyyy')};
         return Object.assign(entity, dateProp);
-      });
-      user.googleScholarEntities = user.googleScholarEntities.map((entity) => {
+      }) || [];
+      user.googleScholarEntities = user.googleScholarEntities && user.googleScholarEntities.map((entity) => {
         const dateProp = {date: this.datePipe.transform(entity.date, 'dd/MM/yyyy')};
         return Object.assign(entity, dateProp);
-      });
-      user.webOfScienceEntities = user.webOfScienceEntities.map((entity) => {
+      }) || [];
+      user.webOfScienceEntities = user.webOfScienceEntities && user.webOfScienceEntities.map((entity) => {
         const dateProp = {date: this.datePipe.transform(entity.date, 'dd/MM/yyyy')};
         return Object.assign(entity, dateProp);
-      });
+      }) || [];
       return {
         id: user.id,
         fioUkr: `${user.lastNameUa} ${user.firstNameUa} ${user.middleNameUa}`,
