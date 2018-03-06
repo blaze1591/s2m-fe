@@ -79,15 +79,9 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
               [{text: '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
                 {text: '', style: 'rowStyle', alignment: 'center'},
                 {text: '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 3, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 2, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 3, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 2, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 3, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 2, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 9, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 6, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-                {text: 33, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
+                ...this.getTotalData().map(num => {
+                  return {text: num, style: 'rowStyle', alignment: 'center', margin: [0, 11]};
+                }),
                 {text: '', style: 'rowStyle', alignment: 'center', margin: [0, 11]}],
             ],
           },
@@ -121,7 +115,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
     return [{text: '№', style: 'tableHeader', alignment: 'center', rowSpan: 2, margin: [0, 11]},
       {text: 'ПІБ', style: 'tableHeader', alignment: 'center', rowSpan: 2, margin: [0, 11]},
       {text: 'Scopus Id', style: 'tableHeader', alignment: 'center', rowSpan: 2, margin: [0, 11]},
-      ...this.getYearsOrSubsForHeader(),
+      ...this.getYearsOrSubsForHeader('years'),
       {text: 'док', style: 'tableHeader', alignment: 'center', rowSpan: 2, margin: [0, 11]},
       {text: 'цит', style: 'tableHeader', alignment: 'center', rowSpan: 2, margin: [0, 11]},
       {text: 'h-index', style: 'tableHeader', alignment: 'center', rowSpan: 2, margin: [0, 11]},
@@ -129,17 +123,27 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
     ];
   }
 
-  private getYearsOrSubsForHeader(isSubs: boolean = false): Array<any> {
+  private getYearsOrSubsForHeader(mode: string = ''): Array<any> {
     const keys = Object.keys(this.reportInfo.forGraph),
       filteredKeys = this.tailPipe.transform(keys, keys.length - this.yearDropdown.selected.value);
     const headers = [];
     filteredKeys.forEach(value => {
-      if (isSubs) {
-        headers.push({text: 'цит', style: 'tableHeader', alignment: 'center', margin: [0, 10]});
-        headers.push({text: 'док', style: 'tableHeader', alignment: 'center', margin: [0, 10]});
-      } else {
-        headers.push({text: value, style: 'tableHeader', colSpan: 2, alignment: 'center'});
-        headers.push({});
+      switch (mode) {
+        case 'years' : {
+          headers.push({text: value, style: 'tableHeader', colSpan: 2, alignment: 'center'});
+          headers.push({});
+          break;
+        }
+        case 'subs' : {
+          headers.push({text: 'цит', style: 'tableHeader', alignment: 'center', margin: [0, 10]});
+          headers.push({text: 'док', style: 'tableHeader', alignment: 'center', margin: [0, 10]});
+          break;
+        }
+        default: {
+          headers.push({});
+          headers.push({});
+          break;
+        }
       }
     });
     return headers;
@@ -148,31 +152,64 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   private getDefinitionForRows(): Array<any> {
     const rows = [];
     this.reportInfo.forPDF.forEach((user, index) => {
+      const url = new URL(user.commonData['scopus'] || 'https://www.google.com/');
       rows.push(
         [{text: index + 1, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
           {text: user.commonData['name'] || '', style: 'rowStyle', alignment: 'center'},
           {
-            text: '57190436204', link: 'http://www.google.com', decoration: 'underline',
-            style: 'rowStyle', alignment: 'center', margin: [0, 11],
+            text: url.searchParams.get('authorId') || '', link: user.commonData['scopus'] || '',
+            decoration: 'underline', style: 'rowStyle', alignment: 'center', margin: [0, 11],
           },
-          {text: 3, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 2, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 3, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 2, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 3, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 2, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 9, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 6, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: 33, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
+          ...this.getDataForEachYears(user.sums),
           {text: user.commonData['academia'] || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
         ]);
     });
     return rows;
   }
 
+  private getTotalData(): Array<number> {
+    let col;
+    if (this.yearDropdown.selected.value === 3) {
+      col = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    } else {
+      col = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    }
+    this.reportInfo.forPDF.forEach((user) => {
+      const horizontData = this.getDataForEachYears(user.sums);
+      horizontData.forEach((value, index) => {
+        col[index] += value['text'];
+      });
+    });
+    return col;
+  }
+
+  private getDataForEachYears(sums: any): Array<any> {
+    const keys = Object.keys(this.reportInfo.forGraph),
+      yearKeys = this.tailPipe.transform(keys, keys.length - this.yearDropdown.selected.value);
+    const dataList = [];
+    let overallDoc = 0, overallCit = 0, overallIndex = 0;
+    for (const year of yearKeys) {
+      let sumCitYear = 0, sumDocYear = 0, sumIndexYear = 0;
+      for (const month of Object.keys(sums[year] || {})) {
+        sumCitYear += sums[year][month]['citationCount'];
+        sumDocYear += sums[year][month]['docCount'];
+        sumIndexYear += sums[year][month]['indexScopus'];
+      }
+      dataList.push({text: sumCitYear, style: 'rowStyle', alignment: 'center', margin: [0, 11]});
+      dataList.push({text: sumDocYear, style: 'rowStyle', alignment: 'center', margin: [0, 11]});
+      overallCit += sumCitYear;
+      overallDoc += sumDocYear;
+      overallIndex += sumIndexYear;
+    }
+    dataList.push({text: overallDoc, style: 'rowStyle', alignment: 'center', margin: [0, 11]});
+    dataList.push({text: overallCit, style: 'rowStyle', alignment: 'center', margin: [0, 11]});
+    dataList.push({text: overallIndex, style: 'rowStyle', alignment: 'center', margin: [0, 11]});
+    return dataList;
+  }
+
   private getDefinitionForSubHeader(): Array<any> {
     return [{}, {}, {},
-      ...this.getYearsOrSubsForHeader(true),
+      ...this.getYearsOrSubsForHeader('subs'),
       {}, {}, {}, {}];
   }
 
@@ -180,9 +217,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
     return [{text: '', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
       {text: '', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
       {text: '', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
-      {text: '', style: 'tableHeader', alignment: 'center'}, {},
-      {text: '', style: 'tableHeader', alignment: 'center'}, {},
-      {text: '', style: 'tableHeader', alignment: 'center'}, {},
+      ...this.getYearsOrSubsForHeader(),
       {text: 'сум пуб', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
       {text: 'сум цит', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
       {text: 'сум h index', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
