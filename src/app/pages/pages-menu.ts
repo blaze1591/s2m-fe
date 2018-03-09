@@ -26,22 +26,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-title',
     link: '/pages/reports',
     children: [
-      {
-        title: 'Індивідуальний',
-        link: '/pages/reports/individual',
-      },
+      // {
+      //   title: 'Індивідуальний',
+      //   link: '/pages/reports/individual',
+      // },
       {
         title: 'Кафедральний',
         link: '/pages/reports/cathedral',
       },
-      {
-        title: 'Факультети',
-        link: '/pages/reports/faculties',
-      },
-      {
-        title: 'Інститути',
-        link: '/pages/reports/institutes',
-      },
+      // {
+      //   title: 'Факультети',
+      //   link: '/pages/reports/faculties',
+      // },
+      // {
+      //   title: 'Інститути',
+      //   link: '/pages/reports/institutes',
+      // },
       {
         title: 'Scopus',
         link: '/pages/reports/scopus',

@@ -57,4 +57,10 @@ export class UserService {
         throw Error(error.json().message);
       });
   }
+
+  getCathedralReport(cathedraName: string) {
+    return this.http.get(`${environment.apiUrl}/user/report/cathedral/${cathedraName}`, this.auth.generateOptions())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'getCathedralReport error'));
+  }
 }
