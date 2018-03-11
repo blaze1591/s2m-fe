@@ -12,7 +12,9 @@
         </select>
       </div>
       <div class="col-lg-2">
-        <button class="btn btn-success btn-semin-round btn-demo" (click)="generatePdf()">
+        <button class="btn btn-success btn-semin-round btn-demo" (click)="generatePdf()"
+                [disabled]="inProgress"
+                [class.btn-pulse]="inProgress">
           Зробити звіт
         </button>
       </div>
