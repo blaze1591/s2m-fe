@@ -5,6 +5,7 @@ import {ModalDirective} from 'ngx-bootstrap';
 import {ScienceUnit} from './model/science.unit';
 import {IOption} from 'ng-select';
 import {UserService} from '../../services/data/users.service';
+import {Toast, ToasterService} from 'angular2-toaster';
 
 @Component({
   selector: 's2m-publications',
@@ -116,8 +117,10 @@ export class PublicationsComponent implements OnInit {
   source: LocalDataSource;
   bibtexSource: LocalDataSource;
   bibtexUsers: any;
+  bibtexScienceUnits: Array<any>;
   constructor(private scienceUnitService: ScienceUnitService,
-              private userService: UserService) {
+              private userService: UserService,
+              private toastr: ToasterService) {
     this.source = new LocalDataSource([]);
     this.bibtexSource = new LocalDataSource([]);
   }
@@ -222,7 +225,8 @@ export class PublicationsComponent implements OnInit {
     this.fileName = file.name;
     this.scienceUnitService.uploadBibtex(file)
       .subscribe((response) => {
-        this.bibtexSource.load(response);
+        this.bibtexScienceUnits = response;
+        this.bibtexSource.load(this.bibtexScienceUnits);
     });
   }
 
@@ -246,11 +250,29 @@ export class PublicationsComponent implements OnInit {
   }
 
   saveBibtexUnits() {
+    if (this.bibtexUsers === undefined || this.bibtexUsers.length === 0) {
+      this.showWarningMessage('Оберіть користувача!');
+      return;
+    }
+    if (this.bibtexScienceUnits === undefined || this.bibtexScienceUnits.length === 0) {
+      this.showWarningMessage('Нема даних!');
+      return;
+    }
     this.bibtexSource.getAll().then((data) => {
       this.scienceUnitService.bulkSaveScienceUnits(this.bibtexUsers, data)
         .subscribe(() => this.loadScienceUnits());
     });
     this.bibtexModal.hide();
+  }
+
+  private showWarningMessage(message: string) {
+    const toast: Toast = {
+      type: 'warning',
+      title: 'Увага',
+      body: message,
+      showCloseButton: true,
+    };
+    this.toastr.pop(toast);
   }
 
   onSearch(query: string = '') {

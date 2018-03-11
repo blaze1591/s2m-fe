@@ -15,12 +15,11 @@
         <!--</div>-->
       <!--</div>-->
     <!--</div>-->
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px">
       <div class="col-lg-12">
-        <select></select>
+        <input type="button" class="btn btn-success" (click)="callBibtexModal()" value="Добавити Bibtex файл"/>
       </div>
     </div>
-    <br>
     <div class="row">
       <div class="col-lg-12">
         <ng2-smart-table [settings]="settings" [source]="source" (create)="create($event)" (edit)="edit($event)" (delete)="delete($event)"></ng2-smart-table>
@@ -31,7 +30,7 @@
 
 <!--insert modal-->
 <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">Добавити Нову Публiкацiю</h4>
@@ -50,157 +49,163 @@
             </select>
           </div>
 
-          <!--Common fields for all ScienceUnits-->
-          <div *ngIf="model.unitType != null">
+          <div class="row">
+            <!--Common fields for all ScienceUnits-->
+            <div class="col-lg-6">
+              <div *ngIf="model.unitType != null">
 
-            <div class = "form-group input-group-sm">
-              <label for = "users">Прив'язати до Користувачів</label>
-              <ng-select type = "text" id = "users" name = "users" required #users="ngModel"
-                [options]="options"
-                [multiple]="true"
-                [(ngModel)]="model.users">
-              </ng-select>
-              <small *ngIf="users.errors && (users.dirty || users.touched)" class="form-text error">
-                <p>Users binding is required!</p>
-              </small>
+                <div class = "form-group input-group-sm">
+                  <label for = "users">Прив'язати до Користувачів</label>
+                  <ng-select type = "text" id = "users" name = "users" required #users="ngModel"
+                             [options]="options"
+                             [multiple]="true"
+                             [(ngModel)]="model.users">
+                  </ng-select>
+                  <small *ngIf="users.errors && (users.dirty || users.touched)" class="form-text error">
+                    <p>Users binding is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "name">Назва</label>
+                  <input type = "text" class = "form-control" id = "name"
+                         [(ngModel)] = "model.name" name = "name" #name="ngModel" required>
+                  <small *ngIf="name.errors && (name.dirty || name.touched)" class="form-text error">
+                    <p>Name field is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "title">Заголовок</label>
+                  <input type = "text" class = "form-control" id = "title" required #title="ngModel"
+                         [(ngModel)] = "model.title" name = "title">
+                  <small *ngIf="title.errors && (title.dirty || title.touched)" class="form-text error">
+                    <p>Title field is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "year">Рік</label>
+                  <input type = "number" class = "form-control input-sm" id = "year" required #year="ngModel"
+                         [(ngModel)] = "model.year" name = "year">
+                  <small *ngIf="year.errors && (year.dirty || year.touched)" class="form-text error">
+                    <p>Year field is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "author">Автор</label>
+                  <input type = "text" class = "form-control input-sm" id = "author" required #author="ngModel"
+                         [(ngModel)] = "model.author" name = "author">
+                  <small *ngIf="author.errors && (author.dirty || author.touched)" class="form-text error">
+                    <p>Author field is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "url">URL Посилання</label>
+                  <input type = "text" class = "form-control input-sm" id = "url" #url="ngModel"
+                         [(ngModel)] = "model.url" name = "url">
+                  <small *ngIf="url.errors && (url.dirty || url.touched)" class="form-text error">
+                    <p>URL field is required!</p>
+                  </small>
+                </div>
+              </div>
             </div>
 
-            <div class = "form-group input-group-sm">
-              <label for = "name">Назва</label>
-              <input type = "text" class = "form-control" id = "name"
-                     [(ngModel)] = "model.name" name = "name" #name="ngModel" required>
-              <small *ngIf="name.errors && (name.dirty || name.touched)" class="form-text error">
-                <p>Name field is required!</p>
-              </small>
+            <!--Present on Chapter and Conference-->
+            <div class="col-lg-6">
+              <div class = "form-group input-group-sm" *ngIf="isBookTitleShouldBePresent()">
+                <label for = "bookTitle">Заголовок Книги</label>
+                <input type = "text" class = "form-control input-sm" id = "bookTitle" required #bookTitle="ngModel"
+                       [(ngModel)] = "model.bookTitle" name = "bookTitle">
+                <small *ngIf="bookTitle.errors && (bookTitle.dirty || bookTitle.touched)" class="form-text error">
+                  <p>Book Title field is required!</p>
+                </small>
+              </div>
+
+              <!--Journal and Other-->
+              <div class = "form-group input-group-sm" *ngIf="isJournalShouldBePresent()">
+                <label for = "journal">Журнал</label>
+                <input type = "text" class = "form-control input-sm" id = "journal" required #journal="ngModel"
+                       [(ngModel)] = "model.journal" name = "journal">
+                <small *ngIf="journal.errors && (journal.dirty || journal.touched)" class="form-text error">
+                  <p>Journal field is required!</p>
+                </small>
+
+              </div>
+              <!--Present on Book and Journal-->
+              <div class = "form-group input-group-sm" *ngIf="isPublisherShouldBePresent()">
+                <label for = "publisher">Видавець</label>
+                <input type = "text" class = "form-control input-sm" id = "publisher" required #publisher="ngModel"
+                       [(ngModel)] = "model.publisher" name = "publisher">
+                <small *ngIf="publisher.errors && (publisher.dirty || publisher.touched)" class="form-text error">
+                  <p>Publisher field is required!</p>
+                </small>
+              </div>
+
+              <!--Chapter and Conference field-->
+              <div class = "form-group input-group-sm" *ngIf="isOrganizationShouldBePresent()">
+                <label for = "organization">Організація</label>
+                <input type = "text" class = "form-control input-sm" id = "organization" required #organization="ngModel"
+                       [(ngModel)] = "model.organization" name = "organization">
+                <small *ngIf="organization.errors && (organization.dirty || organization.touched)" class="form-text error">
+                  <p>Organization field is required!</p>
+                </small>
+              </div>
+
+              <!--Present on every type except Other, Patent and Thesis-->
+              <div class = "form-group input-group-sm" *ngIf="isVolumeShouldBePresent()">
+                <label for = "volume">Том</label>
+                <input type = "text" class = "form-control input-sm" id = "volume" required #volume="ngModel"
+                       [(ngModel)] = "model.volume" name = "volume">
+                <small *ngIf="volume.errors && (volume.dirty || volume.touched)" class="form-text error">
+                  <p>Volume field is required!</p>
+                </small>
+              </div>
+
+              <!--Everywhere except Patent, Thesis, Book-->
+              <div class = "form-group input-group-sm" *ngIf="isNumberShouldBePresent()">
+                <label for = "number">Номер</label>
+                <input type = "number" class = "form-control input-sm" id = "number" required #number="ngModel"
+                       [(ngModel)] = "model.number" name = "number">
+                <small *ngIf="number.errors && (number.dirty || number.touched)" class="form-text error">
+                  <p>Number field is required!</p>
+                </small>
+              </div>
+
+              <!--Chapter Conference Journal-->
+              <div class = "form-group input-group-sm" *ngIf="isPagesShouldBePresent()">
+                <label for = "pages">Кількість Сторінок</label>
+                <input type = "text" class = "form-control input-sm" id = "pages" required #pages="ngModel"
+                       [(ngModel)] = "model.pages" name = "pages">
+                <small *ngIf="pages.errors && (pages.dirty || pages.touched)" class="form-text error">
+                  <p>Pages field is required!</p>
+                </small>
+              </div>
+
+              <!--Under Patent-->
+              <div class = "form-group input-group-sm" *ngIf="isNoteShouldBePresent()">
+                <label for = "note">Примітка</label>
+                <input type = "text" class = "form-control input-sm" id = "note" required #note="ngModel"
+                       [(ngModel)] = "model.note" name = "note">
+                <small *ngIf="note.errors && (note.dirty || note.touched)" class="form-text error">
+                  <p>Note field is required!</p>
+                </small>
+              </div>
+
+              <!--Under Thesis-->
+              <div class = "form-group input-group-sm" *ngIf="isSchoolShouldBePresent()">
+                <label for = "school">Факультет</label>
+                <input type = "text" class = "form-control input-sm" id = "school" required #school="ngModel"
+                       [(ngModel)] = "model.school" name = "school">
+                <small *ngIf="school.errors && (school.dirty || school.touched)" class="form-text error">
+                  <p>School field is required!</p>
+                </small>
+              </div>
             </div>
 
-            <div class = "form-group input-group-sm">
-              <label for = "title">Заголовок</label>
-              <input type = "text" class = "form-control" id = "title" required #title="ngModel"
-                     [(ngModel)] = "model.title" name = "title">
-              <small *ngIf="title.errors && (title.dirty || title.touched)" class="form-text error">
-                <p>Title field is required!</p>
-              </small>
             </div>
-
-            <div class = "form-group input-group-sm">
-              <label for = "year">Рік</label>
-              <input type = "number" class = "form-control input-sm" id = "year" required #year="ngModel"
-                     [(ngModel)] = "model.year" name = "year">
-              <small *ngIf="year.errors && (year.dirty || year.touched)" class="form-text error">
-                <p>Year field is required!</p>
-              </small>
-            </div>
-
-            <div class = "form-group input-group-sm">
-              <label for = "url">URL Посилання</label>
-              <input type = "text" class = "form-control input-sm" id = "url" required #url="ngModel"
-                     [(ngModel)] = "model.url" name = "url">
-              <small *ngIf="url.errors && (url.dirty || url.touched)" class="form-text error">
-                <p>URL field is required!</p>
-              </small>
-            </div>
-
-            <div class = "form-group input-group-sm">
-              <label for = "author">Автор</label>
-              <input type = "text" class = "form-control input-sm" id = "author" required #author="ngModel"
-                     [(ngModel)] = "model.author" name = "author">
-              <small *ngIf="author.errors && (author.dirty || author.touched)" class="form-text error">
-                <p>Author field is required!</p>
-              </small>
-            </div>
-
-          </div>
-
-          <!--Present on Chapter and Conference-->
-          <div class = "form-group input-group-sm" *ngIf="isBookTitleShouldBePresent()">
-            <label for = "bookTitle">Заголовок Книги</label>
-            <input type = "text" class = "form-control input-sm" id = "bookTitle" required #bookTitle="ngModel"
-                   [(ngModel)] = "model.bookTitle" name = "bookTitle">
-            <small *ngIf="bookTitle.errors && (bookTitle.dirty || bookTitle.touched)" class="form-text error">
-              <p>Book Title field is required!</p>
-            </small>
-          </div>
-
-          <!--Journal and Other-->
-          <div class = "form-group input-group-sm" *ngIf="isJournalShouldBePresent()">
-            <label for = "journal">Журнал</label>
-            <input type = "text" class = "form-control input-sm" id = "journal" required #journal="ngModel"
-                   [(ngModel)] = "model.journal" name = "journal">
-            <small *ngIf="journal.errors && (journal.dirty || journal.touched)" class="form-text error">
-              <p>Journal field is required!</p>
-            </small>
-
-          </div>
-          <!--Present on Book and Journal-->
-          <div class = "form-group input-group-sm" *ngIf="isPublisherShouldBePresent()">
-            <label for = "publisher">Видавець</label>
-            <input type = "text" class = "form-control input-sm" id = "publisher" required #publisher="ngModel"
-                   [(ngModel)] = "model.publisher" name = "publisher">
-            <small *ngIf="publisher.errors && (publisher.dirty || publisher.touched)" class="form-text error">
-              <p>Publisher field is required!</p>
-            </small>
-          </div>
-
-          <!--Chapter and Conference field-->
-          <div class = "form-group input-group-sm" *ngIf="isOrganizationShouldBePresent()">
-            <label for = "organization">Організація</label>
-            <input type = "text" class = "form-control input-sm" id = "organization" required #organization="ngModel"
-                   [(ngModel)] = "model.organization" name = "organization">
-            <small *ngIf="organization.errors && (organization.dirty || organization.touched)" class="form-text error">
-              <p>Organization field is required!</p>
-            </small>
-          </div>
-
-          <!--Present on every type except Other, Patent and Thesis-->
-          <div class = "form-group input-group-sm" *ngIf="isVolumeShouldBePresent()">
-            <label for = "volume">Том</label>
-            <input type = "number" class = "form-control input-sm" id = "volume" required #volume="ngModel"
-                   [(ngModel)] = "model.volume" name = "volume">
-            <small *ngIf="volume.errors && (volume.dirty || volume.touched)" class="form-text error">
-              <p>Volume field is required!</p>
-            </small>
-          </div>
-
-          <!--Everywhere except Patent, Thesis, Book-->
-          <div class = "form-group input-group-sm" *ngIf="isNumberShouldBePresent()">
-            <label for = "number">Номер</label>
-            <input type = "number" class = "form-control input-sm" id = "number" required #number="ngModel"
-                   [(ngModel)] = "model.number" name = "number">
-            <small *ngIf="number.errors && (number.dirty || number.touched)" class="form-text error">
-              <p>Number field is required!</p>
-            </small>
-          </div>
-
-          <!--Chapter Conference Journal-->
-          <div class = "form-group input-group-sm" *ngIf="isPagesShouldBePresent()">
-            <label for = "pages">Кількість Сторінок</label>
-            <input type = "number" class = "form-control input-sm" id = "pages" required #pages="ngModel"
-                   [(ngModel)] = "model.pages" name = "pages">
-            <small *ngIf="pages.errors && (pages.dirty || pages.touched)" class="form-text error">
-              <p>Pages field is required!</p>
-            </small>
-          </div>
-
-          <!--Under Patent-->
-          <div class = "form-group input-group-sm" *ngIf="isNoteShouldBePresent()">
-            <label for = "note">Примітка</label>
-            <input type = "text" class = "form-control input-sm" id = "note" required #note="ngModel"
-                   [(ngModel)] = "model.note" name = "note">
-            <small *ngIf="note.errors && (note.dirty || note.touched)" class="form-text error">
-              <p>Note field is required!</p>
-            </small>
-          </div>
-
-          <!--Under Thesis-->
-          <div class = "form-group input-group-sm" *ngIf="isSchoolShouldBePresent()">
-            <label for = "school">Факультет</label>
-            <input type = "text" class = "form-control input-sm" id = "school" required #school="ngModel"
-                   [(ngModel)] = "model.school" name = "school">
-            <small *ngIf="school.errors && (school.dirty || school.touched)" class="form-text error">
-              <p>School field is required!</p>
-            </small>
-          </div>
 
           <div *ngIf="model.unitType != null">
             <input type="button" class="btn btn-info" value="Добавити" (click)="saveUnit()" [disabled] ="!addForm.form.valid">
@@ -217,7 +222,7 @@
 
 <!--update modal-->
 <div bsModal #updateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">Оновити Публiкацiю</h4>
@@ -235,155 +240,161 @@
             </select>
           </div>
 
-          <!--Common fields for all ScienceUnits-->
-          <div *ngIf="model.unitType != null">
+          <div class="row">
+            <!--Common fields for all ScienceUnits-->
+            <div class="col-lg-6">
+              <div *ngIf="model.unitType != null">
 
-            <div class = "form-group input-group-sm">
-              <label for = "updateUsers">Прив'язати до Користувачів</label>
-              <ng-select type = "text" id = "updateUsers" name = "updateUsers" #updateUsers="ngModel" required
-                         [options]="options"
-                         [multiple]="true"
-                         [(ngModel)]="model.users">
-              </ng-select>
-              <small *ngIf="updateUsers.errors && (updateUsers.dirty || updateUsers.touched)" class="form-text error">
-                <p>Users binding is required!</p>
-              </small>
+                <div class = "form-group input-group-sm">
+                  <label for = "updateUsers">Прив'язати до Користувачів</label>
+                  <ng-select type = "text" id = "updateUsers" name = "updateUsers" #updateUsers="ngModel" required
+                             [options]="options"
+                             [multiple]="true"
+                             [(ngModel)]="model.users">
+                  </ng-select>
+                  <small *ngIf="updateUsers.errors && (updateUsers.dirty || updateUsers.touched)" class="form-text error">
+                    <p>Users binding is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "updateName">Назва</label>
+                  <input type = "text" class = "form-control input-sm" id = "updateName" #updateName="ngModel" required
+                         [(ngModel)] = "model.name" name = "updateName">
+                  <small *ngIf="updateName.errors && (updateName.dirty || updateName.touched)" class="form-text error">
+                    <p>Name field is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "updateTitle">Заголовок</label>
+                  <input type = "text" class = "form-control input-sm" id = "updateTitle" #updateTitle="ngModel" required
+                         [(ngModel)] = "model.title" name = "updateTitle">
+                  <small *ngIf="updateTitle.errors && (updateTitle.dirty || updateTitle.touched)" class="form-text error">
+                    <p>Title field is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "updateYear">Рік</label>
+                  <input type = "number" class = "form-control input-sm" id = "updateYear" #updateYear="ngModel" required
+                         [(ngModel)] = "model.year" name = "updateYear">
+                  <small *ngIf="updateYear.errors && (updateYear.dirty || updateYear.touched)" class="form-text error">
+                    <p>Year field is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "updateAuthor">Автор</label>
+                  <input type = "text" class = "form-control input-sm" id = "updateAuthor" #updateAuthor="ngModel" required
+                         [(ngModel)] = "model.author" name = "updateAuthor">
+                  <small *ngIf="updateAuthor.errors && (updateAuthor.dirty || updateAuthor.touched)" class="form-text error">
+                    <p>Users binding is required!</p>
+                  </small>
+                </div>
+
+                <div class = "form-group input-group-sm">
+                  <label for = "updateUrl">URL Посилання</label>
+                  <input type = "text" class = "form-control input-sm" id = "updateUrl" #updateUrl="ngModel"
+                         [(ngModel)] = "model.url" name = "updateUrl">
+                  <small *ngIf="updateUrl.errors && (updateUrl.dirty || updateUrl.touched)" class="form-text error">
+                    <p>Url field is required!</p>
+                  </small>
+                </div>
+              </div>
             </div>
 
-            <div class = "form-group input-group-sm">
-              <label for = "updateName">Назва</label>
-              <input type = "text" class = "form-control input-sm" id = "updateName" #updateName="ngModel" required
-                     [(ngModel)] = "model.name" name = "updateName">
-              <small *ngIf="updateName.errors && (updateName.dirty || updateName.touched)" class="form-text error">
-                <p>Name field is required!</p>
-              </small>
+            <!--Present on Chapter and Conference-->
+            <div class="col-lg-6">
+              <div class = "form-group input-group-sm" *ngIf="isBookTitleShouldBePresent()">
+                <label for = "updateBookTitle">Заголовок Книги</label>
+                <input type = "text" class = "form-control input-sm" id = "updateBookTitle" #updateBookTitle="ngModel" required
+                       [(ngModel)] = "model.bookTitle" name = "updateBookTitle">
+                <small *ngIf="updateBookTitle.errors && (updateBookTitle.dirty || updateBookTitle.touched)" class="form-text error">
+                  <p>Book Title field is required!</p>
+                </small>
+              </div>
+
+              <!--Journal and Other-->
+              <div class = "form-group input-group-sm" *ngIf="isJournalShouldBePresent()">
+                <label for = "updateJournal">Журнал</label>
+                <input type = "text" class = "form-control input-sm" id = "updateJournal" #updateJournal="ngModel" required
+                       [(ngModel)] = "model.journal" name = "updateJournal">
+                <small *ngIf="updateJournal.errors && (updateJournal.dirty || updateJournal.touched)" class="form-text error">
+                  <p>Journal field is required!</p>
+                </small>
+              </div>
+
+              <!--Present on Book and Journal-->
+              <div class = "form-group input-group-sm" *ngIf="isPublisherShouldBePresent()">
+                <label for = "updatePublisher">Видавець</label>
+                <input type = "text" class = "form-control input-sm" id = "updatePublisher" #updatePublisher="ngModel" required
+                       [(ngModel)] = "model.publisher" name = "updatePublisher">
+                <small *ngIf="updatePublisher.errors && (updatePublisher.dirty || updatePublisher.touched)" class="form-text error">
+                  <p>Publisher field is required!</p>
+                </small>
+              </div>
+
+              <!--Chapter and Conference field-->
+              <div class = "form-group input-group-sm" *ngIf="isOrganizationShouldBePresent()">
+                <label for = "updateOrganization">Організація</label>
+                <input type = "text" class = "form-control input-sm" id = "updateOrganization" #updateOrganization="ngModel" required
+                       [(ngModel)] = "model.organization" name = "updateOrganization">
+                <small *ngIf="updateOrganization.errors && (updateOrganization.dirty || updateOrganization.touched)" class="form-text error">
+                  <p>Organization field is required!</p>
+                </small>
+              </div>
+
+              <!--Present on every type except Other, Patent and Thesis-->
+              <div class = "form-group input-group-sm" *ngIf="isVolumeShouldBePresent()">
+                <label for = "updateVolume">Том</label>
+                <input type = "text" class = "form-control input-sm" id = "updateVolume" #updateVolume="ngModel" required
+                       [(ngModel)] = "model.volume" name = "updateVolume">
+                <small *ngIf="updateVolume.errors && (updateVolume.dirty || updateVolume.touched)" class="form-text error">
+                  <p>Volume field is required!</p>
+                </small>
+              </div>
+
+              <!--Everywhere except Patent, Thesis, Book-->
+              <div class = "form-group input-group-sm" *ngIf="isNumberShouldBePresent()">
+                <label for = "updateNumber">Номер</label>
+                <input type = "text" class = "form-control input-sm" id = "updateNumber" #updateNumber="ngModel" required
+                       [(ngModel)] = "model.number" name = "updateNumber">
+                <small *ngIf="updateNumber.errors && (updateNumber.dirty || updateNumber.touched)" class="form-text error">
+                  <p>Number field is required!</p>
+                </small>
+              </div>
+
+              <!--Chapter Conference Journal-->
+              <div class = "form-group input-group-sm" *ngIf="isPagesShouldBePresent()">
+                <label for = "updatePages">Кількість Сторінок</label>
+                <input type = "text" class = "form-control input-sm" id = "updatePages" #updatePages="ngModel" required
+                       [(ngModel)] = "model.pages" name = "updatePages">
+                <small *ngIf="updatePages.errors && (updatePages.dirty || updatePages.touched)" class="form-text error">
+                  <p>Pages field is required!</p>
+                </small>
+              </div>
+
+              <!--Under Patent-->
+              <div class = "form-group input-group-sm" *ngIf="isNoteShouldBePresent()">
+                <label for = "updateNote">Примітка</label>
+                <input type = "text" class = "form-control input-sm" id = "updateNote" #updateNote="ngModel" required
+                       [(ngModel)] = "model.note" name = "updateNote">
+                <small *ngIf="updateNote.errors && (updateNote.dirty || updateNote.touched)" class="form-text error">
+                  <p>Note field is required!</p>
+                </small>
+              </div>
+
+              <!--Under Thesis-->
+              <div class = "form-group input-group-sm" *ngIf="isSchoolShouldBePresent()">
+                <label for = "updateSchool">Факультет</label>
+                <input type = "text" class = "form-control input-sm" id = "updateSchool" #updateSchool="ngModel" required
+                       [(ngModel)] = "model.school" name = "updateSchool">
+                <small *ngIf="updateSchool.errors && (updateSchool.dirty || updateSchool.touched)" class="form-text error">
+                  <p>School field is required!</p>
+                </small>
+              </div>
             </div>
-
-            <div class = "form-group input-group-sm">
-              <label for = "updateTitle">Заголовок</label>
-              <input type = "text" class = "form-control input-sm" id = "updateTitle" #updateTitle="ngModel" required
-                     [(ngModel)] = "model.title" name = "updateTitle">
-              <small *ngIf="updateTitle.errors && (updateTitle.dirty || updateTitle.touched)" class="form-text error">
-                <p>Title field is required!</p>
-              </small>
-            </div>
-
-            <div class = "form-group input-group-sm">
-              <label for = "updateYear">Рік</label>
-              <input type = "number" class = "form-control input-sm" id = "updateYear" #updateYear="ngModel" required
-                     [(ngModel)] = "model.year" name = "updateYear">
-              <small *ngIf="updateYear.errors && (updateYear.dirty || updateYear.touched)" class="form-text error">
-                <p>Year field is required!</p>
-              </small>
-            </div>
-
-            <div class = "form-group input-group-sm">
-              <label for = "updateUrl">URL Посилання</label>
-              <input type = "text" class = "form-control input-sm" id = "updateUrl" #updateUrl="ngModel" required
-                     [(ngModel)] = "model.url" name = "updateUrl">
-              <small *ngIf="updateUrl.errors && (updateUrl.dirty || updateUrl.touched)" class="form-text error">
-                <p>Url field is required!</p>
-              </small>
-            </div>
-
-            <div class = "form-group input-group-sm">
-              <label for = "updateAuthor">Автор</label>
-              <input type = "text" class = "form-control input-sm" id = "updateAuthor" #updateAuthor="ngModel" required
-                     [(ngModel)] = "model.author" name = "updateAuthor">
-              <small *ngIf="updateAuthor.errors && (updateAuthor.dirty || updateAuthor.touched)" class="form-text error">
-                <p>Users binding is required!</p>
-              </small>
-            </div>
-          </div>
-
-          <!--Present on Chapter and Conference-->
-          <div class = "form-group input-group-sm" *ngIf="isBookTitleShouldBePresent()">
-            <label for = "updateBookTitle">Заголовок Книги</label>
-            <input type = "text" class = "form-control input-sm" id = "updateBookTitle" #updateBookTitle="ngModel" required
-                   [(ngModel)] = "model.bookTitle" name = "updateBookTitle">
-            <small *ngIf="updateBookTitle.errors && (updateBookTitle.dirty || updateBookTitle.touched)" class="form-text error">
-              <p>Book Title field is required!</p>
-            </small>
-          </div>
-
-          <!--Journal and Other-->
-          <div class = "form-group input-group-sm" *ngIf="isJournalShouldBePresent()">
-            <label for = "updateJournal">Журнал</label>
-            <input type = "text" class = "form-control input-sm" id = "updateJournal" #updateJournal="ngModel" required
-                   [(ngModel)] = "model.journal" name = "updateJournal">
-            <small *ngIf="updateJournal.errors && (updateJournal.dirty || updateJournal.touched)" class="form-text error">
-              <p>Journal field is required!</p>
-            </small>
-          </div>
-
-          <!--Present on Book and Journal-->
-          <div class = "form-group input-group-sm" *ngIf="isPublisherShouldBePresent()">
-            <label for = "updatePublisher">Видавець</label>
-            <input type = "text" class = "form-control input-sm" id = "updatePublisher" #updatePublisher="ngModel" required
-                   [(ngModel)] = "model.publisher" name = "updatePublisher">
-            <small *ngIf="updatePublisher.errors && (updatePublisher.dirty || updatePublisher.touched)" class="form-text error">
-              <p>Publisher field is required!</p>
-            </small>
-          </div>
-
-          <!--Chapter and Conference field-->
-          <div class = "form-group input-group-sm" *ngIf="isOrganizationShouldBePresent()">
-            <label for = "updateOrganization">Організація</label>
-            <input type = "text" class = "form-control input-sm" id = "updateOrganization" #updateOrganization="ngModel" required
-                   [(ngModel)] = "model.organization" name = "updateOrganization">
-            <small *ngIf="updateOrganization.errors && (updateOrganization.dirty || updateOrganization.touched)" class="form-text error">
-              <p>Organization field is required!</p>
-            </small>
-          </div>
-
-          <!--Present on every type except Other, Patent and Thesis-->
-          <div class = "form-group input-group-sm" *ngIf="isVolumeShouldBePresent()">
-            <label for = "updateVolume">Том</label>
-            <input type = "number" class = "form-control input-sm" id = "updateVolume" #updateVolume="ngModel" required
-                   [(ngModel)] = "model.volume" name = "updateVolume">
-            <small *ngIf="updateVolume.errors && (updateVolume.dirty || updateVolume.touched)" class="form-text error">
-              <p>Volume field is required!</p>
-            </small>
-          </div>
-
-          <!--Everywhere except Patent, Thesis, Book-->
-          <div class = "form-group input-group-sm" *ngIf="isNumberShouldBePresent()">
-            <label for = "updateNumber">Номер</label>
-            <input type = "number" class = "form-control input-sm" id = "updateNumber" #updateNumber="ngModel" required
-                   [(ngModel)] = "model.number" name = "updateNumber">
-            <small *ngIf="updateNumber.errors && (updateNumber.dirty || updateNumber.touched)" class="form-text error">
-              <p>Number field is required!</p>
-            </small>
-          </div>
-
-          <!--Chapter Conference Journal-->
-          <div class = "form-group input-group-sm" *ngIf="isPagesShouldBePresent()">
-            <label for = "updatePages">Кількість Сторінок</label>
-            <input type = "number" class = "form-control input-sm" id = "updatePages" #updatePages="ngModel" required
-                   [(ngModel)] = "model.pages" name = "updatePages">
-            <small *ngIf="updatePages.errors && (updatePages.dirty || updatePages.touched)" class="form-text error">
-              <p>Pages field is required!</p>
-            </small>
-          </div>
-
-          <!--Under Patent-->
-          <div class = "form-group input-group-sm" *ngIf="isNoteShouldBePresent()">
-            <label for = "updateNote">Примітка</label>
-            <input type = "text" class = "form-control input-sm" id = "updateNote" #updateNote="ngModel" required
-                   [(ngModel)] = "model.note" name = "updateNote">
-            <small *ngIf="updateNote.errors && (updateNote.dirty || updateNote.touched)" class="form-text error">
-              <p>Note field is required!</p>
-            </small>
-          </div>
-
-          <!--Under Thesis-->
-          <div class = "form-group input-group-sm" *ngIf="isSchoolShouldBePresent()">
-            <label for = "updateSchool">Факультет</label>
-            <input type = "text" class = "form-control input-sm" id = "updateSchool" #updateSchool="ngModel" required
-                   [(ngModel)] = "model.school" name = "updateSchool">
-            <small *ngIf="updateSchool.errors && (updateSchool.dirty || updateSchool.touched)" class="form-text error">
-              <p>School field is required!</p>
-            </small>
           </div>
 
           <div *ngIf="model.unitType != null">
