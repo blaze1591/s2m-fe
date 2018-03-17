@@ -43,16 +43,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-5" *ngIf="false">
+            <div class="col-6">
               <div class="dropdown" placement="top" ngbDropdown>
                 <button class="btn btn-outline-success" type="button" ngbDropdownToggle>
-                  {{yearDropdown.selected.key}}
+                  {{yearDropdown.selected.begin + ' - ' + yearDropdown.selected.end }}
                 </button>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                   <li class="dropdown-item"
                       *ngFor="let option of yearDropdown.list"
-                      (click)="chooseCount(option)">
-                    {{option.key}}
+                      (click)="chooseYears(option)">
+                    {{option.begin + ' - ' + option.end}}
                   </li>
                 </ul>
               </div>

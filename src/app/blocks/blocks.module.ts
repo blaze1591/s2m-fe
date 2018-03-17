@@ -24,6 +24,7 @@ import {
   MonthPipe,
   PluralPipe,
   PointsPipe,
+  RangePipe,
   RoundPipe,
   TailPipe,
   TimingPipe,
@@ -80,6 +81,7 @@ const PIPES = [
   TailPipe,
   YearSumPipe,
   PointsPipe,
+  RangePipe,
 ];
 
 const NB_THEME_PROVIDERS = [

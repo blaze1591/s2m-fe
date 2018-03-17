@@ -8,3 +8,4 @@ export * from './month.pipe';
 export * from './tail.pipe';
 export * from './year-sum.pipe';
 export * from './points.pipe';
+export * from './range.pipe';

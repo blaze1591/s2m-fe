@@ -26,8 +26,8 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   inProgress = false;
 
   yearDropdown = {
-    list: [{key: '3 роки', value: 3}, {key: '5 років', value: 5}],
-    selected: {key: '3 роки', value: 3},
+    list: [],
+    selected: {begin: undefined, end: undefined},
   };
 
   currentTheme: string;
@@ -48,6 +48,9 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userService.getScopusReport().subscribe(response => {
       this.reportInfo = response;
+      console.log(response);
+      this.yearDropdown.list = this.reportInfo.dropdownOptions;
+      this.yearDropdown.selected = this.reportInfo.dropdownOptions[this.reportInfo.dropdownOptions.length - 1];
       const keys = Object.keys(this.reportInfo.forGraph);
       this.initialYearsCount = keys.length;
       const filteredKeys = this.tailPipe.transform(keys, keys.length - 3),
@@ -93,9 +96,9 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
     this.inProgress = false;
   }
 
-  changeTab($event: any) {
+  changeTab($event: any, year?: number) {
     if ($event) {
-      const yearMap = this.reportInfo.forGraph[$event.tabTitle];
+      const yearMap = this.reportInfo.forGraph[year ? year : $event.tabTitle];
       this.sumCit = this.yearSumPipe.transform(yearMap, 'citationCount');
       this.sumDoc = this.yearSumPipe.transform(yearMap, 'docCount');
       this.pointsCit = this.pointsPipe.transform(yearMap, 'citationCount');
@@ -103,8 +106,9 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  chooseCount(option) {
+  chooseYears(option) {
     this.yearDropdown.selected = option;
+    this.changeTab({}, option.begin);
   }
 
   ngOnDestroy() {
@@ -125,7 +129,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
 
   private getYearsOrSubsForHeader(mode: string = ''): Array<any> {
     const keys = Object.keys(this.reportInfo.forGraph),
-      filteredKeys = this.tailPipe.transform(keys, keys.length - this.yearDropdown.selected.value);
+      filteredKeys = this.tailPipe.transform(keys, keys.length - 3);
     const headers = [];
     filteredKeys.forEach(value => {
       switch (mode) {
@@ -168,12 +172,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   }
 
   private getTotalData(): Array<number> {
-    let col;
-    if (this.yearDropdown.selected.value === 3) {
-      col = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-    } else {
-      col = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    }
+    const col = Array(9).fill(0);
     this.reportInfo.forPDF.forEach((user) => {
       const horizontData = this.getDataForEachYears(user.sums);
       horizontData.forEach((value, index) => {
@@ -185,7 +184,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
 
   private getDataForEachYears(sums: any): Array<any> {
     const keys = Object.keys(this.reportInfo.forGraph),
-      yearKeys = this.tailPipe.transform(keys, keys.length - this.yearDropdown.selected.value);
+      yearKeys = this.tailPipe.transform(keys, keys.length - 3);
     const dataList = [];
     let overallDoc = 0, overallCit = 0, overallIndex = 0;
     for (const year of yearKeys) {
