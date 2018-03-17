@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../../services/data/users.service';
-import {PointsPipe, TailPipe, YearSumPipe} from '../../../blocks/pipes';
+import {PointsPipe, RangePipe, TailPipe, YearSumPipe} from '../../../blocks/pipes';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
 import {DatePipe} from '@angular/common';
@@ -12,14 +12,13 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   selector: 's2m-scopus-report',
   templateUrl: './scopus-report.component.html',
   styleUrls: ['./scopus-report.component.scss'],
-  providers: [TailPipe, YearSumPipe, PointsPipe],
+  providers: [TailPipe, RangePipe, YearSumPipe, PointsPipe],
 })
 export class ScopusReportComponent implements OnInit, OnDestroy {
 
   reportInfo: any = {};
   sumCit: number;
   sumDoc: number;
-  initialYearsCount: number;
   pointsCit: Array<any>;
   pointsDoc: Array<any>;
 
@@ -36,6 +35,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   datePipe: DatePipe = new DatePipe('uk-UA');
 
   constructor(private userService: UserService,
+              private rangePipe: RangePipe,
               private tailPipe: TailPipe,
               private pointsPipe: PointsPipe,
               private yearSumPipe: YearSumPipe,
@@ -48,11 +48,9 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userService.getScopusReport().subscribe(response => {
       this.reportInfo = response;
-      console.log(response);
       this.yearDropdown.list = this.reportInfo.dropdownOptions;
       this.yearDropdown.selected = this.reportInfo.dropdownOptions[this.reportInfo.dropdownOptions.length - 1];
       const keys = Object.keys(this.reportInfo.forGraph);
-      this.initialYearsCount = keys.length;
       const filteredKeys = this.tailPipe.transform(keys, keys.length - 3),
         yearMap = this.reportInfo.forGraph[filteredKeys[0]];
       this.sumCit = this.yearSumPipe.transform(yearMap, 'citationCount');
@@ -128,8 +126,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   }
 
   private getYearsOrSubsForHeader(mode: string = ''): Array<any> {
-    const keys = Object.keys(this.reportInfo.forGraph),
-      filteredKeys = this.tailPipe.transform(keys, keys.length - 3);
+    const filteredKeys = this.rangePipe.transform(this.yearDropdown.selected.begin, 3);
     const headers = [];
     filteredKeys.forEach(value => {
       switch (mode) {
@@ -183,8 +180,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
   }
 
   private getDataForEachYears(sums: any): Array<any> {
-    const keys = Object.keys(this.reportInfo.forGraph),
-      yearKeys = this.tailPipe.transform(keys, keys.length - 3);
+    const yearKeys = this.rangePipe.transform(this.yearDropdown.selected.begin, 3);
     const dataList = [];
     let overallDoc = 0, overallCit = 0, overallIndex = 0;
     for (const year of yearKeys) {

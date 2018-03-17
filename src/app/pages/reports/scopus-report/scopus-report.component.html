@@ -8,7 +8,7 @@
         </div>
 
         <nb-tabset fullWidth (changeTab)="changeTab($event)">
-          <nb-tab *ngFor="let year of reportInfo.forGraph | keys | tail : initialYearsCount - 3; let i=index"
+          <nb-tab *ngFor="let year of yearDropdown.selected.begin | range : 3; let i=index"
                   [tabTitle]="year" [active]="i === 0">
             <div class="stats-month" *ngFor="let month of reportInfo.forGraph[year] | keys">
               <div>
