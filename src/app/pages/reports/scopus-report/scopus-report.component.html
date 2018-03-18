@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
     <nb-card size="large">
-      <div class="consumption-table">
+      <div class="consumption-table" *ngIf="yearDropdown.list.length > 0">
         <div class="table-header">
           <div>Звіт</div>
           <div class="subtitle">Scopus</div>
         </div>
 
         <nb-tabset fullWidth (changeTab)="changeTab($event)">
-          <nb-tab *ngFor="let year of yearDropdown.selected.begin | range : 3; let i=index"
+          <nb-tab *ngFor="let year of yearDropdown.selected?.begin | range : 3; let i=index"
                   [tabTitle]="year" [active]="i === 0">
             <div class="stats-month" *ngFor="let month of reportInfo.forGraph[year] | keys">
               <div>
@@ -43,10 +43,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-6" *ngIf="yearDropdown.list.length > 0">
               <div class="dropdown" placement="top" ngbDropdown>
                 <button class="btn btn-outline-success" type="button" ngbDropdownToggle>
-                  {{yearDropdown.selected.begin + ' - ' + yearDropdown.selected.end }}
+                  {{yearDropdown.selected?.begin + ' - ' + yearDropdown.selected?.end }}
                 </button>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                   <li class="dropdown-item"
