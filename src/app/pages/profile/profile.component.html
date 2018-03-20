@@ -95,7 +95,7 @@
             Індекс Гірша
           </nb-card-header>
           <nb-card-body>
-            <s2m-profile-bar-horizontal [user]="user">
+            <s2m-profile-bar-horizontal [user]="user" [heField]="'index'">
             </s2m-profile-bar-horizontal>
           </nb-card-body>
         </nb-card>
@@ -150,6 +150,22 @@
             </div>
           </nb-card-body>
         </nb-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>
+            Кількість цитувань
+          </nb-card-header>
+          <nb-card-body>
+            <s2m-profile-bar-horizontal [user]="user" [heField]="'citationCount'">
+            </s2m-profile-bar-horizontal>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <div class="col-lg-6">
         <nb-card *ngIf="user?.id === authService.getUserId()">
           <nb-card-header>
             Зміна пароля
@@ -202,6 +218,20 @@
                 </div>
               </div>
             </form>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>
+            Кількість документів
+          </nb-card-header>
+          <nb-card-body>
+            <s2m-profile-bar-horizontal [user]="user" [heField]="'documentCount'">
+            </s2m-profile-bar-horizontal>
           </nb-card-body>
         </nb-card>
       </div>

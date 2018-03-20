@@ -11,6 +11,7 @@ import {ChartComponent} from 'angular2-chartjs';
 })
 export class ProfileBarHorizontalComponent implements OnInit, OnChanges, OnDestroy {
   @Input() user: any;
+  @Input() heField: string;
   @ViewChild(ChartComponent) hbChart: ChartComponent;
   data: any;
   options: any;
@@ -100,9 +101,9 @@ export class ProfileBarHorizontalComponent implements OnInit, OnChanges, OnDestr
         this.datePipe.transform(webOfScience.date, 'dd/MM/yyyy'),
       );
 
-      this.data.datasets[0]['data'] = this.user.scopusEntities.map((scopus) => scopus.index);
-      this.data.datasets[1]['data'] = this.user.googleScholarEntities.map((googleScholar) => googleScholar.index);
-      this.data.datasets[2]['data'] = this.user.webOfScienceEntities.map((webOfScience) => webOfScience.index);
+      this.data.datasets[0]['data'] = this.user.scopusEntities.map((scopus) => scopus[this.heField]);
+      this.data.datasets[1]['data'] = this.user.googleScholarEntities.map((googleScholar) => googleScholar[this.heField]);
+      this.data.datasets[2]['data'] = this.user.webOfScienceEntities.map((webOfScience) => webOfScience[this.heField]);
 
       this.hbChart.chart.update();
     }
