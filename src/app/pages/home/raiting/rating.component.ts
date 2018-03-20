@@ -1,5 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NbMediaBreakpoint, NbMediaBreakpointsService, NbThemeService} from '@nebular/theme';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 's2m-rating',
@@ -8,7 +9,7 @@ import {NbMediaBreakpoint, NbMediaBreakpointsService, NbThemeService} from '@neb
     <nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'large' : 'xlarge'">
       <nb-tabset fullWidth>
         <nb-tab tabTitle="Рейтинг цитувань Scopus">
-          <div class="contact" *ngFor="let u of users; let i = index;">
+          <div class="contact ng2-smart-row" *ngFor="let u of users; let i = index;" (click)="goToProfile(u.id)">
             <nb-user [picture]="u.photo" [name]="u.name" [title]="'Кількість цитувань: '+u.value"
                      size="large"></nb-user>
             <span class="time">{{'#' + (i + 1)}}</span>
@@ -24,6 +25,7 @@ export class RatingComponent implements OnInit, OnDestroy {
   themeSubscription: any;
 
   constructor(private themeService: NbThemeService,
+              private router: Router,
               private breakpointService: NbMediaBreakpointsService) {
   }
 
@@ -33,6 +35,10 @@ export class RatingComponent implements OnInit, OnDestroy {
       .subscribe(([oldValue, newValue]) => {
         this.breakpoint = newValue;
       });
+  }
+
+  goToProfile(id: string) {
+    this.router.navigate(['pages/profile', id]);
   }
 
   ngOnDestroy() {
