@@ -97,7 +97,7 @@ export class CathedralReportComponent implements OnInit {
       ],
       styles: this.getStyles(),
     };
-    pdfMake.createPdf(dd).download(`Кафедральний звіт для ${this.cathedraName} від ${currentDate}`);
+    pdfMake.createPdf(dd).download(`Кафедральний звіт для ${this.cathedraName} від ${currentDate}.pdf`);
     this.inProgress = false;
   }
 

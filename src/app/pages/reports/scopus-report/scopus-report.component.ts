@@ -90,7 +90,7 @@ export class ScopusReportComponent implements OnInit, OnDestroy {
       ],
       styles: this.getStyles(),
     };
-    pdfMake.createPdf(dd).download(`Звіт Scopus від ${currentDate}`);
+    pdfMake.createPdf(dd).download(`Звіт Scopus від ${currentDate}.pdf`);
     this.inProgress = false;
   }
 

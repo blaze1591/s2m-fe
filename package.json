@@ -82,6 +82,7 @@
     "tether": "1.4.0",
     "tinymce": "4.5.7",
     "typeface-exo": "0.0.22",
+    "url-search-params-polyfill": "^3.0.0",
     "web-animations-js": "2.2.5",
     "zone.js": "0.8.16"
   },
