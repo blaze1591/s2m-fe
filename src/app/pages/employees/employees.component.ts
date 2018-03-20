@@ -44,11 +44,11 @@ export class EmployeesComponent implements OnInit {
       delete: {deleteButtonContent: '<i class="nb-trash"></i>'},
       noDataMessage: 'Нема даних',
       columns: {
-        fioUkr: {title: 'ФИО(укр)', type: 'string', filter: false},
-        email: {title: 'Пошта', type: 'string', filter: false},
+        fioUkr: {title: 'ПІБ', type: 'string', filter: false},
+        email: {title: 'E-mail', type: 'string', filter: false},
         scienceDegree: {title: 'Наукова ступінь', type: 'string', filter: false},
         academicTitle: {title: 'Вчене звання', type: 'string', filter: false},
-        cathedra: {title: 'Кафедра (Головна)', type: 'string', filter: false},
+        cathedra: {title: 'Кафедра (Основна)', type: 'string', filter: false},
       },
     };
 
