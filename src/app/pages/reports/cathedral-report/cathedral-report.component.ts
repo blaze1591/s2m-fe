@@ -22,7 +22,7 @@ export class CathedralReportComponent implements OnInit {
     actions: false,
     noDataMessage: 'Нема даних',
     columns: {
-      name: {
+      nameUa: {
         title: 'ПІБ',
         type: 'string',
       },
@@ -35,19 +35,19 @@ export class CathedralReportComponent implements OnInit {
         type: 'string',
       },
       orsidLink: {
-        title: 'ORSID \nПрофіль',
+        title: 'ORCID \nПрофіль',
         type: 'string',
       },
       researcherLink: {
         title: 'Researcher \nПрофіль',
         type: 'string',
       },
-      googleScholarHIndex: {
-        title: 'Google Scholar \nІндекс Хірша',
+      scopusHIndex: {
+        title: 'Scopus \nІндекс Хірша',
         type: 'string',
       },
-      googleScholarDocumentCount: {
-        title: 'Google Scholar \nКільк. Публікацій',
+      scopusDocumentCount: {
+        title: 'Scopus \nКільк. Публікацій',
         type: 'string',
       },
     },
@@ -107,10 +107,10 @@ export class CathedralReportComponent implements OnInit {
       {text: 'ПІБ', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
       {text: 'Посада', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
       {text: 'Google Scholar профіль', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
-      {text: 'ORSID Профіль', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
+      {text: 'ORCID Профіль', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
       {text: 'Researcher Профіль', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
-      {text: 'Google Scholar Індекс Хірша', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
-      {text: 'Google Scholar Кільк. Публікацій', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
+      {text: 'Scopus Індекс Хірша', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
+      {text: 'Scopus Кільк. Публікацій', style: 'tableHeader', alignment: 'center', margin: [0, 11]},
     ];
   }
 
@@ -120,13 +120,13 @@ export class CathedralReportComponent implements OnInit {
       rows.push(
         [
           {text: index + 1, style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: user.name || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
+          {text: user.nameUa || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
           {text: user.title || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
           {text: user.googleScholarLink || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
           {text: user.orsidLink || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
           {text: user.researcherLink || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: user.googleScholarHIndex || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
-          {text: user.googleScholarDocumentCount || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
+          {text: user.scopusHIndex || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
+          {text: user.scopusDocumentCount || '', style: 'rowStyle', alignment: 'center', margin: [0, 11]},
         ]);
     });
     return rows;
