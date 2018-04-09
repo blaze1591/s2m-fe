@@ -66,17 +66,17 @@
                   </small>
                 </div>
 
-                <div class = "form-group input-group-sm">
-                  <label for = "name">Назва</label>
-                  <input type = "text" class = "form-control" id = "name"
-                         [(ngModel)] = "model.name" name = "name" #name="ngModel" required>
-                  <small *ngIf="name.errors && (name.dirty || name.touched)" class="form-text error">
-                    <p>Name field is required!</p>
-                  </small>
-                </div>
+                <!--<div class = "form-group input-group-sm">-->
+                  <!--<label for = "name">Назва</label>-->
+                  <!--<input type = "text" class = "form-control" id = "name"-->
+                         <!--[(ngModel)] = "model.name" name = "name" #name="ngModel" required>-->
+                  <!--<small *ngIf="name.errors && (name.dirty || name.touched)" class="form-text error">-->
+                    <!--<p>Name field is required!</p>-->
+                  <!--</small>-->
+                <!--</div>-->
 
                 <div class = "form-group input-group-sm">
-                  <label for = "title">Заголовок</label>
+                  <label for = "title">Назва</label>
                   <input type = "text" class = "form-control" id = "title" required #title="ngModel"
                          [(ngModel)] = "model.title" name = "title">
                   <small *ngIf="title.errors && (title.dirty || title.touched)" class="form-text error">
@@ -234,10 +234,11 @@
 
         <form #updateForm="ngForm">
           <div class = "form-group">
-            <label for = "updateType">Тип Наукової Одиниці:</label>
-            <select class = "form-control" id="updateType" name="updateType" [(ngModel)]="model.unitType" (change)="onTypeChange()">
-              <option *ngFor="let type of types" [ngValue]="type.en">{{type.ua}}</option>
-            </select>
+            <label>Тип Наукової Одиниці: {{model.unitTypeUa}}</label>
+            <!--<label for = "updateType">Тип Наукової Одиниці:</label>-->
+            <!--<select class = "form-control" id="updateType" name="updateType" [(ngModel)]="model.unitType" (change)="onTypeChange()">-->
+              <!--<option *ngFor="let type of types" [ngValue]="type.en">{{type.ua}}</option>-->
+            <!--</select>-->
           </div>
 
           <div class="row">
@@ -257,17 +258,17 @@
                   </small>
                 </div>
 
-                <div class = "form-group input-group-sm">
-                  <label for = "updateName">Назва</label>
-                  <input type = "text" class = "form-control input-sm" id = "updateName" #updateName="ngModel" required
-                         [(ngModel)] = "model.name" name = "updateName">
-                  <small *ngIf="updateName.errors && (updateName.dirty || updateName.touched)" class="form-text error">
-                    <p>Name field is required!</p>
-                  </small>
-                </div>
+                <!--<div class = "form-group input-group-sm">-->
+                  <!--<label for = "updateName">Назва</label>-->
+                  <!--<input type = "text" class = "form-control input-sm" id = "updateName" #updateName="ngModel" required-->
+                         <!--[(ngModel)] = "model.name" name = "updateName">-->
+                  <!--<small *ngIf="updateName.errors && (updateName.dirty || updateName.touched)" class="form-text error">-->
+                    <!--<p>Name field is required!</p>-->
+                  <!--</small>-->
+                <!--</div>-->
 
                 <div class = "form-group input-group-sm">
-                  <label for = "updateTitle">Заголовок</label>
+                  <label for = "updateTitle">Назва</label>
                   <input type = "text" class = "form-control input-sm" id = "updateTitle" #updateTitle="ngModel" required
                          [(ngModel)] = "model.title" name = "updateTitle">
                   <small *ngIf="updateTitle.errors && (updateTitle.dirty || updateTitle.touched)" class="form-text error">

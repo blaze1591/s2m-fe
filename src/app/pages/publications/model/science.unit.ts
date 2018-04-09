@@ -1,6 +1,7 @@
 export class ScienceUnit {
   public id: string;
   public unitType: string;
+  public unitTypeUa: string;
   public name: string;
   public title: string;
   public year: string;

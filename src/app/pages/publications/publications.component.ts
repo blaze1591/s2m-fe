@@ -51,12 +51,13 @@ export class PublicationsComponent implements OnInit {
     },
     noDataMessage: 'Нема даних',
     columns: {
-      name: {
-        title: 'Назва',
-        type: 'string',
-      },
+      // name: {
+      //   title: 'Назва',
+      //   type: 'string',
+      // },
       title: {
-        title: 'Титулка',
+        // title: 'Титулка',
+        title: 'Назва',
         type: 'string',
       },
       unitType: {
@@ -91,12 +92,13 @@ export class PublicationsComponent implements OnInit {
     },
     noDataMessage: 'Нема даних',
     columns: {
-      name: {
-        title: 'Назва',
-        type: 'string',
-      },
+      // name: {
+      //   title: 'Назва',
+      //   type: 'string',
+      // },
       title: {
-        title: 'Титулка',
+        // title: 'Титулка',
+        title: 'Назва',
         type: 'string',
       },
       unitType: {
@@ -141,6 +143,7 @@ export class PublicationsComponent implements OnInit {
     this.scienceUnitService.getScienceUnitInfo(id)
       .subscribe(response => {
         this.model = response;
+        this.model.unitTypeUa = this.getUaTypeName(this.model.unitType);
         this.transformUserToIds();
       });
   }
@@ -250,11 +253,11 @@ export class PublicationsComponent implements OnInit {
   }
 
   saveBibtexUnits() {
-    if (this.bibtexUsers === undefined || this.bibtexUsers.length === 0) {
+    if (this.bibtexUsers == null || this.bibtexUsers.length === 0) {
       this.showWarningMessage('Оберіть користувача!');
       return;
     }
-    if (this.bibtexScienceUnits === undefined || this.bibtexScienceUnits.length === 0) {
+    if (this.bibtexScienceUnits == null || this.bibtexScienceUnits.length === 0) {
       this.showWarningMessage('Нема даних!');
       return;
     }
@@ -273,6 +276,16 @@ export class PublicationsComponent implements OnInit {
       showCloseButton: true,
     };
     this.toastr.pop(toast);
+  }
+
+  private getUaTypeName(type: string) {
+    let typeUa = null;
+    this.types.forEach((value => {
+      if (value.en === type) {
+        typeUa = value.ua;
+      }
+    }));
+    return typeUa;
   }
 
   onSearch(query: string = '') {
