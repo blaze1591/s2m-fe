@@ -16,7 +16,7 @@ export class ModifyLinksComponent implements OnInit {
   submitted = false;
   loading = false;
 
-  urlRegexp: RegExp = new RegExp('^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$');
+  urlRegexp: RegExp = new RegExp('^(?:http(s)?:\\/\\/)[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$');
 
   constructor(private activeModal: NgbActiveModal,
               private userService: UserService,
