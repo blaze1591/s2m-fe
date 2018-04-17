@@ -91,19 +91,35 @@ export class ProfileBarHorizontalComponent implements OnInit, OnChanges, OnDestr
 
   ngOnChanges() {
     if (this.user) {
-      this.data.labels = this.user.scopusEntities.map((scopus) =>
-        this.datePipe.transform(scopus.date, 'dd/MM/yyyy'),
-      );
-      this.data.labels = this.user.googleScholarEntities.map((googleScholar) =>
-        this.datePipe.transform(googleScholar.date, 'dd/MM/yyyy'),
-      );
-      this.data.labels = this.user.webOfScienceEntities.map((webOfScience) =>
-        this.datePipe.transform(webOfScience.date, 'dd/MM/yyyy'),
-      );
+      const labelsSet = new Set<Date>();
 
-      this.data.datasets[0]['data'] = this.user.scopusEntities.map((scopus) => scopus[this.heField]);
-      this.data.datasets[1]['data'] = this.user.googleScholarEntities.map((googleScholar) => googleScholar[this.heField]);
-      this.data.datasets[2]['data'] = this.user.webOfScienceEntities.map((webOfScience) => webOfScience[this.heField]);
+      this.user.scopusEntities.forEach((scopus) => {
+        labelsSet.add(scopus.date);
+      });
+
+      this.user.googleScholarEntities.forEach((googleScholar) => {
+        labelsSet.add(googleScholar.date);
+      });
+
+      this.user.webOfScienceEntities.forEach((webOfScience) => {
+        labelsSet.add(webOfScience.date);
+      });
+
+      labelsSet.forEach(label => {
+        const scopusEntity = this.user.scopusEntities.find((scopus) => scopus.date === label);
+        this.data.datasets[0]['data'].push(
+          scopusEntity && scopusEntity[this.heField] || 0,
+        );
+        const gsEntity = this.user.googleScholarEntities.find((googleScholar) => googleScholar.date === label);
+        this.data.datasets[1]['data'].push(
+          gsEntity && gsEntity[this.heField] || 0,
+        );
+        const wofEntity = this.user.webOfScienceEntities.find((webOfScience) => webOfScience.date === label);
+        this.data.datasets[2]['data'].push(
+          wofEntity && wofEntity[this.heField] || 0,
+        );
+        this.data.labels.push(this.datePipe.transform(label, 'dd/MM/yyyy'));
+      });
 
       this.hbChart.chart.update();
     }
