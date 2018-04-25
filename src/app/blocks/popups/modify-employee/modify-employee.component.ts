@@ -36,7 +36,7 @@ export class ModifyEmployeeComponent implements OnInit {
       'login': [{
         value: edit && edit.login,
         disabled: this.event.data,
-      }, [Validators.required, Validators.pattern('^[a-z0-9_-]{3,15}$')]],
+      }, [Validators.required, Validators.pattern('^[A-Za-z0-9_-]{3,30}$')]],
       'fioUkr': [edit && edit.fioUkr, [Validators.required, Validators.pattern('^([А-ЯІЇЄҐ][а-яіїєґ\']+[\\-\\s]?){3}$')]],
       'fioEng': [edit && edit.fioEng, [Validators.required, Validators.pattern('^([A-Z][a-z]+[\\-\\s]?){2}$')]],
       'fioRu': [edit && edit.fioRu, [Validators.required, Validators.pattern('^([А-Я][а-я]+[\\-\\s]?){3}$')]],
@@ -227,7 +227,7 @@ export class ModifyEmployeeComponent implements OnInit {
       'scopusDate': [scopus && scopus.date, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'scopusCitationCount': [scopus && scopus.citationCount || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+        [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
       'scopusDocumentCount': [scopus && scopus.documentCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
     });
@@ -241,7 +241,7 @@ export class ModifyEmployeeComponent implements OnInit {
         [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'googleScholarCitationCount': [googleScholar && googleScholar.citationCount || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+        [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
       'googleScholarDocumentCount': [googleScholar && googleScholar.documentCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
     });
@@ -254,7 +254,7 @@ export class ModifyEmployeeComponent implements OnInit {
       'webOfScienceDate': [wos && wos.date, [Validators.required, Validators.pattern('^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]' +
         '([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$')]],
       'webOfScienceCitationCount': [wos && wos.citationCount || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+        [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
       'webOfScienceDocumentCount': [wos && wos.documentCount || 0,
         [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
     });

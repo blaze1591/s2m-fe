@@ -16,7 +16,7 @@
         <input class="form-control"
                formControlName="login"
                type="text"
-               [attr.maxlength]="15"
+               [attr.maxlength]="30"
                [class.form-control-danger]="submitted && !modifyForm.controls['login'].valid">
         <small class="form-text error"
                *ngIf="submitted && modifyForm.controls['login'].hasError('required')">
