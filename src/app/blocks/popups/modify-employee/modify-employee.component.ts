@@ -229,7 +229,7 @@ export class ModifyEmployeeComponent implements OnInit {
       'scopusCitationCount': [scopus && scopus.citationCount || 0,
         [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
       'scopusDocumentCount': [scopus && scopus.documentCount || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+        [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
     });
   }
 
@@ -243,7 +243,7 @@ export class ModifyEmployeeComponent implements OnInit {
       'googleScholarCitationCount': [googleScholar && googleScholar.citationCount || 0,
         [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
       'googleScholarDocumentCount': [googleScholar && googleScholar.documentCount || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+        [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
     });
   }
 
@@ -256,7 +256,7 @@ export class ModifyEmployeeComponent implements OnInit {
       'webOfScienceCitationCount': [wos && wos.citationCount || 0,
         [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
       'webOfScienceDocumentCount': [wos && wos.documentCount || 0,
-        [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^\\d+$')]],
+        [Validators.required, Validators.min(0), Validators.pattern('^\\d+$')]],
     });
   }
 }
