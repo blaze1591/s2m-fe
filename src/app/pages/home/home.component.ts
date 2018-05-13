@@ -7,14 +7,14 @@ import {UserService} from '../../services/data/users.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  users: any[] = [];
+  wrapMap: any;
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit() {
     this.userService.getTop10().subscribe(response => {
-      this.users = response;
+      this.wrapMap = response;
     });
   }
 }

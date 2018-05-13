@@ -1,14 +1,106 @@
 <div class="row">
   <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
-    <s2m-rating [users]="users">
+    <s2m-rating [users]="wrapMap?.scopusRows"
+                [title]="'Рейтинг цитувань Scopus'"
+                [row]="'Кількість цитувань:'">
     </s2m-rating>
   </div>
   <div class="col-xxxl-9 col-xxl-8 col-lg-5 col-md-6">
     <nb-card>
       <nb-card-header>Графік рейтингу Scopus</nb-card-header>
       <nb-card-body>
-        <s2m-rating-chart [users]="users">
+        <s2m-rating-chart [users]="wrapMap?.scopusRows">
         </s2m-rating-chart>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
+    <s2m-rating [users]="wrapMap?.scopusByIndex"
+                [title]="'Рейтинг h-індекс Scopus'"
+                [row]="'h-індекс:'">
+    </s2m-rating>
+  </div>
+  <div class="col-xxxl-9 col-xxl-8 col-lg-5 col-md-6">
+    <nb-card>
+      <nb-card-header>Графік h-індекс Scopus</nb-card-header>
+      <nb-card-body>
+        <s2m-rating-index-chart [users]="wrapMap?.scopusByIndex">
+        </s2m-rating-index-chart>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
+    <s2m-rating [users]="wrapMap?.gsRows"
+                [title]="'Рейтинг цитувань Google Scholar'"
+                [row]="'Кількість цитувань:'">
+    </s2m-rating>
+  </div>
+  <div class="col-xxxl-9 col-xxl-8 col-lg-5 col-md-6">
+    <nb-card>
+      <nb-card-header>Графік рейтингу Google Scholar</nb-card-header>
+      <nb-card-body>
+        <s2m-rating-chart [users]="wrapMap?.gsRows">
+        </s2m-rating-chart>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
+    <s2m-rating [users]="wrapMap?.gsByIndex"
+                [title]="'Рейтинг h-індекс Google Scholar'"
+                [row]="'h-індекс:'">
+    </s2m-rating>
+  </div>
+  <div class="col-xxxl-9 col-xxl-8 col-lg-5 col-md-6">
+    <nb-card>
+      <nb-card-header>Графік h-індекс Google Scholar</nb-card-header>
+      <nb-card-body>
+        <s2m-rating-index-chart [users]="wrapMap?.gsByIndex">
+        </s2m-rating-index-chart>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
+    <s2m-rating [users]="wrapMap?.wosRows"
+                [title]="'Рейтинг цитувань Web Of Science'"
+                [row]="'Кількість цитувань:'">
+    </s2m-rating>
+  </div>
+  <div class="col-xxxl-9 col-xxl-8 col-lg-5 col-md-6">
+    <nb-card>
+      <nb-card-header>Графік рейтингу Web Of Science</nb-card-header>
+      <nb-card-body>
+        <s2m-rating-chart [users]="wrapMap?.wosRows">
+        </s2m-rating-chart>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
+    <s2m-rating [users]="wrapMap?.wosByIndex"
+                [title]="'Рейтинг h-індекс Web Of Science'"
+                [row]="'h-індекс:'">
+    </s2m-rating>
+  </div>
+  <div class="col-xxxl-9 col-xxl-8 col-lg-5 col-md-6">
+    <nb-card>
+      <nb-card-header>Графік h-індекс Web Of Science</nb-card-header>
+      <nb-card-body>
+        <s2m-rating-index-chart [users]="wrapMap?.wosByIndex">
+        </s2m-rating-index-chart>
       </nb-card-body>
     </nb-card>
   </div>

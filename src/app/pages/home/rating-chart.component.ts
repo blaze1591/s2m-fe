@@ -5,6 +5,7 @@ import {NbThemeService} from '@nebular/theme';
   selector: 's2m-rating-chart',
   template: `
     <ngx-charts-bar-vertical
+      *ngIf="users"
       [scheme]="colorScheme"
       [results]="users"
       [xAxis]="showXAxis"

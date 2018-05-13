@@ -51,4 +51,16 @@
       }
     }
   }
+
+  s2m-rating-index-chart {
+    display: block;
+    height: nb-theme(card-height-medium);
+    width: 100%;
+
+    /deep/ chart {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

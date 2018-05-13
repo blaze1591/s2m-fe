@@ -8,9 +8,9 @@ import {Router} from '@angular/router';
   template: `
     <nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'large' : 'xlarge'">
       <nb-tabset fullWidth>
-        <nb-tab tabTitle="Рейтинг цитувань Scopus">
+        <nb-tab [tabTitle]="title">
           <div class="contact ng2-smart-row" *ngFor="let u of users; let i = index;" (click)="goToProfile(u.id)">
-            <nb-user [picture]="u.photo" [name]="u.name" [title]="'Кількість цитувань: '+u.value"
+            <nb-user [picture]="u.photo" [name]="u.name" [title]="row+' '+u.value"
                      size="large"></nb-user>
             <span class="time">{{'#' + (i + 1)}}</span>
           </div>
@@ -20,6 +20,8 @@ import {Router} from '@angular/router';
 })
 export class RatingComponent implements OnInit, OnDestroy {
   @Input() users: any[];
+  @Input() title: string;
+  @Input() row: string;
   breakpoint: NbMediaBreakpoint;
   breakpoints: any;
   themeSubscription: any;
